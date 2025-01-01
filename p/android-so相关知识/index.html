@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="在学习Android逆向的时候总结的一些so层的相关知识">
+<title>Android So相关知识</title>
+
+<link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/'>
+
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Android So相关知识">
+<meta property='og:description' content="在学习Android逆向的时候总结的一些so层的相关知识">
+<meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/'>
+<meta property='og:site_name' content='Jeremiah'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Android' /><meta property='article:tag' content='Reverse' /><meta property='article:published_time' content='2024-12-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-12-30T00:00:00&#43;00:00'/><meta property='og:image' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/wallhaven-1p6e6g_3840x2160.png' />
+<meta name="twitter:title" content="Android So相关知识">
+<meta name="twitter:description" content="在学习Android逆向的时候总结的一些so层的相关知识"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/wallhaven-1p6e6g_3840x2160.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/Je2em1ah_blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/Je2em1ah_blog/img/avatar_hu5996220936993504373.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">👻</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/Je2em1ah_blog">Jeremiah</a></h1>
+            <h2 class="site-description">喜欢Reverse的菜鸟</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jeremiah-gdut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#jni函数的静态注册">JNI函数的静态注册</a></li>
+    <li><a href="#jni函数的动态注册">JNI函数的动态注册</a></li>
+    <li><a href="#jni_onload定义">JNI_Onload定义</a></li>
+    <li><a href="#so之间的相互调用">SO之间的相互调用</a></li>
+    <li><a href="#so路径的动态获取">SO路径的动态获取</a></li>
+    <li><a href="#通过jni创建java对象">通过JNI创建Java对象</a></li>
+    <li><a href="#通过jni访问java属性">通过JNI访问Java属性</a></li>
+    <li><a href="#通过jni访问java数组">通过JNI访问Java数组</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    
+        
+        <div id="password-protect">
+            <h2>请输入密码以查看内容</h2>
+            <input type="password" id="password-input" placeholder="请输入密码">
+            <button onclick="checkPassword()">提交</button>
+            <p id="error-message" style="color:red; display:none;">密码错误！</p>
+        </div>
+        <div id="protected-content" style="display:none;">
+            <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
+                <img src="/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/wallhaven-1p6e6g_3840x2160_hu5211660704035681340.png"
+                        srcset="/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/wallhaven-1p6e6g_3840x2160_hu5211660704035681340.png 800w, /Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/wallhaven-1p6e6g_3840x2160_hu10742259794655333015.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post Android So相关知识" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/Je2em1ah_blog/categories/android/" >
+                Android
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">Android So相关知识</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            在学习Android逆向的时候总结的一些so层的相关知识
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-12-30</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 2 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="so相关知识学习">So相关知识学习
+</h1><h2 id="jni函数的静态注册">JNI函数的静态注册
+</h2><ul>
+<li>
+<p>必须遵循一定的命名规则，<strong>一般是 <code>Java_包名_类名_方法名</code></strong></p>
+</li>
+<li>
+<p>系统会通过 <strong><code>dlopen</code></strong> 加载对应的 SO，通过 <strong><code>dlsym</code></strong> 来获取指定名字的函数地址，然后调用静态注册的 JNI 函数，<strong>必然在导出表里</strong></p>
+</li>
+<li>
+<p>编译 SO 的时候不会给对应 JNI 函数具体地址，在 <strong>第一次调用</strong> 的时候才会有具体地址</p>
+</li>
+</ul>
+<h2 id="jni函数的动态注册">JNI函数的动态注册
+</h2><ul>
+<li>
+<p>通过 <strong><code>env-&gt;RegisterNatives</code></strong> 注册函数，通常在 <strong><code>JNI_OnLoad</code></strong> 中注册 <strong><code>JNINativeMethod</code></strong></p>
+</li>
+<li>
+<p>函数签名</p>
+</li>
+<li>
+<p>可以给同一个 Java 函数注册多个 native 函数，以最后一次为准</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">jclass</span> <span class="n">MainActivityClazz</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">FindClass</span><span class="p">(</span><span class="s">&#34;com/Jeremiah/ndk/NDKMain&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">typedef struct { // JNINativeMethod 结构体的实现
+</span></span></span><span class="line"><span class="cl"><span class="cm">    const char* name;         // Java层对应方法名
+</span></span></span><span class="line"><span class="cl"><span class="cm">    const char* signature;    // 函数签名
+</span></span></span><span class="line"><span class="cl"><span class="cm">    void* fnptr;              // 函数指针（即SO中函数的地址）
+</span></span></span><span class="line"><span class="cl"><span class="cm">} JNINativeMethod;
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">JNINativeMethod</span> <span class="n">methods</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s">&#34;encode&#34;</span><span class="p">,</span> <span class="s">&#34;(ILjava/lang/String;[B)Ljava/lang/String;&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">encodeFromC</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">env</span><span class="o">-&gt;</span><span class="nf">RegisterNatives</span><span class="p">(</span><span class="n">MainActivityClazz</span><span class="p">,</span> <span class="n">methods</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">methods</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="n">JNINativeMethod</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="jni_onload定义">JNI_Onload定义
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">JNIEXPORT</span> <span class="n">jint</span> <span class="nf">JNI_OnLoad</span><span class="p">(</span><span class="n">JavaVM</span> <span class="o">*</span><span class="n">vm</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">reserved</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">vm</span><span class="o">-&gt;</span><span class="nf">GetEnv</span><span class="p">((</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">env</span><span class="p">,</span> <span class="n">JNI_VERSION_1_6</span><span class="p">)</span> <span class="o">!=</span> <span class="n">JNI_OK</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">LOGD</span><span class="p">(</span><span class="s">&#34;GetEnv failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">JNI_VERSION_1_6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 一个 SO 中可以不定义 JNI_OnLoad
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 一旦定义了 JNI_OnLoad，在 SO 被加载的时候会自动执行
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 必须返回 JNI 版本 JNI_VERSION_1_6
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="so之间的相互调用">SO之间的相互调用
+</h2><ul>
+<li>
+<p>使用 <strong><code>dlopen</code></strong>, <strong><code>dlsym</code></strong>, <strong><code>dlclose</code></strong> 获取函数地址，然后调用。需要导入 <strong><code>dlfcn.h</code></strong></p>
+</li>
+<li>
+<p><code>dlopen</code> 第一个参数为要加载的 SO 的 <strong>绝对路径</strong>，第二个参数为 <strong>符号解析的时机</strong>，返回值为该 SO 的一个 <strong>句柄</strong></p>
+</li>
+<li>
+<p><code>dlsym</code> 第一个参数为 <code>dlopen</code> 返回的 <strong>库句柄</strong>，第二个参数为要查找的 <strong>符号的名字</strong>，返回值为 <strong>该符号的指针</strong></p>
+</li>
+<li>
+<p><strong><code>reinterpret_cast&lt;void (*)(char *)</code></strong> 为 C++ 中的一个方法，用于两个不同类型指针的强制转换</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="n">soinfo</span> <span class="o">=</span> <span class="nf">dlopen</span><span class="p">(</span><span class="n">nativePath</span><span class="p">,</span> <span class="n">RTLD_NOW</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">def</span><span class="p">)(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">)</span> <span class="o">=</span> <span class="n">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">def</span> <span class="o">=</span> <span class="n">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span><span class="nf">dlsym</span><span class="p">(</span><span class="n">soinfo</span><span class="p">,</span> <span class="s">&#34;_Z7fromSoBPc&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="nf">def</span><span class="p">(</span><span class="s">&#34;Jeremiah&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>extern</strong> 函数声明</li>
+</ul>
+<h2 id="so路径的动态获取">SO路径的动态获取
+</h2><ul>
+<li>32 和 64 的 SO 存放路径不一样，为了更加通用，<strong>可以用代码动态获取 SO 路径</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getPath</span><span class="p">(</span><span class="n">Context</span><span class="w"> </span><span class="n">cxt</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">PackageManager</span><span class="w"> </span><span class="n">pm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cxt</span><span class="p">.</span><span class="na">getPackageManager</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">List</span><span class="o">&lt;</span><span class="n">PackageInfo</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pkgList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pm</span><span class="p">.</span><span class="na">getInstalledPackages</span><span class="p">(</span><span class="n">0</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pkgList</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">pkgList</span><span class="p">.</span><span class="na">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">PackageInfo</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">pkgList</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pi</span><span class="p">.</span><span class="na">applicationInfo</span><span class="p">.</span><span class="na">nativeLibraryDir</span><span class="p">.</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&#34;/data/app/&#34;</span><span class="p">)</span><span class="w"> </span><span class="c1">// 路径</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">pi</span><span class="p">.</span><span class="na">packageName</span><span class="p">.</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&#34;com.Jeremiah.test&#34;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">        </span><span class="c1">// 包名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// Log.e(&#34;Jeremiah&#34;, pi.applicationInfo.nativeLibraryDir);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">pi</span><span class="p">.</span><span class="na">applicationInfo</span><span class="p">.</span><span class="na">nativeLibraryDir</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="通过jni创建java对象">通过JNI创建Java对象
+</h2><ol>
+<li>
+<p><strong><code>NewObject</code></strong> 创建对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">jclass</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">FindClass</span><span class="p">(</span><span class="s">&#34;com/Jeremiah/ndk/NDKDemo&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">jmethodID</span> <span class="n">methodID</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetMethodID</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="s">&#34;&lt;init&gt;&#34;</span><span class="p">,</span> <span class="s">&#34;()V&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">jobject</span> <span class="n">ReflectDemoObj</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">NewObject</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="n">methodID</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">LOGD</span><span class="p">(</span><span class="s">&#34;ReflectDemoObj %p&#34;</span><span class="p">,</span> <span class="n">ReflectDemoObj</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>AllocObject</code></strong> 创建对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">jclass</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">FindClass</span><span class="p">(</span><span class="s">&#34;com/Jeremiah/ndk/NDKDemo&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">jmethodID</span> <span class="n">methodID2</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetMethodID</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="s">&#34;&lt;init&gt;&#34;</span><span class="p">,</span> <span class="s">&#34;(Ljava/lang/String;I)V&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">jobject</span> <span class="n">ReflectDemoObj2</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">AllocObject</span><span class="p">(</span><span class="n">clazz</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">jstring</span> <span class="n">jstr</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">NewStringUTF</span><span class="p">(</span><span class="s">&#34;from jni str&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">env</span><span class="o">-&gt;</span><span class="nf">CallNonvirtualVoidMethod</span><span class="p">(</span><span class="n">ReflectDemoObj2</span><span class="p">,</span> <span class="n">clazz</span><span class="p">,</span> <span class="n">methodID2</span><span class="p">,</span> <span class="n">jstr</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="通过jni访问java属性">通过JNI访问Java属性
+</h2><ol>
+<li>
+<p><strong>获取静态字段</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">jfieldID</span> <span class="n">privateStaticStringField</span> <span class="o">=</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetStaticFieldID</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="s">&#34;privateStaticStringField&#34;</span><span class="p">,</span> <span class="s">&#34;Ljava/lang/String;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">jstring</span> <span class="n">privateStaticString</span> <span class="o">=</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">static_cast</span><span class="o">&lt;</span><span class="n">jstring</span><span class="o">&gt;</span><span class="p">(</span><span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetStaticObjectField</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="n">privateStaticStringField</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">privatecstr</span> <span class="o">=</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetStringUTFChars</span><span class="p">(</span><span class="n">privateStaticString</span><span class="p">,</span> <span class="n">nullptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">LOGD</span><span class="p">(</span><span class="s">&#34;privateStaticString: %s&#34;</span><span class="p">,</span> <span class="n">privatecstr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">env</span><span class="o">-&gt;</span><span class="nf">ReleaseStringUTFChars</span><span class="p">(</span><span class="n">privateStaticString</span><span class="p">,</span> <span class="n">privatecstr</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>获取对象字段</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">jfieldID</span> <span class="n">publicStringField</span> <span class="o">=</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetFieldID</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="s">&#34;publicStringField&#34;</span><span class="p">,</span> <span class="s">&#34;Ljava/lang/String;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">jstring</span> <span class="n">publicString</span> <span class="o">=</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">static_cast</span><span class="o">&lt;</span><span class="n">jstring</span><span class="o">&gt;</span><span class="p">(</span><span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetObjectField</span><span class="p">(</span><span class="n">ReflectDemoObj</span><span class="p">,</span> <span class="n">publicStringField</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">publiccstr</span> <span class="o">=</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetStringUTFChars</span><span class="p">(</span><span class="n">publicString</span><span class="p">,</span> <span class="n">nullptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">LOGD</span><span class="p">(</span><span class="s">&#34;publicStringField: %s&#34;</span><span class="p">,</span> <span class="n">publiccstr</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>设置字段</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">env</span><span class="o">-&gt;</span><span class="nf">SetObjectField</span><span class="p">(</span><span class="n">ndkobj</span><span class="p">,</span> <span class="n">privateStringFieldID</span><span class="p">,</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">NewStringUTF</span><span class="p">(</span><span class="s">&#34;Jeremiah&#34;</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="通过jni访问java数组">通过JNI访问Java数组
+</h2><ol>
+<li>
+<p><strong>获取数组字段ID</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">jfieldID</span> <span class="n">byteArrayID</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetFieldID</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="s">&#34;byteArray&#34;</span><span class="p">,</span> <span class="s">&#34;[B&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">jbyteArray</span> <span class="n">byteArray</span> <span class="o">=</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">static_cast</span><span class="o">&lt;</span><span class="n">jbyteArray</span><span class="o">&gt;</span><span class="p">(</span><span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetObjectField</span><span class="p">(</span><span class="n">ReflectDemoObj</span><span class="p">,</span> <span class="n">byteArrayID</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">_byteArrayLength</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetArrayLength</span><span class="p">(</span><span class="n">byteArray</span><span class="p">);</span> <span class="c1">// 得到数组长度
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>修改数组字段</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">javaByte</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">javaByte</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">static_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">jbyte</span> <span class="o">*</span><span class="n">java_array</span> <span class="o">=</span> <span class="n">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">jbyte</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">javaByte</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">env</span><span class="o">-&gt;</span><span class="nf">SetByteArrayRegion</span><span class="p">(</span><span class="n">byteArray</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">_byteArrayLength</span><span class="p">,</span> <span class="n">java_array</span><span class="p">);</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>获取数组字段</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">byteArray</span> <span class="o">=</span> <span class="n">static_cast</span><span class="o">&lt;</span><span class="n">jbyteArray</span><span class="o">&gt;</span><span class="p">(</span><span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetObjectField</span><span class="p">(</span><span class="n">ReflectDemoObj</span><span class="p">,</span> <span class="n">byteArrayID</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">_byteArrayLength</span> <span class="o">=</span> <span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetArrayLength</span><span class="p">(</span><span class="n">byteArray</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="n">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">char</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">env</span><span class="o">-&gt;</span><span class="nf">GetByteArrayElements</span><span class="p">(</span><span class="n">byteArray</span><span class="p">,</span> <span class="n">nullptr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">_byteArrayLength</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">LOGD</span><span class="p">(</span><span class="s">&#34;str[%d]=%d&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">env</span><span class="o">-&gt;</span><span class="nf">ReleaseByteArrayElements</span><span class="p">(</span><span class="n">jbyteArray</span><span class="p">,</span> <span class="n">reinterpret_cast</span><span class="o">&lt;</span><span class="n">jbyte</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">cbyteArray</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/Je2em1ah_blog/tags/android/">Android</a>
+        
+            <a href="/Je2em1ah_blog/tags/reverse/">Reverse</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+            
+
+            
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/wallhaven-28jl1x_3840x2160.3ba0112ec79f542cbff87d17146ba31a_hu3970314881272808032.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post GameSafety2021 Android方向初赛题目复现"
+                        
+                        data-hash="md5-O6ARLsefVCy/&#43;H0XFGujGg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">GameSafety2021 Android方向初赛题目复现</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+             
+            
+                
+            
+
+            <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Je2em1ah
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+            
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+        </div>
+        <script>
+            function checkPassword() {
+                const input = document.getElementById('password-input').value;
+                const correctPassword = 'Jsh1526100148'; 
+                if (input === correctPassword) {
+                    document.getElementById('password-protect').style.display = 'none';
+                    document.getElementById('protected-content').style.display = 'block';
+                } else {
+                    document.getElementById('error-message').style.display = 'block';
+                }
+            }
+        </script>
+        
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/Je2em1ah_blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<div id="particles-js"></div>
+
+<script src=http://www.j3r3m14h.com.cn/Je2em1ah_blog/background/particles.min.js></script>
+<script>
+  particlesJS.load('particles-js', "http://www.j3r3m14h.com.cn/Je2em1ah_blog/background/particlesjs-config.json", function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+  }
+</style>
+
+    </body>
+</html>

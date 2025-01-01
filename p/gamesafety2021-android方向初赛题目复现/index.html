@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="根据其他大佬的Wp和指导一步步复现2021年的初赛题，记录其中遇到的一些问题">
+<title>GameSafety2021 Android方向初赛题目复现</title>
+
+<link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/'>
+
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="GameSafety2021 Android方向初赛题目复现">
+<meta property='og:description' content="根据其他大佬的Wp和指导一步步复现2021年的初赛题，记录其中遇到的一些问题">
+<meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/'>
+<meta property='og:site_name' content='Jeremiah'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Android' /><meta property='article:tag' content='Reverse' /><meta property='article:tag' content='frida' /><meta property='article:published_time' content='2024-12-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-12-23T00:00:00&#43;00:00'/><meta property='og:image' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/wallhaven-28jl1x_3840x2160.png' />
+<meta name="twitter:title" content="GameSafety2021 Android方向初赛题目复现">
+<meta name="twitter:description" content="根据其他大佬的Wp和指导一步步复现2021年的初赛题，记录其中遇到的一些问题"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/wallhaven-28jl1x_3840x2160.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/Je2em1ah_blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/Je2em1ah_blog/img/avatar_hu5996220936993504373.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">👻</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/Je2em1ah_blog">Jeremiah</a></h1>
+            <h2 class="site-description">喜欢Reverse的菜鸟</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jeremiah-gdut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#复现中遇到的问题">复现中遇到的问题</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    
+        
+        <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/">
+                <img src="/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/wallhaven-28jl1x_3840x2160_hu16498917159121006526.png"
+                        srcset="/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/wallhaven-28jl1x_3840x2160_hu16498917159121006526.png 800w, /Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/wallhaven-28jl1x_3840x2160_hu14931646524062876433.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post GameSafety2021 Android方向初赛题目复现" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/Je2em1ah_blog/categories/android/" >
+                Android
+            </a>
+        
+            <a href="/Je2em1ah_blog/categories/gamesafety/" >
+                GameSafety
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/">GameSafety2021 Android方向初赛题目复现</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            根据其他大佬的Wp和指导一步步复现2021年的初赛题，记录其中遇到的一些问题
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-12-23</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><a class="link" href="https://blog.xhyeax.com/2021/04/04/gslab2021-pre-android/"  target="_blank" rel="noopener"
+    >gslab2021 初赛 - 安卓客户端安全 | Xhy&rsquo;s Blog</a>wp参考</p>
+<p>Assembly CSharp.dll文件已加密，路径为<code>X:\GameSafety\Game2021\安卓客户端题目\初赛题目\RocketMouse\assets\bin\Data\Managed</code></p>
+<p><code>mono</code>引擎的unity游戏，包名<code>com.personal.rocketmouse</code></p>
+<p>启动游戏会弹窗hacker detect并退出，在<code>com.tencent.games.sec2021.Sec2021MsgBox</code>下找到<code>onDismiss</code>方法调用系统函数exit</p>
+<p>查找show的交叉引用找到<code>com.tencent.games.sec2021.Sec2021IPC</code>的onNativeEngineResponse方法，猜测调用了native层的函数使进程退出，在ida中找kill函数的交叉引用找到函数sub_1F788，继续查找函数调用链找到1FAA8，该函数被调用了5次</p>
+<p><strong>用florida过掉了检测</strong></p>
+<p>查看libmono.so发现libmono.so经过了加密，用<code>elf-dump-fix</code>在libmono.so加载之后从内存中dump并修复得到解密后的monodump.so</p>
+<p>找到libmono.so的<code>mono_image_open_from_data_with_name</code>方法，此处用于加载<code>Assembly-CSharp.dll</code>文件，发现第一条指令用于跳转到libsec2021.so的<code>sub_1CEDC</code>函数，此函数用于对Assembly-CSharp.dll文件解密</p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202412221556489.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20241222155627410"
+	
+	
+></p>
+<p>会先判断如果是MZ开头并且路径中没有Assembly-CSsharp.dll文件，就跳转到<code>0x1CF88</code>执行，否则就调用<code>0x1CF4C</code>解密函数，如图，此处会将sec2021.png的<code>0x410B</code>至末尾的数据解密，解密结果为真正加载的Assembly-CSharp.dll,查看函数调用可以看到解密函数为<code>0x1D2A0</code><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202412221612560.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20241222161231517"
+	
+	
+><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202412221620110.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20241222162015071"
+	
+	
+></p>
+<p>其中<code>sub_18CEC</code>为获取dll索引，crc32校验函数为<code>subF3B4</code>正常会返回0，直接把返回值patch成0即可过检测</p>
+<p>过完检测之后因为<code>mono_image_open_from_data_with_name</code>函数的第一条指令会完成解密操作，所以可以hook下一条指令，当读取到真正的<code>Assembly-CSharp.dll</code>时在内存中dump出来</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"> <span class="kd">function</span> <span class="nx">hook_mono</span><span class="p">()</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">     <span class="kd">var</span> <span class="nx">libbase</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libmono.so&#34;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;libbase&#34;</span><span class="p">,</span> <span class="nx">libbase</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">     <span class="kd">var</span> <span class="nx">addr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libmono.so&#34;</span><span class="p">,</span> <span class="s2">&#34;mono_image_open_from_data_with_name&#34;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;mono_image_open_from_data_with_name&#34;</span><span class="p">,</span> <span class="nx">addr</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">     <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">addr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">         <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">             <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>  
+</span></span><span class="line"><span class="cl">             <span class="kd">var</span> <span class="nx">data_len</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;data_length = &#34;</span><span class="p">,</span><span class="nx">data_len</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;data = &#39;</span><span class="p">,</span><span class="nx">data</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">             <span class="k">if</span> <span class="p">(</span><span class="nx">data_len</span> <span class="o">==</span> <span class="mh">0x2800</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">                 <span class="nx">WriteMemToFile</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="nx">data_len</span><span class="p">.</span><span class="nx">toInt32</span><span class="p">(),</span><span class="s1">&#39;dump.bin&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">             <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;mono_image_open_from_data_with_name_ori() called!&#34;</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">data_len</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">         <span class="p">},</span>  
+</span></span><span class="line"><span class="cl">         <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">retval</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">         <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">     <span class="p">});</span>  
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>  
+</span></span><span class="line"><span class="cl"> <span class="kd">function</span> <span class="nx">hook_dlopen</span><span class="p">(){</span>  
+</span></span><span class="line"><span class="cl">     <span class="kd">var</span> <span class="nx">dlopen</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;dlopen&#34;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dlopen</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">     <span class="k">if</span><span class="p">(</span><span class="nx">dlopen</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">         <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">dlopen</span><span class="p">,{</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">                 <span class="kd">var</span> <span class="nx">soName</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readCString</span><span class="p">();</span>  
+</span></span><span class="line"><span class="cl">                 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">soName</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">                 <span class="k">this</span><span class="p">.</span><span class="nx">is_mono_loaded</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">                 <span class="k">this</span><span class="p">.</span><span class="nx">is_sec2021_loaded</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">                 <span class="k">if</span><span class="p">(</span><span class="nx">soName</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;libsec2021.so&#34;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">                     <span class="c1">//hook_initarray();  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                     <span class="k">this</span><span class="p">.</span><span class="nx">is_sec2021_loaded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">                 <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">                 <span class="k">if</span><span class="p">(</span><span class="nx">soName</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;libmono.so&#34;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">                     <span class="k">this</span><span class="p">.</span><span class="nx">is_mono_loaded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">                 <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">             <span class="p">},</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">                 <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">is_mono_loaded</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">                     <span class="c1">//hook_getString();  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                     <span class="nx">hook_mono</span><span class="p">();</span>  
+</span></span><span class="line"><span class="cl">                 <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">             <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">         <span class="p">});</span>  
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">     <span class="kd">var</span> <span class="nx">android_dlopen_ext</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;android_dlopen_ext&#34;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">android_dlopen_ext</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">     <span class="k">if</span><span class="p">(</span><span class="nx">android_dlopen_ext</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">         <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">android_dlopen_ext</span><span class="p">,{</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">                 <span class="kd">var</span> <span class="nx">soName</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readCString</span><span class="p">();</span>  
+</span></span><span class="line"><span class="cl">                 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">soName</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">                 <span class="k">this</span><span class="p">.</span><span class="nx">is_mono_loaded</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">                 <span class="k">if</span><span class="p">(</span><span class="nx">soName</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;libmono.so&#34;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">                     <span class="k">this</span><span class="p">.</span><span class="nx">is_mono_loaded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">                 <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">                 <span class="k">this</span><span class="p">.</span><span class="nx">is_sec2021_loaded</span> <span class="o">=</span> <span class="nx">soName</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;libsec2021.so&#34;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">             <span class="p">},</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">                 <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">is_mono_loaded</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">                     <span class="c1">//hook_getString();  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                     <span class="nx">hook_mono</span><span class="p">();</span>  
+</span></span><span class="line"><span class="cl">                 <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">             <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">         <span class="p">});</span>  
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>  
+</span></span><span class="line"><span class="cl"> <span class="nx">hook_dlopen</span><span class="p">();</span>  
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl"> <span class="kd">function</span> <span class="nx">WriteMemToFile</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">file_path</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">     <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">         <span class="c1">// let prefix: string = &#39;/data/data/com.tencent.mf.uam/files/&#39; # 路径  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>         <span class="kd">let</span> <span class="nx">prefix</span> <span class="o">=</span> <span class="s1">&#39;/data/data/com.personal.rocketmouse/files/&#39;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">         <span class="kd">let</span> <span class="nx">mkdir</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s1">&#39;libc.so&#39;</span><span class="p">,</span> <span class="s1">&#39;mkdir&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">         <span class="kd">let</span> <span class="nx">chmod</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s1">&#39;libc.so&#39;</span><span class="p">,</span> <span class="s1">&#39;chmod&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">         <span class="kd">let</span> <span class="nx">fopen</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s1">&#39;libc.so&#39;</span><span class="p">,</span> <span class="s1">&#39;fopen&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">         <span class="kd">let</span> <span class="nx">fwrite</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s1">&#39;libc.so&#39;</span><span class="p">,</span> <span class="s1">&#39;fwrite&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">         <span class="kd">let</span> <span class="nx">fclose</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s1">&#39;libc.so&#39;</span><span class="p">,</span> <span class="s1">&#39;fclose&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">         <span class="kd">let</span> <span class="nx">call_mkdir</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">mkdir</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">]);</span>  
+</span></span><span class="line"><span class="cl">         <span class="kd">let</span> <span class="nx">call_chmod</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">chmod</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">]);</span>  
+</span></span><span class="line"><span class="cl">         <span class="kd">let</span> <span class="nx">call_fopen</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">             <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">fopen</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>  
+</span></span><span class="line"><span class="cl">         <span class="kd">let</span> <span class="nx">call_fwrite</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">             <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">fwrite</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>  
+</span></span><span class="line"><span class="cl">         <span class="kd">let</span> <span class="nx">call_fclose</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">fclose</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>  
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">         <span class="nx">call_mkdir</span><span class="p">(</span><span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="nx">prefix</span><span class="p">),</span> <span class="mh">0x1FF</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">         <span class="nx">call_chmod</span><span class="p">(</span><span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="nx">prefix</span><span class="p">),</span> <span class="mh">0x1FF</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">         <span class="kd">let</span> <span class="nx">fp</span> <span class="o">=</span> <span class="nx">call_fopen</span><span class="p">(</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="nx">prefix</span> <span class="o">+</span> <span class="nx">file_path</span><span class="p">),</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="s1">&#39;wb&#39;</span><span class="p">));</span>  
+</span></span><span class="line"><span class="cl">         <span class="k">if</span> <span class="p">(</span><span class="nx">call_fwrite</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">fp</span><span class="p">))</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;[+] Write file success, file path: &#39;</span> <span class="o">+</span> <span class="nx">prefix</span> <span class="o">+</span> <span class="nx">file_path</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;[x] Write file failed&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">         <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">         <span class="nx">call_fclose</span><span class="p">(</span><span class="nx">fp</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">     <span class="p">});</span>  
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>dump完成之后分析dll文件，因为目标为实现<code>无敌</code>，所以只需要修改游戏逻辑中对碰撞的检测即可，定位到<code>MouseController</code>类的<code>OnTriggerEnter2D</code>函数</p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202412221641690.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20241222164122627"
+	
+	
+></p>
+<p>如果不是金币就会调用<code>HitByLaser</code>函数，所以只要把相应的Dead属性改为false即可，在ida中静态patch，原来为4.1，改为4.0即可</p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202412221643619.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20241222164324561"
+	
+	
+></p>
+<p>最后只需要把0x1CF88处的跳转指令改成B ，使非<code>MZ</code>开头的dll才执行解密函数，并把原本的dll替换成破解版即可</p>
+<hr>
+<h3 id="复现中遇到的问题">复现中遇到的问题
+</h3><ul>
+<li>
+<p>打开APP就会退出并弹窗&quot;<code>hacker detect:xxx</code>&quot;，后面发现是app检测了tmp目录下是否存在<code>frida/ida</code>相关的东西，更改名称即可过检测</p>
+</li>
+<li>
+<p>使用frida启动APP仍然会退出，是对frida的一些行为进行检测。使用<code>florida</code>过了检测</p>
+</li>
+<li>
+<p>尝试hook libsec2021.so中的<code>sub_1F120</code>(字符串解密函数)时,会出现<code>opcode crack</code>的情况,原因<strong>未查明</strong>，但是通过patch掉退出函数的调用也能过，缺点是只能hook出部分字符串</p>
+</li>
+<li>
+<p>在dump内存的时候，会出现dump不出来的情况，后面检查发现是libmono.so是动态加载的，于是要先hook <code>dlopen</code>函数，在libmono.so加载之后再进行hook，并执行内存dump</p>
+</li>
+<li>
+<p>dump Assembly-CSharp.dll的时候，是根据dll的大小来判断的，目前<strong>不清楚</strong>具体原因是什么，但是在hook <code>mono_image_open_from_data_with_name</code>函数的时候发现他加载的文件大小差异比较大，目前猜测是比较所有被加载的dll的大小之后才判断要dump大小为<code>0x2800</code>的dll文件</p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/Je2em1ah_blog/tags/android/">Android</a>
+        
+            <a href="/Je2em1ah_blog/tags/reverse/">Reverse</a>
+        
+            <a href="/Je2em1ah_blog/tags/frida/">Frida</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+        
+
+        
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
+        
+        
+            <div class="article-image">
+                <img src="/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/wallhaven-1p6e6g_3840x2160.6e071c0fb5036c9c0d3c3e6a2dfd05a6_hu5703485029405739530.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Android So相关知识"
+                        
+                        data-hash="md5-bgccD7UDbJwNPD5qLf0Fpg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Android So相关知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+         
+        
+            
+        
+
+        <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Je2em1ah
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+        
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/Je2em1ah_blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<div id="particles-js"></div>
+
+<script src=http://www.j3r3m14h.com.cn/Je2em1ah_blog/background/particles.min.js></script>
+<script>
+  particlesJS.load('particles-js', "http://www.j3r3m14h.com.cn/Je2em1ah_blog/background/particlesjs-config.json", function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+  }
+</style>
+
+    </body>
+</html>

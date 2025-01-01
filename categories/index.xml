@@ -6,7 +6,32 @@
         <description>Recent content in Categories on Jeremiah</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>Je2em1ah</copyright><atom:link href="http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <copyright>Je2em1ah</copyright>
+        <lastBuildDate>Wed, 01 Jan 2025 13:49:19 +0800</lastBuildDate><atom:link href="http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CTF</title>
+        <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/ctf/</link>
+        <pubDate>Wed, 01 Jan 2025 13:49:19 +0800</pubDate>
+        
+        <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/ctf/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Android</title>
+        <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/android/</link>
+        <pubDate>Mon, 30 Dec 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/android/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>GameSafety</title>
+        <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/gamesafety/</link>
+        <pubDate>Mon, 23 Dec 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/gamesafety/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Test</title>
         <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/test/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
