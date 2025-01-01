@@ -405,7 +405,6 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>注意需要在linux环境下运行(<strong>Windows和Linux下生成的随机数不同，附件为64位elf文件</strong>)</p>
-<hr>
 <h3 id="ezpy">ezPy
 </h3><p>下载附件后发现是个pyinstaller打包的python文件(可以通过图标辨别)，用pyinstxtractor解包得到main.pyc文件，用在线网站对pyc文件反编译(用本地的pycdc也可以解决)</p>
 <p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011434266.png"
@@ -503,8 +502,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#flag{y0U_4rE_r3@1ly_g0o0oOd_At_m4Th}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><hr>
-<h3 id="喝点茶吧">喝点茶吧
+</div><h3 id="喝点茶吧">喝点茶吧
 </h3><p>IDA打开之后，程序是加花过的，下面给出去花过程</p>
 <p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011434643.png"
 	
@@ -750,8 +748,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">//flag{Y0u_s0lv3d_thE_Qu3s7I0n_5O_dr1nk_5oMe_t3A}
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><hr>
-<h3 id="py_revenge">Py_revenge
+</div><h3 id="py_revenge">Py_revenge
 </h3><p>拿到附件之后IDA打开会看到很多的Py字样，再根据题目名字可以猜出是pyinstaller打包的程序，用pyinstxtractor解包得到pyc文件，用pycdc反编译的时候会发现只有部分逻辑</p>
 <p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011434135.png"
 	
@@ -1034,8 +1031,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#flag{u_aR3_4_Py7h0n_M@5t3r}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><hr>
-<h3 id="notonlydotnet">NotOnlyDotNet
+</div><h3 id="notonlydotnet">NotOnlyDotNet
 </h3><p>拿到附件用IDA打开，进入main函数没有发现什么明显的加密逻辑，但是调用了ZSTD的api和一些进程之间的调用函数，并且通过ZSTD把两块内存中的数据解压出来了，猜测这两块内存是通过ZSTD压缩过后的数据，所以思路为dump出这两段数据再用ZSTD解压，看看程序的具体逻辑是什么</p>
 <p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011434902.png"
 	
@@ -1234,8 +1230,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># flag{U_r_r33lly_tAl3nted_At_r3ve3s3_aNA1yz1ng!!!_p@ch1!!!nyA!!!}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><hr>
-<h3 id="whatwhy">what!why!!!
+</div><h3 id="whatwhy">what!why!!!
 </h3><p>DIE查壳，发现upx壳直接upx -d脱壳</p>
 <p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011434286.png"
 	
@@ -1459,8 +1454,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">//flag{kR@z1!!!y0U_3M1nent1y_g0o0od_aT_n0t_b3iNg_r1kr0lled_0rz!!!}
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><hr>
-<h3 id="do-you-like-kotone">Do you like Kotone?
+</div><h3 id="do-you-like-kotone">Do you like Kotone?
 </h3><p>apk文件，jadx打开，找到mainactivity类</p>
 <p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011434460.png"
 	
@@ -1560,8 +1554,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">#flag{Kot0Ne_1s_re@IIy_KAw@ii}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><hr>
-<h2 id="crypto">Crypto
+</div><h2 id="crypto">Crypto
 </h2><h3 id="too_close_to_sqrt">Too_Close_To_Sqrt
 </h3><p>我做出来的密码题都没什么好说的，网上找的脚本</p>
 <div class="highlight"><div class="chroma">
