@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Sample article showcasing basic Markdown syntax and formatting for HTML elements.">
+<title>FridaHook so层函数方法总结</title>
+
+<link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/fridahook-so%E5%B1%82%E5%87%BD%E6%95%B0%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/'>
+
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.1d913949708bfcae9d9a48b77fae5cb6b18c44b6e0a39e7916456e092bee1b6a.css"><meta property='og:title' content="FridaHook so层函数方法总结">
+<meta property='og:description' content="Sample article showcasing basic Markdown syntax and formatting for HTML elements.">
+<meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/fridahook-so%E5%B1%82%E5%87%BD%E6%95%B0%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/'>
+<meta property='og:site_name' content='Jeremiah'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Android' /><meta property='article:tag' content='Frida' /><meta property='article:published_time' content='2025-01-01T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-01T00:00:00&#43;00:00'/><meta property='og:image' content='https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501012305144.png' />
+<meta name="twitter:title" content="FridaHook so层函数方法总结">
+<meta name="twitter:description" content="Sample article showcasing basic Markdown syntax and formatting for HTML elements."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501012305144.png' />
+    <link rel="shortcut icon" href="/Je2em1ah_blog/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/Je2em1ah_blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/Je2em1ah_blog/img/avatar_hu5996220936993504373.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">👻</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/Je2em1ah_blog">Jeremiah</a></h1>
+            <h2 class="site-description">喜欢Reverse的菜鸟</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jeremiah-gdut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#枚举各种">枚举各种</a>
+      <ol>
+        <li><a href="#1-枚举导入表">1. 枚举导入表</a></li>
+        <li><a href="#2-枚举导出表">2. 枚举导出表</a></li>
+        <li><a href="#3-枚举符号表">3. 枚举符号表</a></li>
+        <li><a href="#4-枚举模块并进一步枚举导出表">4. 枚举模块并进一步枚举导出表</a></li>
+        <li><a href="#5-解析表类型">5. 解析表类型</a></li>
+      </ol>
+    </li>
+    <li><a href="#hook-导出函数">Hook 导出函数</a>
+      <ol>
+        <li><a href="#步骤一获取函数地址">步骤一：获取函数地址</a></li>
+        <li><a href="#步骤二使用-interceptorattach-进行-hook">步骤二：使用 <code>Interceptor.attach</code> 进行 Hook</a></li>
+      </ol>
+    </li>
+    <li><a href="#模块基址的几种获取方式">模块基址的几种获取方式</a></li>
+    <li><a href="#hook-任意函数">Hook 任意函数</a></li>
+    <li><a href="#so-hook-模板">so Hook 模板</a></li>
+    <li><a href="#修改函数数值参数和返回值">修改函数数值参数和返回值</a></li>
+    <li><a href="#获取指针参数返回值">获取指针参数返回值</a></li>
+    <li><a href="#hook-dlopen">Hook <code>dlopen</code></a></li>
+    <li><a href="#内存读写">内存读写</a>
+      <ol>
+        <li><a href="#1-读取指定地址的字符串">1. 读取指定地址的字符串</a></li>
+        <li><a href="#2-dump-指定地址的内存">2. Dump 指定地址的内存</a></li>
+        <li><a href="#3-读指定地址的内存">3. 读指定地址的内存</a></li>
+        <li><a href="#4-写指定地址的内存">4. 写指定地址的内存</a></li>
+        <li><a href="#5-申请新内存并写入">5. 申请新内存并写入</a></li>
+        <li><a href="#6-修改内存权限">6. 修改内存权限</a></li>
+      </ol>
+    </li>
+    <li><a href="#frida-修改-so-函数代码">Frida 修改 SO 函数代码</a>
+      <ol>
+        <li><a href="#1-修改地址对应的指令">1. 修改地址对应的指令</a></li>
+        <li><a href="#2-将对应地址的指令解析成汇编">2. 将对应地址的指令解析成汇编</a></li>
+        <li><a href="#3-使用-frida-提供的-api-写汇编代码">3. 使用 Frida 提供的 API 写汇编代码</a></li>
+        <li><a href="#4-使用-frida-提供的-api-写汇编代码">4. 使用 Frida 提供的 API 写汇编代码</a></li>
+      </ol>
+    </li>
+    <li><a href="#so-层主动调用任意函数">SO 层主动调用任意函数</a>
+      <ol>
+        <li><a href="#1-声明函数指针">1. 声明函数指针</a></li>
+        <li><a href="#2-代码示例">2. 代码示例</a></li>
+      </ol>
+    </li>
+    <li><a href="#hook-libc-读写文件">Hook libc 读写文件</a>
+      <ol>
+        <li><a href="#1-使用-frida-api-写文件">1. 使用 Frida API 写文件</a></li>
+        <li><a href="#2-hook-libc-写文件">2. Hook libc 写文件</a></li>
+      </ol>
+    </li>
+    <li><a href="#jni-函数的-hook">JNI 函数的 Hook</a>
+      <ol>
+        <li><a href="#1-hook-libart-来-hook-jni-相关函数">1. Hook libart 来 Hook JNI 相关函数</a></li>
+        <li><a href="#2-计算地址方式">2. 计算地址方式</a></li>
+      </ol>
+    </li>
+    <li><a href="#主动调用-jni-函数">主动调用 JNI 函数</a>
+      <ol>
+        <li><a href="#1-使用-frida-封装的函数调用-jni">1. 使用 Frida 封装的函数调用 JNI</a></li>
+        <li><a href="#2-使用-nativefunction-主动调用">2. 使用 <code>NativeFunction</code> 主动调用</a></li>
+      </ol>
+    </li>
+    <li><a href="#so-层打印函数调用栈">SO 层打印函数调用栈</a></li>
+    <li><a href="#定位静态注册函数的方法">定位静态注册函数的方法</a></li>
+    <li><a href="#定位动态注册函数的方法">定位动态注册函数的方法</a></li>
+    <li><a href="#frida-inlinehook">Frida InlineHook</a></li>
+    <li><a href="#hook-init-or-initarray">Hook <code>init</code> or <code>initArray</code></a></li>
+    <li><a href="#hook-jni_onload">Hook <code>JNI_OnLoad</code></a></li>
+    <li><a href="#hook-pthread_create">Hook <code>pthread_create</code></a>
+      <ol>
+        <li><a href="#函数原型">函数原型</a></li>
+        <li><a href="#hook-实现">Hook 实现</a></li>
+      </ol>
+    </li>
+    <li><a href="#内存读写监控">内存读写监控</a>
+      <ol>
+        <li><a href="#实现步骤">实现步骤</a>
+          <ol>
+            <li><a href="#1-hook-dlopen-函数以监控-so-文件的加载">1. Hook <code>dlopen</code> 函数以监控 SO 文件的加载</a></li>
+            <li><a href="#2-设置异常处理器以监控内存读写">2. 设置异常处理器以监控内存读写</a></li>
+          </ol>
+        </li>
+        <li><a href="#相关知识拓展">相关知识拓展</a>
+          <ol>
+            <li><a href="#processsetexceptionhandler-的作用"><code>Process.setExceptionHandler</code> 的作用</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    
+        
+        <div id="password-protect">
+            <h2>请输入密码以查看内容</h2>
+            <input type="password" id="password-input" placeholder="请输入密码">
+            <button onclick="checkPassword()">提交</button>
+            <p id="error-message" style="color:red; display:none;">密码错误！</p>
+        </div>
+        <div id="protected-content" style="display:none;">
+            <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/Je2em1ah_blog/p/fridahook-so%E5%B1%82%E5%87%BD%E6%95%B0%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501012305144.png" loading="lazy" alt="Featured image of post FridaHook so层函数方法总结" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/Je2em1ah_blog/categories/android/" >
+                Android
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/Je2em1ah_blog/p/fridahook-so%E5%B1%82%E5%87%BD%E6%95%B0%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/">FridaHook so层函数方法总结</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Sample article showcasing basic Markdown syntax and formatting for HTML elements.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-01-01</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="frida-hook-so">Frida Hook so
+</h1><h2 id="枚举各种">枚举各种
+</h2><h3 id="1-枚举导入表">1. 枚举导入表
+</h3><p>通过枚举<strong>导入表</strong>，可以获取出现在导入表中的函数地址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">imports</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">enumerateImports</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">imports</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">imports</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span> <span class="o">===</span> <span class="s2">&#34;strncat&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">imports</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">imports</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-枚举导出表">2. 枚举导出表
+</h3><p>通过枚举<strong>导出表</strong>，可以获取出现在导出表中的函数地址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">enumerateExports</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">exports</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">exports</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-枚举符号表">3. 枚举符号表
+</h3><p>通过枚举<strong>符号表</strong>，可以获取出现在符号表中的函数地址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">Module</span><span class="p">.</span><span class="nx">enumerateSymbols</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-枚举模块并进一步枚举导出表">4. 枚举模块并进一步枚举导出表
+</h3><p>通过枚举<strong>模块</strong>，再枚举模块内部的<strong>导出表</strong>，<strong>可以快速找到某个导入函数出自哪个 SO</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">Process</span><span class="p">.</span><span class="nx">enumerateModules</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5-解析表类型">5. 解析表类型
+</h3><ul>
+<li><strong>exports</strong> 解析的表类型为 <code>SHT_DYNSYM</code></li>
+<li><strong>symbols</strong> 解析的表类型为 <code>SHT_SYMTAB</code></li>
+</ul>
+<p><strong>SYMTAB</strong> 更全面（<code>DYNSYM</code> 是 <code>SYMTAB</code> 的子集），但并非 SO 运行所必需，<em><strong>通常会被去掉</strong></em>。</p>
+<h2 id="hook-导出函数">Hook 导出函数
+</h2><h3 id="步骤一获取函数地址">步骤一：获取函数地址
+</h3><p>在 SO 的导出表中，可以通过 Frida 提供的 API 获取函数地址。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">,</span> <span class="s2">&#34;add&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>注意</strong>：函数名以汇编中出现的为准。</p>
+</blockquote>
+<h3 id="步骤二使用-interceptorattach-进行-hook">步骤二：使用 <code>Interceptor.attach</code> 进行 Hook
+</h3><p>获取到函数地址后，使用 <code>Interceptor.attach</code> 对函数进行 Hook。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">Address</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>              <span class="c1">// 打印参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">x1</span><span class="p">);</span>      <span class="c1">// 打印寄存器内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">toInt32</span><span class="p">());</span>    <span class="c1">// 默认显示16进制，这里转换成10进制
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;retval&#34;</span><span class="p">,</span> <span class="nx">retval</span><span class="p">,</span> <span class="nx">retval</span><span class="p">.</span><span class="nx">toInt32</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="模块基址的几种获取方式">模块基址的几种获取方式
+</h2><ol>
+<li>对于在导入表、导出表、符号表中找不到的函数，地址需要自行计算。</li>
+<li>计算方式很简单：<strong>SO 基址 + 函数在 SO 中的偏移</strong>（ARM 架构下 Thumb 模式需要加 1）。</li>
+<li>因此，首先需要获取 SO 的基址，即模块基址。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">Process</span><span class="p">.</span><span class="nx">findModuleByName</span><span class="p">(</span><span class="s2">&#34;libart.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Process</span><span class="p">.</span><span class="nx">getModuleByName</span><span class="p">(</span><span class="s2">&#34;libc.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libart.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Process</span><span class="p">.</span><span class="nx">enumerateModules</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Process</span><span class="p">.</span><span class="nx">findModuleByAddress</span><span class="p">(</span><span class="nx">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Process</span><span class="p">.</span><span class="nx">getModuleByAddress</span><span class="p">(</span><span class="nx">address</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="hook-任意函数">Hook 任意函数
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">soAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">soAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">funcAddr</span> <span class="o">=</span> <span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x23F4</span><span class="p">);</span> <span class="c1">// ARM Thumb 模式下需加 1，ARM 不需加
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">funcAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">funcAddr</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">funcAddr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 入参处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hexdump</span><span class="p">(</span><span class="nx">retval</span><span class="p">));</span> <span class="c1">// 输出当前地址的十六进制数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="so-hook-模板">so Hook 模板
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">print_arg</span><span class="p">(</span><span class="nx">addr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">findRangeByAddress</span><span class="p">(</span><span class="nx">addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">module</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">hexdump</span><span class="p">(</span><span class="nx">addr</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;\n&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">ptr</span><span class="p">(</span><span class="nx">addr</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;\n&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_native_addr</span><span class="p">(</span><span class="nx">funcPtr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">findModuleByAddress</span><span class="p">(</span><span class="nx">funcPtr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">funcPtr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">logs</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;call &#34;</span> <span class="o">+</span> <span class="nx">module</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&#34;!&#34;</span> <span class="o">+</span> <span class="nx">ptr</span><span class="p">(</span><span class="nx">funcPtr</span><span class="p">).</span><span class="nx">sub</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">base</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;\n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">args0</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">args1</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;this.args0 onEnter: &#34;</span> <span class="o">+</span> <span class="nx">print_arg</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">args0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;this.args1 onEnter: &#34;</span> <span class="o">+</span> <span class="nx">print_arg</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">args1</span><span class="p">));</span>         
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;this.args0 onLeave: &#34;</span> <span class="o">+</span> <span class="nx">print_arg</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">args0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;this.args1 onLeave: &#34;</span> <span class="o">+</span> <span class="nx">print_arg</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">args1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;retval onLeave: &#34;</span> <span class="o">+</span> <span class="nx">retval</span> <span class="o">+</span> <span class="s2">&#34;\n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">logs</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="修改函数数值参数和返回值">修改函数数值参数和返回值
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">addAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">,</span> <span class="s2">&#34;add&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">addAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">addAddr</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">addAddr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nx">ptr</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span> <span class="c1">// 新值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">toInt32</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">retval</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="mi">20000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;retval&#34;</span><span class="p">,</span> <span class="nx">retval</span><span class="p">.</span><span class="nx">toInt32</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="获取指针参数返回值">获取指针参数返回值
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">soAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">soAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">sub_208C</span> <span class="o">=</span> <span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x208C</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sub_208C</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">sub_208C</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">sub_208C</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="nx">args1</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hexdump</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">args1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="hook-dlopen">Hook <code>dlopen</code>
+</h2><ol>
+<li>有些函数在 SO <strong>首次加载</strong>时执行，而 SO 未加载前无法进行 Hook。</li>
+<li>因此，需 <strong>监控 SO 的加载时机</strong>，在 SO 加载完成后立即进行 Hook。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="nx">soName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readCString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">soName</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">hook</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span> 
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hook</span><span class="p">)</span> <span class="nx">callback</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">dlopen</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;dlopen&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">android_dlopen_ext</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;android_dlopen_ext&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">dlopen</span><span class="p">,</span> <span class="s2">&#34;libxxx.so&#34;</span><span class="p">,</span> <span class="nx">hookfunc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">android_dlopen_ext</span><span class="p">,</span> <span class="s2">&#34;libxxx.so&#34;</span><span class="p">,</span> <span class="nx">hookfunc</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="内存读写">内存读写
+</h2><h3 id="1-读取指定地址的字符串">1. 读取指定地址的字符串
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">soAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x2C00</span><span class="p">).</span><span class="nx">readCString</span><span class="p">());</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-dump-指定地址的内存">2. Dump 指定地址的内存
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hexdump</span><span class="p">(</span><span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x2C00</span><span class="p">)));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-读指定地址的内存">3. 读指定地址的内存
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x2C00</span><span class="p">).</span><span class="nx">readByteArray</span><span class="p">(</span><span class="mi">16</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Memory</span><span class="p">.</span><span class="nx">readByteArray</span><span class="p">(</span><span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x2C00</span><span class="p">),</span> <span class="mi">16</span><span class="p">));</span> <span class="c1">// 原先的 API
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-写指定地址的内存">4. 写指定地址的内存
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x2C00</span><span class="p">).</span><span class="nx">writeByteArray</span><span class="p">(</span><span class="nx">stringToBytes</span><span class="p">(</span><span class="s2">&#34;xxxxx&#34;</span><span class="p">));</span> 
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hexdump</span><span class="p">(</span><span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x2C00</span><span class="p">)));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5-申请新内存并写入">5. 申请新内存并写入
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">Memory</span><span class="p">.</span><span class="nx">alloc</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="6-修改内存权限">6. 修改内存权限
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">Memory</span><span class="p">.</span><span class="nx">protect</span><span class="p">(</span><span class="nx">ptr</span><span class="p">(</span><span class="nx">libso</span><span class="p">.</span><span class="nx">base</span><span class="p">),</span> <span class="nx">libso</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span> <span class="s1">&#39;rwx&#39;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="frida-修改-so-函数代码">Frida 修改 SO 函数代码
+</h2><h3 id="1-修改地址对应的指令">1. 修改地址对应的指令
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">soAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1684</span><span class="p">).</span><span class="nx">writeByteArray</span><span class="p">(</span><span class="nx">hexToBytes</span><span class="p">(</span><span class="s2">&#34;0001094B&#34;</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>ARM 与 Hex 在线转换</strong>：<a class="link" href="https://armconverter.com/"  target="_blank" rel="noopener"
+    >ARM Converter</a></p>
+<h3 id="2-将对应地址的指令解析成汇编">2. 将对应地址的指令解析成汇编
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">ins</span> <span class="o">=</span> <span class="nx">Instruction</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1684</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ins</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-使用-frida-提供的-api-写汇编代码">3. 使用 Frida 提供的 API 写汇编代码
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="k">new</span> <span class="nx">Arm64Writer</span><span class="p">(</span><span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x167C</span><span class="p">)).</span><span class="nx">putNop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Instruction</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x167C</span><span class="p">)).</span><span class="nx">toString</span><span class="p">());</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-使用-frida-提供的-api-写汇编代码">4. 使用 Frida 提供的 API 写汇编代码
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">codeAddr</span> <span class="o">=</span> <span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x167C</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Memory</span><span class="p">.</span><span class="nx">patchCode</span><span class="p">(</span><span class="nx">codeAddr</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">code</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">writer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Arm64Writer</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="p">{</span> <span class="nx">pc</span><span class="o">:</span> <span class="nx">codeAddr</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">writer</span><span class="p">.</span><span class="nx">putBytes</span><span class="p">(</span><span class="nx">hexToBytes</span><span class="p">(</span><span class="s2">&#34;0001094B&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">writer</span><span class="p">.</span><span class="nx">putBytes</span><span class="p">(</span><span class="nx">hexToBytes</span><span class="p">(</span><span class="s2">&#34;FF830091&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">writer</span><span class="p">.</span><span class="nx">putRet</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">writer</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="so-层主动调用任意函数">SO 层主动调用任意函数
+</h2><h3 id="1-声明函数指针">1. 声明函数指针
+</h3><p>文档：<a class="link" href="https://frida.re/docs/javascript-api/#NativeFunction"  target="_blank" rel="noopener"
+    >Frida JavaScript API - NativeFunction</a></p>
+<p>语法：<code>new NativeFunction(address, returnType, argTypes[, abi])</code></p>
+<p>支持的 <code>returnType</code> 和 <code>argTypes</code>：</p>
+<ul>
+<li>基本类型：<code>void</code>、<code>pointer</code>、<code>int</code>、<code>uint</code>、<code>long</code>、<code>ulong</code>、<code>char</code>、<code>uchar</code>、<code>float</code>、<code>double</code></li>
+<li>定长整数：<code>int8</code>、<code>uint8</code>、<code>int16</code>、<code>uint16</code>、<code>int32</code>、<code>uint32</code>、<code>int64</code>、<code>uint64</code>、<code>bool</code></li>
+<li>大小类型：<code>size_t</code>、<code>ssize_t</code></li>
+</ul>
+<h3 id="2-代码示例">2. 代码示例
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 获取函数地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">funcAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x23F4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 声明函数指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">funcAddr</span><span class="p">,</span> <span class="s2">&#34;pointer&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">tryGetEnv</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;env: &#34;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">env</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">env</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">jstr</span> <span class="o">=</span> <span class="nx">env</span><span class="p">.</span><span class="nx">newStringUtf</span><span class="p">(</span><span class="s2">&#34;Je2em1ah is very good!!!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">cstr</span> <span class="o">=</span> <span class="nx">func</span><span class="p">(</span><span class="nx">env</span><span class="p">,</span> <span class="nx">jstr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">cstr</span><span class="p">.</span><span class="nx">readCString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hexdump</span><span class="p">(</span><span class="nx">cstr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="hook-libc-读写文件">Hook libc 读写文件
+</h2><h3 id="1-使用-frida-api-写文件">1. 使用 Frida API 写文件
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">File</span><span class="p">(</span><span class="s2">&#34;/sdcard/xxxx.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">file</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&#34;Je2em1ah is very good!!!\n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">file</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">file</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-hook-libc-写文件">2. Hook libc 写文件
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">addr_fopen</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libc.so&#34;</span><span class="p">,</span> <span class="s2">&#34;fopen&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">addr_fputs</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libc.so&#34;</span><span class="p">,</span> <span class="s2">&#34;fputs&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">addr_fclose</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libc.so&#34;</span><span class="p">,</span> <span class="s2">&#34;fclose&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;addr_fopen:&#34;</span><span class="p">,</span> <span class="nx">addr_fopen</span><span class="p">,</span> <span class="s2">&#34;addr_fputs:&#34;</span><span class="p">,</span> <span class="nx">addr_fputs</span><span class="p">,</span> <span class="s2">&#34;addr_fclose:&#34;</span><span class="p">,</span> <span class="nx">addr_fclose</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">fopen</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">addr_fopen</span><span class="p">,</span> <span class="s2">&#34;pointer&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&#34;pointer&#34;</span><span class="p">,</span> <span class="s2">&#34;pointer&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">fputs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">addr_fputs</span><span class="p">,</span> <span class="s2">&#34;int&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&#34;pointer&#34;</span><span class="p">,</span> <span class="s2">&#34;pointer&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">fclose</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">addr_fclose</span><span class="p">,</span> <span class="s2">&#34;int&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&#34;pointer&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">filename</span> <span class="o">=</span> <span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="s2">&#34;/sdcard/xxx.txt&#34;</span><span class="p">);</span>    <span class="c1">// 注意：sdcard 权限不足可能导致写入失败
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">open_mode</span> <span class="o">=</span> <span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="s2">&#34;w&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">fopen</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">open_mode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;fopen:&#34;</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="s2">&#34;Jeremiah\n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">retval</span> <span class="o">=</span> <span class="nx">fputs</span><span class="p">(</span><span class="nx">buffer</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;fputs:&#34;</span><span class="p">,</span> <span class="nx">retval</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">fclose</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="jni-函数的-hook">JNI 函数的 Hook
+</h2><h3 id="1-hook-libart-来-hook-jni-相关函数">1. Hook libart 来 Hook JNI 相关函数
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">artSym</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">enumerateSymbols</span><span class="p">(</span><span class="s2">&#34;libart.so&#34;</span><span class="p">);</span> <span class="c1">// 原先的 API
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">NewStringUTFAddr</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">artSym</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">artSym</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;CheckJNI&#34;</span><span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">artSym</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;NewStringUTF&#34;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">NewStringUTFAddr</span> <span class="o">=</span> <span class="nx">artSym</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">address</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">NewStringUTFAddr</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">NewStringUTFAddr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">readCString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 可选：在需要时添加处理逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-计算地址方式">2. 计算地址方式
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Process.arch: &#34;</span><span class="p">,</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">arch</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">envAddr</span> <span class="o">=</span> <span class="nx">ptr</span><span class="p">(</span><span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">tryGetEnv</span><span class="p">().</span><span class="nx">handle</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>  <span class="c1">// 获取 JNIEnv 的地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">newStringUtfAddr</span> <span class="o">=</span> <span class="nx">envAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x538</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;newStringUtfAddr&#34;</span><span class="p">,</span> <span class="nx">newStringUtfAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">newStringUtfAddr</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">newStringUtfAddr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nx">readCString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// 可选：在需要时添加处理逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="主动调用-jni-函数">主动调用 JNI 函数
+</h2><h3 id="1-使用-frida-封装的函数调用-jni">1. 使用 Frida 封装的函数调用 JNI
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">funcAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">,</span> <span class="s2">&#34;functionName&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">funcAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">funcAddr</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">funcAddr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 入参处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">tryGetEnv</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">jstr</span> <span class="o">=</span> <span class="nx">env</span><span class="p">.</span><span class="nx">newStringUtf</span><span class="p">(</span><span class="s2">&#34;bbs.125.la&#34;</span><span class="p">);</span>  <span class="c1">// 主动调用 JNI 函数：CSTR 转 JSTR
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">retval</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">jstr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">cstr</span> <span class="o">=</span> <span class="nx">env</span><span class="p">.</span><span class="nx">getStringUtfChars</span><span class="p">(</span><span class="nx">jstr</span><span class="p">);</span> <span class="c1">// 主动调用 JNI 函数：JSTR 转 CSTR
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">cstr</span><span class="p">.</span><span class="nx">readCString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hexdump</span><span class="p">(</span><span class="nx">cstr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-使用-nativefunction-主动调用">2. 使用 <code>NativeFunction</code> 主动调用
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">symbols</span> <span class="o">=</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">getModuleByName</span><span class="p">(</span><span class="s2">&#34;libart.so&#34;</span><span class="p">).</span><span class="nx">enumerateSymbols</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">newStringUtf</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">symbols</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">symbol</span> <span class="o">=</span> <span class="nx">symbols</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">symbol</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;CheckJNI&#34;</span><span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">symbol</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;NewStringUTF&#34;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">symbol</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">symbol</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">newStringUtf</span> <span class="o">=</span> <span class="nx">symbol</span><span class="p">.</span><span class="nx">address</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">newStringUtf_func</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">newStringUtf</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">jstring</span> <span class="o">=</span> <span class="nx">newStringUtf_func</span><span class="p">(</span><span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">tryGetEnv</span><span class="p">().</span><span class="nx">handle</span><span class="p">,</span> <span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="s2">&#34;Je2em1ah&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">jstring</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">envAddr</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">tryGetEnv</span><span class="p">().</span><span class="nx">handle</span><span class="p">.</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">GetStringUTFChars</span> <span class="o">=</span> <span class="nx">envAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x548</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">GetStringUTFChars_func</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">GetStringUTFChars</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">cstr</span> <span class="o">=</span> <span class="nx">GetStringUTFChars_func</span><span class="p">(</span><span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">tryGetEnv</span><span class="p">().</span><span class="nx">handle</span><span class="p">,</span> <span class="nx">jstring</span><span class="p">,</span> <span class="nx">ptr</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">cstr</span><span class="p">.</span><span class="nx">readCString</span><span class="p">());</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="so-层打印函数调用栈">SO 层打印函数调用栈
+</h2><ul>
+<li>通过 Hook 系统函数，打印函数栈，可以快速定位到关键代码。</li>
+<li>Frida 提供了 SO 层打印函数栈的方法：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Thread</span><span class="p">.</span><span class="nx">backtrace</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">,</span> <span class="nx">Backtracer</span><span class="p">.</span><span class="nx">ACCURATE</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">DebugSymbol</span><span class="p">.</span><span class="nx">fromAddress</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;\n&#39;</span><span class="p">);</span> <span class="c1">// `ACCURATE` 表示精确，`FUZZY` 表示模糊
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="定位静态注册函数的方法">定位静态注册函数的方法
+</h2><ul>
+<li><strong>静态注册</strong>的函数会通过 <code>dlsym</code> 查找符号，因此可以通过 Hook <code>dlsym</code> 函数来快速定位。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_dlsym</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">dlsymAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libdl.so&#34;</span><span class="p">,</span> <span class="s2">&#34;dlsym&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dlsymAddr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">dlsymAddr</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">dlsymAddr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">this</span><span class="p">.</span><span class="nx">args1</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">findModuleByAddress</span><span class="p">(</span><span class="nx">retval</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">args1</span><span class="p">.</span><span class="nx">readCString</span><span class="p">(),</span> <span class="nx">retval</span><span class="p">,</span> <span class="nx">module</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">retval</span><span class="p">.</span><span class="nx">sub</span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">base</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="定位动态注册函数的方法">定位动态注册函数的方法
+</h2><ul>
+<li><strong>动态注册</strong>的函数会通过 <code>RegisterNatives</code> 函数加载，因此 Hook <code>RegisterNatives</code> 可以快速定位函数位置。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_RegisterNatives</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">RegisterNatives_addr</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">symbols</span> <span class="o">=</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">findModuleByName</span><span class="p">(</span><span class="s2">&#34;libart.so&#34;</span><span class="p">).</span><span class="nx">enumerateSymbols</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">symbols</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">symbol</span> <span class="o">=</span> <span class="nx">symbols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">symbol</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;CheckJNI&#34;</span><span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">symbol</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;JNI&#34;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">symbol</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;RegisterNatives&#34;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">RegisterNatives_addr</span> <span class="o">=</span> <span class="nx">symbols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">address</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;RegisterNatives_addr: &#34;</span><span class="p">,</span> <span class="nx">RegisterNatives_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">RegisterNatives_addr</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">RegisterNatives_addr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">jclass</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">class_name</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">tryGetEnv</span><span class="p">().</span><span class="nx">getClassName</span><span class="p">(</span><span class="nx">jclass</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">methods_ptr</span> <span class="o">=</span> <span class="nx">ptr</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">method_count</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="nx">toInt32</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;RegisterNatives method counts: &#34;</span><span class="p">,</span> <span class="nx">method_count</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">method_count</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">methods_ptr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">pointerSize</span> <span class="o">*</span> <span class="mi">3</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">().</span><span class="nx">readCString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">sig</span> <span class="o">=</span> <span class="nx">methods_ptr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">pointerSize</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">pointerSize</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">().</span><span class="nx">readCString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">fnPtr_ptr</span> <span class="o">=</span> <span class="nx">methods_ptr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">pointerSize</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">pointerSize</span> <span class="o">*</span> <span class="mi">2</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">var</span> <span class="nx">find_module</span> <span class="o">=</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">findModuleByAddress</span><span class="p">(</span><span class="nx">fnPtr_ptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;RegisterNatives java_class: &#34;</span><span class="p">,</span> <span class="nx">class_name</span><span class="p">,</span> <span class="s2">&#34;name: &#34;</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="s2">&#34;sig: &#34;</span><span class="p">,</span> <span class="nx">sig</span><span class="p">,</span> <span class="s2">&#34;fnPtr: &#34;</span><span class="p">,</span> <span class="nx">fnPtr_ptr</span><span class="p">,</span> <span class="s2">&#34;module_name: &#34;</span><span class="p">,</span> <span class="nx">find_module</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="s2">&#34;module_base: &#34;</span><span class="p">,</span> <span class="nx">find_module</span><span class="p">.</span><span class="nx">base</span><span class="p">,</span> <span class="s2">&#34;offset: &#34;</span><span class="p">,</span> <span class="nx">ptr</span><span class="p">(</span><span class="nx">fnPtr_ptr</span><span class="p">).</span><span class="nx">sub</span><span class="p">(</span><span class="nx">find_module</span><span class="p">.</span><span class="nx">base</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">retval</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="frida-inlinehook">Frida InlineHook
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">inlineHook</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 示例 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">    var nativePointer = Module.findBaseAddress(&#34;libxxx.so&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="cm">    var hookAddr = nativePointer.add(0x17BC);
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Interceptor.attach(hookAddr, {
+</span></span></span><span class="line"><span class="cl"><span class="cm">        onEnter: function (args) {
+</span></span></span><span class="line"><span class="cl"><span class="cm">            console.log(&#34;onEnter: &#34;, this.context.x8);
+</span></span></span><span class="line"><span class="cl"><span class="cm">        }, 
+</span></span></span><span class="line"><span class="cl"><span class="cm">        onLeave: function (retval) {
+</span></span></span><span class="line"><span class="cl"><span class="cm">            console.log(&#34;onLeave: &#34;, this.context.x8.toInt32());
+</span></span></span><span class="line"><span class="cl"><span class="cm">            console.log(this.context.x8 &amp; 7);
+</span></span></span><span class="line"><span class="cl"><span class="cm">        }
+</span></span></span><span class="line"><span class="cl"><span class="cm">    });
+</span></span></span><span class="line"><span class="cl"><span class="cm">    */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 示例 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">nativePointer</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">hookAddr</span> <span class="o">=</span> <span class="nx">nativePointer</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1B70</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">hookAddr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;onEnter: &#34;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">x1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;onEnter: &#34;</span><span class="p">,</span> <span class="nx">hexdump</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">x1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span> 
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 可选：在需要时添加处理逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="hook-init-or-initarray">Hook <code>init</code> or <code>initArray</code>
+</h2><ul>
+<li>SO 中 <code>init</code> 段和 <code>initarray</code> 段的加载时机是在 <code>dlopen</code> 函数中进行加载，因此需在 <code>dlopen</code> 执行时监控 SO 的加载并同时 Hook <code>init</code> 和 <code>initarray</code>。</li>
+<li><code>init</code> 和 <code>initarray</code> 通过 <code>linker</code> 或 <code>linker64</code> 文件的 <code>call_constructors</code> 函数进行调用。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_dlopen</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">dlopen</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;dlopen&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dlopen</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">dlopen</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">dlopen</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">soName</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readCString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">soName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">soName</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">hook_initarray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">android_dlopen_ext</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;android_dlopen_ext&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">android_dlopen_ext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">android_dlopen_ext</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">android_dlopen_ext</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">soName</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readCString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">soName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">soName</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">hook_initarray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">hooked</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_initarray</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">call_constructorsAddr</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">linkerSymbols</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">enumerateSymbolsSync</span><span class="p">(</span><span class="s2">&#34;linker64&#34;</span><span class="p">);</span> <span class="c1">// 可能是 linker 或 linker64
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">linkerSymbols</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">linkerSymbols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span> <span class="o">===</span> <span class="s2">&#34;__dl__ZN6soinfo17call_constructorsEv&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">call_constructorsAddr</span> <span class="o">=</span> <span class="nx">linkerSymbols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">address</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">linkerSymbols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">,</span> <span class="nx">linkerSymbols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">call_constructorsAddr</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">hooked</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">call_constructorsAddr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">soAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">initArrayTest2</span> <span class="o">=</span> <span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x2B08</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">var</span> <span class="nx">initArrayTest1</span> <span class="o">=</span> <span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x2AD8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">initArrayTest2</span><span class="p">,</span> <span class="k">new</span> <span class="nx">NativeCallback</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">){},</span> <span class="s2">&#34;int&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;int&#39;</span><span class="p">]));</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">initArrayTest1</span><span class="p">,</span> <span class="k">new</span> <span class="nx">NativeCallback</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">){},</span> <span class="s2">&#34;int&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;int&#39;</span><span class="p">]));</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">hooked</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hook_dlopen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">setImmediate</span><span class="p">(</span><span class="nx">main</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="hook-jni_onload">Hook <code>JNI_OnLoad</code>
+</h2><ul>
+<li>注入点在 <code>dlopen</code> 加载 <strong>结束</strong> 之后。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_JNI_Onload</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">JNI_Onload</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">,</span> <span class="s2">&#34;JNI_OnLoad&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">JNI_Onload</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">JNI_Onload</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;JNI_OnLoad is called&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="hook-pthread_create">Hook <code>pthread_create</code>
+</h2><ul>
+<li>一些 <strong>检测函数</strong> 需要 <strong>实时</strong> 运行，可能会使用 <code>pthread</code> 开启子线程。</li>
+<li>Hook <code>pthread_create</code> 可查看开启了哪些子线程，并可干掉与检测相关的子线程。</li>
+</ul>
+<h3 id="函数原型">函数原型
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pthread_create</span><span class="p">(</span><span class="kt">pthread_t</span> <span class="o">*</span><span class="kr">thread</span><span class="p">,</span> <span class="k">const</span> <span class="kt">pthread_attr_t</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">start_routine</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p><strong><code>pthread_t *thread</code></strong><br>
+指向 <code>pthread_t</code> 类型变量的指针，用于返回新创建线程的标识符。</p>
+</li>
+<li>
+<p><strong><code>const pthread_attr_t *attr</code></strong><br>
+指向线程属性对象的指针，用于设置线程的属性（如栈大小、调度策略等）。如果使用默认属性，可以传递 <code>NULL</code>。</p>
+</li>
+<li>
+<p><strong><code>void *(*start_routine)(void *)</code></strong><br>
+线程的起始函数，必须是一个返回 <code>void*</code> 并接受一个 <code>void*</code> 类型参数的函数指针。</p>
+</li>
+<li>
+<p><strong><code>void *arg</code></strong><br>
+传递给 <code>start_routine</code> 函数的参数，可以是任意类型的指针。如果不需要参数，可以传递 <code>NULL</code>。</p>
+</li>
+</ul>
+<h3 id="hook-实现">Hook 实现
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_pthread_create</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">pthread_create_addr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libc.so&#34;</span><span class="p">,</span> <span class="s2">&#34;pthread_create&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;pthread_create_addr: &#34;</span><span class="p">,</span> <span class="nx">pthread_create_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">pthread_create_addr</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">pthread_create_addr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;pthread_t *thread:&#34;</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;const pthread_attr_t *attr:&#34;</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;void *(*start_routine)(void *):&#34;</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;void *arg:&#34;</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;pthread_create retval:&#34;</span><span class="p">,</span> <span class="nx">retval</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="内存读写监控">内存读写监控
+</h2><p>通过 <code>Process.setExceptionHandler</code> 提供一个回调函数来 <strong>监控内存的读写操作</strong>。这种方法可以帮助开发者在特定内存地址发生读写时捕获异常，从而进行调试或逆向分析。</p>
+<h3 id="实现步骤">实现步骤
+</h3><h4 id="1-hook-dlopen-函数以监控-so-文件的加载">1. Hook <code>dlopen</code> 函数以监控 SO 文件的加载
+</h4><p>首先，通过 Hook <code>dlopen</code> 和 <code>android_dlopen_ext</code> 函数，监控目标 SO 文件的加载。一旦检测到指定的 SO 文件被加载，即可执行相应的回调函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="nx">soName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">soPath</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readCString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">soPath</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">soName</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">this</span><span class="p">.</span><span class="nx">hook</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hook</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">callback</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">dlopen</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libdl.so&#34;</span><span class="p">,</span> <span class="s2">&#34;dlopen&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">android_dlopen_ext</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libdl.so&#34;</span><span class="p">,</span> <span class="s2">&#34;android_dlopen_ext&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">dlopen</span><span class="p">,</span> <span class="s2">&#34;libxiaojianbang.so&#34;</span><span class="p">,</span> <span class="nx">set_read_write_break</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">android_dlopen_ext</span><span class="p">,</span> <span class="s2">&#34;libxiaojianbang.so&#34;</span><span class="p">,</span> <span class="nx">set_read_write_break</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="2-设置异常处理器以监控内存读写">2. 设置异常处理器以监控内存读写
+</h4><p>通过 <code>Process.setExceptionHandler</code>，设置一个异常处理器，当目标内存地址的读写操作触发异常时，回调函数将被调用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">set_read_write_break</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Process</span><span class="p">.</span><span class="nx">setExceptionHandler</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">details</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 错误回调函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">details</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;lr:&#34;</span><span class="p">,</span> <span class="nx">DebugSymbol</span><span class="p">.</span><span class="nx">fromAddress</span><span class="p">(</span><span class="nx">details</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">lr</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;pc:&#34;</span><span class="p">,</span> <span class="nx">DebugSymbol</span><span class="p">.</span><span class="nx">fromAddress</span><span class="p">(</span><span class="nx">details</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">pc</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">// 获取完成信息之后将内存权限复原
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">Memory</span><span class="p">.</span><span class="nx">protect</span><span class="p">(</span><span class="nx">details</span><span class="p">.</span><span class="nx">memory</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">pointerSize</span><span class="p">,</span> <span class="s1">&#39;rwx&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">// 打印调用栈
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Thread</span><span class="p">.</span><span class="nx">backtrace</span><span class="p">(</span><span class="nx">details</span><span class="p">.</span><span class="nx">context</span><span class="p">,</span> <span class="nx">Backtracer</span><span class="p">.</span><span class="nx">ACCURATE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">DebugSymbol</span><span class="p">.</span><span class="nx">fromAddress</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="c1">// 继续执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 目标内存地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">addr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxiaojianbang.so&#34;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x3DED</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 修改内存权限为不可读写，只能执行，触发异常
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Memory</span><span class="p">.</span><span class="nx">protect</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="相关知识拓展">相关知识拓展
+</h3><h4 id="processsetexceptionhandler-的作用"><code>Process.setExceptionHandler</code> 的作用
+</h4><p><code>Process.setExceptionHandler</code> 用于设置一个全局的异常处理器，当程序执行过程中发生异常时，该处理器会被调用。通过这种方式，可以捕获内存访问违规等异常，进行调试或逆向分析。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/Je2em1ah_blog/tags/android/">Android</a>
+        
+            <a href="/Je2em1ah_blog/tags/frida/">Frida</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+            
+
+            
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927263.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927263.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Android So相关知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927263.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927263.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Android So相关知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927719.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927719.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">GameSafety2021 Android方向初赛题目复现</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+             
+            
+                
+            
+
+            <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Je2em1ah
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+            
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+        </div>
+        <script>
+            function checkPassword() {
+                const input = document.getElementById('password-input').value;
+                const correctPassword = 'Jsh1526100148'; 
+                if (input === correctPassword) {
+                    document.getElementById('password-protect').style.display = 'none';
+                    document.getElementById('protected-content').style.display = 'block';
+                } else {
+                    document.getElementById('error-message').style.display = 'block';
+                }
+            }
+        </script>
+        
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/Je2em1ah_blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<div id="particles-js"></div>
+
+<script src=http://www.j3r3m14h.com.cn/Je2em1ah_blog/background/particles.min.js></script>
+<script>
+  particlesJS.load('particles-js', "http://www.j3r3m14h.com.cn/Je2em1ah_blog/background/particlesjs-config.json", function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+  }
+</style>
+<script src="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.css" crossorigin="anonymous" />
+<script>
+    NProgress.start();
+    document.addEventListener("readystatechange", () => {
+        if (document.readyState === "interactive") NProgress.inc(0.8);
+        if (document.readyState === "complete") NProgress.done();
+    });
+</script>
+
+    </body>
+</html>
