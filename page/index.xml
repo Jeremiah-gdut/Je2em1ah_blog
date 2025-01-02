@@ -21,7 +21,91 @@
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
         <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/%E5%85%B3%E4%BA%8E/</guid>
-        <description>&lt;p&gt;This is a test page for i18n support.&lt;/p&gt;
+        <description>&lt;h1 id=&#34;-关于本人&#34;&gt;👨‍💻 关于本人
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;鸽 有空再说&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;-关于本站&#34;&gt;🏠 关于本站
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;博客框架&lt;/strong&gt;：hugo 0.140.2&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;博客主题&lt;/strong&gt;：Stack 3.27.0&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;托管部署&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;源码托管&lt;/strong&gt;：GitHub&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网站部署&lt;/strong&gt;：Github&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;评论系统&lt;/strong&gt;：待开发&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;访问统计&lt;/strong&gt;：待开发&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;版权声明&lt;/strong&gt;：CC BY-NC-SA 4.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;-本站时间线&#34;&gt;⏳ 本站时间线
+&lt;/h2&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;日期&lt;/th&gt;
+          &lt;th&gt;事件&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2024-11-03&lt;/td&gt;
+          &lt;td&gt;Hello Hexo&lt;br&gt;开始使用 Hexo&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2024-12-21&lt;/td&gt;
+          &lt;td&gt;Hello Hugo&lt;br&gt;尝试Hugo博客框架&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2025-01-02&lt;/td&gt;
+          &lt;td&gt;Hello Hugo&lt;br&gt;正式采用 Hugo 作为博客框架 并使用Stack为主题&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;-投喂作者&#34;&gt;👍 投喂作者
+&lt;/h2&gt;&lt;p&gt;如果您想支持我的网站，可以扫描下方二维码进行投喂（投喂时请备注自己的昵称，收到后将在下面展示），非常感谢您的支持~ 🐭🐭🐭&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501021207234.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250102120750207&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;-投喂记录&#34;&gt;🍟 投喂记录
+&lt;/h3&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;小伙伴昵称😜&lt;/th&gt;
+          &lt;th&gt;投喂方式🌈&lt;/th&gt;
+          &lt;th&gt;投喂数目🍬&lt;/th&gt;
+          &lt;th&gt;投喂日期📆&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;-联系我&#34;&gt;📬 联系我
+&lt;/h2&gt;&lt;p&gt;如果你有任何问题或建议，欢迎通过以下方式联系我：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;邮箱&lt;/strong&gt;： &lt;a class=&#34;link&#34; href=&#34;&#34; &gt;1526100148@qq.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;社交媒体&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/Jeremiah-gdut&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://t.me/Je2em1ah&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Telegram&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;感谢你的访问！希望通过这个博客，你能找到有价值的内容，同时也了解更多关于我的信息。&lt;/p&gt;
 </description>
         </item>
         <item>
