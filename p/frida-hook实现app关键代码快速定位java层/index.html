@@ -733,21 +733,21 @@
 </div><h2 id="findviewbyid找控件id打印rid的属性不建议优先使用">findViewById找控件id(打印R$id的属性)(不建议优先使用)
 </h2><ul>
 <li>
-<p>==Java.enumerateLoadedClassesSync==枚举所有已加载的类</p>
+<p><code>Java.enumerateLoadedClassesSync</code>枚举所有已加载的类</p>
 <p>如果不知道类路径，可以用这个方法，然后过滤一下类名</p>
 </li>
 <li>
-<p>==frida -U -f com.dodonew.online -l HookDemo.js -o log.txt &ndash;no-pause==</p>
+<p><code>frida -U -f com.dodonew.online -l HookDemo.js -o log.txt --no-pause</code></p>
 </li>
 </ul>
-<p>​	==-f==代码让frida帮我们重新启动app，一开始就注入js</p>
-<p>​	==&ndash;no-pause== 直接运行主线程，中途不暂停</p>
+<p>​	<code>-f</code>代码让frida帮我们重新启动app，一开始就注入js</p>
+<p>​	<code>--no-pause</code> 直接运行主线程，中途不暂停</p>
 <ul>
 <li>
-<p>==R$id== 内部类的访问</p>
+<p><code>R$id</code> 内部类的访问</p>
 </li>
 <li>
-<p>==R$id.btn_login.value== 类的属性</p>
+<p><code>R$id.btn_login.value</code> 类的属性</p>
 </li>
 </ul>
 <div class="highlight"><div class="chroma">
@@ -777,7 +777,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="setonclicklistener">setOnClickListener
-</h2><p>==hook这个函数，比对控件id，打印函数栈==</p>
+</h2><p><code>hook这个函数，比对控件id，打印函数栈</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -835,13 +835,13 @@
 </div>
 </div><h2 id="other">Other
 </h2><blockquote>
-<p>==加密库==相关的hook(自吐算法)</p>
-<p>==SSL==相关的hook</p>
-<p>==socket==相关的hook</p>
-<p>==SocketOutputStream==</p>
-<p>==SocketInputStream==</p>
-<p>读写文件相关的 ==java.io.File==</p>
-<p>证书双向验证 ==Keystore.load== 通常有证书和密码</p>
+<p><code>加密库</code>相关的hook(自吐算法)</p>
+<p><code>SSL</code>相关的hook</p>
+<p><code>socket</code>相关的hook</p>
+<p><code>SocketOutputStream</code></p>
+<p><code>SocketInputStream</code></p>
+<p>读写文件相关的 <code>java.io.File</code></p>
+<p>证书双向验证 <code>Keystore.load</code> 通常有证书和密码</p>
 <p>安卓退出进程的方式</p>
 </blockquote>
 

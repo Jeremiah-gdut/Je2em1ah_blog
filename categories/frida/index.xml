@@ -1697,21 +1697,21 @@
 &lt;/div&gt;&lt;h2 id=&#34;findviewbyid找控件id打印rid的属性不建议优先使用&#34;&gt;findViewById找控件id(打印R$id的属性)(不建议优先使用)
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;==Java.enumerateLoadedClassesSync==枚举所有已加载的类&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Java.enumerateLoadedClassesSync&lt;/code&gt;枚举所有已加载的类&lt;/p&gt;
 &lt;p&gt;如果不知道类路径，可以用这个方法，然后过滤一下类名&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;==frida -U -f com.dodonew.online -l HookDemo.js -o log.txt &amp;ndash;no-pause==&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;frida -U -f com.dodonew.online -l HookDemo.js -o log.txt --no-pause&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;​	==-f==代码让frida帮我们重新启动app，一开始就注入js&lt;/p&gt;
-&lt;p&gt;​	==&amp;ndash;no-pause== 直接运行主线程，中途不暂停&lt;/p&gt;
+&lt;p&gt;​	&lt;code&gt;-f&lt;/code&gt;代码让frida帮我们重新启动app，一开始就注入js&lt;/p&gt;
+&lt;p&gt;​	&lt;code&gt;--no-pause&lt;/code&gt; 直接运行主线程，中途不暂停&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;==R$id== 内部类的访问&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;R$id&lt;/code&gt; 内部类的访问&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;==R$id.btn_login.value== 类的属性&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;R$id.btn_login.value&lt;/code&gt; 类的属性&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1741,7 +1741,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;setonclicklistener&#34;&gt;setOnClickListener
-&lt;/h2&gt;&lt;p&gt;==hook这个函数，比对控件id，打印函数栈==&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;hook这个函数，比对控件id，打印函数栈&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -1799,13 +1799,13 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;other&#34;&gt;Other
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;==加密库==相关的hook(自吐算法)&lt;/p&gt;
-&lt;p&gt;==SSL==相关的hook&lt;/p&gt;
-&lt;p&gt;==socket==相关的hook&lt;/p&gt;
-&lt;p&gt;==SocketOutputStream==&lt;/p&gt;
-&lt;p&gt;==SocketInputStream==&lt;/p&gt;
-&lt;p&gt;读写文件相关的 ==java.io.File==&lt;/p&gt;
-&lt;p&gt;证书双向验证 ==Keystore.load== 通常有证书和密码&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;加密库&lt;/code&gt;相关的hook(自吐算法)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SSL&lt;/code&gt;相关的hook&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;socket&lt;/code&gt;相关的hook&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SocketOutputStream&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SocketInputStream&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;读写文件相关的 &lt;code&gt;java.io.File&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;证书双向验证 &lt;code&gt;Keystore.load&lt;/code&gt; 通常有证书和密码&lt;/p&gt;
 &lt;p&gt;安卓退出进程的方式&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
