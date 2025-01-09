@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="👨\u200d💻 关于本人 鸽 有空再说\n🏠 关于本站 博客框架：hugo 0.140.2 博客主题：Stack 3.27.0 托管部署： 源码托管：GitHub 网站部署：Github 评论系统：待开发 访问统计：待开发 版权声明：CC BY-NC-SA 4.0 ⏳ 本站时间线 日期 事件 2024-11-03 Hello Hexo\n开始使用 Hexo 2024-12-21 Hello Hugo\n尝试Hugo博客框架 2025-01-02 Hello Hugo\n正式采用 Hugo 作为博客框架 并使用Stack为主题 👍 投喂作者 如果您想支持我的网站，可以扫描下方二维码进行投喂（投喂时请备注自己的昵称，收到后将在下面展示），非常感谢您的支持~ 🐭🐭🐭\n">
-<title>关于</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="根据其他大佬的Wp和指导一步步复现2021年的决赛题，记录其中遇到的一些问题">
+<title>GameSafety2021 Android方向决赛题目复现</title>
 
-<link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/%E5%85%B3%E4%BA%8E/'>
+<link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%86%B3%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/'>
 
-<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.79d195d796f56939d805e43cd89134bb70cdb9a1fcbaa0df213ab7b860a485a1.css"><meta property='og:title' content="关于">
-<meta property='og:description' content="👨\u200d💻 关于本人 鸽 有空再说\n🏠 关于本站 博客框架：hugo 0.140.2 博客主题：Stack 3.27.0 托管部署： 源码托管：GitHub 网站部署：Github 评论系统：待开发 访问统计：待开发 版权声明：CC BY-NC-SA 4.0 ⏳ 本站时间线 日期 事件 2024-11-03 Hello Hexo\n开始使用 Hexo 2024-12-21 Hello Hugo\n尝试Hugo博客框架 2025-01-02 Hello Hugo\n正式采用 Hugo 作为博客框架 并使用Stack为主题 👍 投喂作者 如果您想支持我的网站，可以扫描下方二维码进行投喂（投喂时请备注自己的昵称，收到后将在下面展示），非常感谢您的支持~ 🐭🐭🐭\n">
-<meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/%E5%85%B3%E4%BA%8E/'>
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.79d195d796f56939d805e43cd89134bb70cdb9a1fcbaa0df213ab7b860a485a1.css"><meta property='og:title' content="GameSafety2021 Android方向决赛题目复现">
+<meta property='og:description' content="根据其他大佬的Wp和指导一步步复现2021年的决赛题，记录其中遇到的一些问题">
+<meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%86%B3%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/'>
 <meta property='og:site_name' content='Jeremiah'>
-<meta property='og:type' content='article'><meta property='article:section' content='Page' />
-<meta name="twitter:title" content="关于">
-<meta name="twitter:description" content="👨\u200d💻 关于本人 鸽 有空再说\n🏠 关于本站 博客框架：hugo 0.140.2 博客主题：Stack 3.27.0 托管部署： 源码托管：GitHub 网站部署：Github 评论系统：待开发 访问统计：待开发 版权声明：CC BY-NC-SA 4.0 ⏳ 本站时间线 日期 事件 2024-11-03 Hello Hexo\n开始使用 Hexo 2024-12-21 Hello Hugo\n尝试Hugo博客框架 2025-01-02 Hello Hugo\n正式采用 Hugo 作为博客框架 并使用Stack为主题 👍 投喂作者 如果您想支持我的网站，可以扫描下方二维码进行投喂（投喂时请备注自己的昵称，收到后将在下面展示），非常感谢您的支持~ 🐭🐭🐭\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Android' /><meta property='article:tag' content='Reverse' /><meta property='article:tag' content='frida' /><meta property='article:published_time' content='2025-01-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-08T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="GameSafety2021 Android方向决赛题目复现">
+<meta name="twitter:description" content="根据其他大佬的Wp和指导一步步复现2021年的决赛题，记录其中遇到的一些问题">
     <link rel="shortcut icon" href="/Je2em1ah_blog/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -124,7 +124,7 @@
         </li>
         
         
-        <li  class='current' >
+        <li >
             <a href='/Je2em1ah_blog/%E5%85%B3%E4%BA%8E/' >
                 
                 
@@ -251,14 +251,8 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#-关于本站">🏠 关于本站</a></li>
-    <li><a href="#-本站时间线">⏳ 本站时间线</a></li>
-    <li><a href="#-投喂作者">👍 投喂作者</a>
-      <ol>
-        <li><a href="#-投喂记录">🍟 投喂记录</a></li>
-      </ol>
-    </li>
-    <li><a href="#-联系我">📬 联系我</a></li>
+    <li><a href="#question2dump下来的il2cppso缺少符号">Question2:dump下来的il2cpp.so缺少符号</a></li>
+    <li><a href="#question3加载global-metadatadat函数的调用链">Question3:加载global-metadata.dat函数的调用链</a></li>
   </ol>
 </nav>
         </div>
@@ -277,12 +271,28 @@
 
     <div class="article-details">
     
+    <header class="article-category">
+        
+            <a href="/Je2em1ah_blog/categories/android/" style="background-color: #2a9d8f; color: #fff;">
+                Android
+            </a>
+        
+            <a href="/Je2em1ah_blog/categories/gamesafety/" style="background-color: #2a9d8f; color: #fff;">
+                GameSafety
+            </a>
+        
+    </header>
+    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/Je2em1ah_blog/%E5%85%B3%E4%BA%8E/">关于</a>
+            <a href="/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%86%B3%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/">GameSafety2021 Android方向决赛题目复现</a>
         </h2>
     
+        
+        <h3 class="article-subtitle">
+            根据其他大佬的Wp和指导一步步复现2021年的决赛题，记录其中遇到的一些问题
+        </h3>
         
     </div>
 
@@ -291,6 +301,19 @@
     
     
     <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-01-08</time>
+            </div>
         
 
         
@@ -304,7 +327,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -319,97 +342,98 @@
     <section class="article-content">
     
     
-    <h1 id="-关于本人">👨‍💻 关于本人
-</h1><p><strong>鸽 有空再说</strong></p>
-<h2 id="-关于本站">🏠 关于本站
-</h2><ul>
-<li><strong>博客框架</strong>：hugo 0.140.2</li>
-<li><strong>博客主题</strong>：Stack 3.27.0</li>
-<li><strong>托管部署</strong>：
+    <blockquote>
+<p>wp参考链接如下：</p>
 <ul>
-<li><strong>源码托管</strong>：GitHub</li>
-<li><strong>网站部署</strong>：Github</li>
+<li><a class="link" href="https://linkleyping.top/gslab2021-final/"  target="_blank" rel="noopener"
+    >2021腾讯游戏安全大赛安卓方向决赛题解 - EP`s blog</a></li>
+<li><a class="link" href="https://mez.one/2021/04/15/2021-04-15-Tencent-GameSafe-2021/"  target="_blank" rel="noopener"
+    >腾讯游戏安全技术竞赛-2021 Android Final 参赛纪录 - Mezone&rsquo;s Blog</a></li>
+<li><a class="link" href="https://blog.xhyeax.com/2021/04/10/gslab2021-final-android/"  target="_blank" rel="noopener"
+    >gslab2021 决赛 - 安卓客户端安全 | Xhy&rsquo;s Blog</a></li>
 </ul>
-</li>
-<li><strong>评论系统</strong>：待开发</li>
-<li><strong>访问统计</strong>：待开发</li>
-<li><strong>版权声明</strong>：CC BY-NC-SA 4.0</li>
+</blockquote>
+<p>解包APK，lib目录下有<code>libil2cpp.so</code>，<code>\assets\bin\Data\Managed\Metadata</code>路径下有<code>global-metadata.dat</code>,可以知道这是il2cpp引擎的游戏
+<code>libil2cpp.so</code>和<code>global-metadata.dat</code>都是被加密的，打开<code>libsec2021.so</code>发现IDA无法正确识别ELF文件,发现是文件头的<code>e_phentsize</code>有问题，把23改成32即可正确识别
+<code>libil2cpp.so</code>也是同样的处理方式</p>
+<ul>
+<li>用<code>elf-dump-fix</code>把内存中的libil2cpp.so dump下来并修复了，暂时不知道有什么用</li>
 </ul>
-<h2 id="-本站时间线">⏳ 本站时间线
-</h2><div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>日期</th>
-          <th>事件</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>2024-11-03</td>
-          <td>Hello Hexo<br>开始使用 Hexo</td>
-      </tr>
-      <tr>
-          <td>2024-12-21</td>
-          <td>Hello Hugo<br>尝试Hugo博客框架</td>
-      </tr>
-      <tr>
-          <td>2025-01-02</td>
-          <td>Hello Hugo<br>正式采用 Hugo 作为博客框架 并使用Stack为主题</td>
-      </tr>
-  </tbody>
-</table></div>
-<h2 id="-投喂作者">👍 投喂作者
-</h2><p>如果您想支持我的网站，可以扫描下方二维码进行投喂（投喂时请备注自己的昵称，收到后将在下面展示），非常感谢您的支持~ 🐭🐭🐭</p>
-<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501021207234.png"
+<blockquote>
+<ul>
+<li><strong>Question1</strong>:尝试使用<code>Zygisk-il2cppdumper</code>dump，但是程序会卡死，dump不出文件</li>
+<li><strong>Question2</strong>:用<code>elf-dump-fix</code>dump下来的il2cpp.so缺少符号，未知原因，但是可以搜字符串<code>global-metadata.dat</code>定位到加载函数</li>
+<li><strong>Question3</strong>:追踪加载<code>global-metadata.dat</code>函数的调用链，发现被hook到sec2021的函数中了，追踪到最后发现是个看不懂的地方（？）</li>
+</ul>
+</blockquote>
+<h2 id="question2dump下来的il2cppso缺少符号">Question2:dump下来的il2cpp.so缺少符号
+</h2><p>请看下面两个对比图，符号是有一些恢复的，但是关键代码符号没有恢复</p>
+<ul>
+<li>在别人wp中看到的
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091115451.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20250102120750207"
+	
+></li>
+<li>我dump下来的libil2cpp.so在IDA中看到的
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091007213.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+<li>下面是我dump il2cpp的过程(不知道是不是dump的时候地址范围选错了)
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091124653.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+>
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091126680.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+</ul>
+<blockquote>
+<p>我目前的猜测wp中看到的是大佬编译了一份il2cpp.so然后恢复的符号，但是不确定是不是，打算自己编译一份看看的，但是不会，待办</p>
+</blockquote>
+<h2 id="question3加载global-metadatadat函数的调用链">Question3:加载global-metadata.dat函数的调用链
+</h2><p>如图，不明白这个加载函数为什么调用到这里了
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091113511.png"
+	
+	
+	
+	loading="lazy"
 	
 	
 ></p>
-<h3 id="-投喂记录">🍟 投喂记录
-</h3><div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>小伙伴昵称😜</th>
-          <th>投喂方式🌈</th>
-          <th>投喂数目🍬</th>
-          <th>投喂日期📆</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-      </tr>
-  </tbody>
-</table></div>
-<h2 id="-联系我">📬 联系我
-</h2><p>如果你有任何问题或建议，欢迎通过以下方式联系我：</p>
-<ul>
-<li><strong>邮箱</strong>： <a class="link" href="" >1526100148@qq.com</a></li>
-<li><strong>社交媒体</strong>：
-<ul>
-<li><a class="link" href="https://github.com/Jeremiah-gdut"  target="_blank" rel="noopener"
-    >GitHub</a></li>
-<li><a class="link" href="https://t.me/Je2em1ah"  target="_blank" rel="noopener"
-    >Telegram</a></li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>感谢你的访问！希望通过这个博客，你能找到有价值的内容，同时也了解更多关于我的信息。</p>
 
 </section>
 
 
     <footer class="article-footer">
     
+    <section class="article-tags">
+        
+            <a href="/Je2em1ah_blog/tags/android/">Android</a>
+        
+            <a href="/Je2em1ah_blog/tags/reverse/">Reverse</a>
+        
+            <a href="/Je2em1ah_blog/tags/frida/">Frida</a>
+        
+    </section>
+
 
     </footer>
 
@@ -420,6 +444,110 @@
         
 
         
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927719.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927719.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">GameSafety2021 Android方向初赛题目复现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927263.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927263.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Android So相关知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/fridahookso/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501012305144.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501012305144.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">FridaHookSo</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/frida%E5%B8%B8%E7%94%A8api%E8%AE%B0%E5%BD%95/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501012305417.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501012305417.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Frida常用API记录</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/frida-hook%E5%AE%9E%E7%8E%B0app%E5%85%B3%E9%94%AE%E4%BB%A3%E7%A0%81%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8Djava%E5%B1%82/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501020013066.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501020013066.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Frida Hook实现APP关键代码快速定位(Java层)</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
 
          
         

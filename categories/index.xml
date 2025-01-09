@@ -7,7 +7,23 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Je2em1ah</copyright>
-        <lastBuildDate>Wed, 01 Jan 2025 13:49:19 +0800</lastBuildDate><atom:link href="http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 08 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Android</title>
+        <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/android/</link>
+        <pubDate>Wed, 08 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/android/</guid>
+        <description>&lt;img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501031953384.png" alt="Featured image of post Android" /&gt;</description>
+        </item>
+        <item>
+        <title>GameSafety</title>
+        <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/gamesafety/</link>
+        <pubDate>Wed, 08 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/gamesafety/</guid>
+        <description>&lt;img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501031956158.png" alt="Featured image of post GameSafety" /&gt;</description>
+        </item>
+        <item>
         <title>CTF</title>
         <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/ctf/</link>
         <pubDate>Wed, 01 Jan 2025 13:49:19 +0800</pubDate>
@@ -16,28 +32,12 @@
         <description>&lt;img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501031950077.jpg" alt="Featured image of post CTF" /&gt;</description>
         </item>
         <item>
-        <title>Android</title>
-        <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/android/</link>
-        <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
-        
-        <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/android/</guid>
-        <description>&lt;img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501031953384.png" alt="Featured image of post Android" /&gt;</description>
-        </item>
-        <item>
         <title>Frida</title>
         <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/frida/</link>
         <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
         
         <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/frida/</guid>
         <description>&lt;img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501031955014.png" alt="Featured image of post Frida" /&gt;</description>
-        </item>
-        <item>
-        <title>GameSafety</title>
-        <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/gamesafety/</link>
-        <pubDate>Mon, 23 Dec 2024 00:00:00 +0000</pubDate>
-        
-        <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/gamesafety/</guid>
-        <description>&lt;img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501031956158.png" alt="Featured image of post GameSafety" /&gt;</description>
         </item>
         
     </channel>

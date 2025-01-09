@@ -7,7 +7,91 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Je2em1ah</copyright>
-        <lastBuildDate>Wed, 01 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/android/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 08 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/android/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>GameSafety2021 Android方向决赛题目复现</title>
+        <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%86%B3%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/</link>
+        <pubDate>Wed, 08 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%86%B3%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;wp参考链接如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://linkleyping.top/gslab2021-final/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;2021腾讯游戏安全大赛安卓方向决赛题解 - EP`s blog&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://mez.one/2021/04/15/2021-04-15-Tencent-GameSafe-2021/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;腾讯游戏安全技术竞赛-2021 Android Final 参赛纪录 - Mezone&amp;rsquo;s Blog&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.xhyeax.com/2021/04/10/gslab2021-final-android/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;gslab2021 决赛 - 安卓客户端安全 | Xhy&amp;rsquo;s Blog&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;解包APK，lib目录下有&lt;code&gt;libil2cpp.so&lt;/code&gt;，&lt;code&gt;\assets\bin\Data\Managed\Metadata&lt;/code&gt;路径下有&lt;code&gt;global-metadata.dat&lt;/code&gt;,可以知道这是il2cpp引擎的游戏
+&lt;code&gt;libil2cpp.so&lt;/code&gt;和&lt;code&gt;global-metadata.dat&lt;/code&gt;都是被加密的，打开&lt;code&gt;libsec2021.so&lt;/code&gt;发现IDA无法正确识别ELF文件,发现是文件头的&lt;code&gt;e_phentsize&lt;/code&gt;有问题，把23改成32即可正确识别
+&lt;code&gt;libil2cpp.so&lt;/code&gt;也是同样的处理方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用&lt;code&gt;elf-dump-fix&lt;/code&gt;把内存中的libil2cpp.so dump下来并修复了，暂时不知道有什么用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Question1&lt;/strong&gt;:尝试使用&lt;code&gt;Zygisk-il2cppdumper&lt;/code&gt;dump，但是程序会卡死，dump不出文件&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Question2&lt;/strong&gt;:用&lt;code&gt;elf-dump-fix&lt;/code&gt;dump下来的il2cpp.so缺少符号，未知原因，但是可以搜字符串&lt;code&gt;global-metadata.dat&lt;/code&gt;定位到加载函数&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Question3&lt;/strong&gt;:追踪加载&lt;code&gt;global-metadata.dat&lt;/code&gt;函数的调用链，发现被hook到sec2021的函数中了，追踪到最后发现是个看不懂的地方（？）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;question2dump下来的il2cppso缺少符号&#34;&gt;Question2:dump下来的il2cpp.so缺少符号
+&lt;/h2&gt;&lt;p&gt;请看下面两个对比图，符号是有一些恢复的，但是关键代码符号没有恢复&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在别人wp中看到的
+&lt;img src=&#34;https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091115451.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;我dump下来的libil2cpp.so在IDA中看到的
+&lt;img src=&#34;https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091007213.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/li&gt;
+&lt;li&gt;下面是我dump il2cpp的过程(不知道是不是dump的时候地址范围选错了)
+&lt;img src=&#34;https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091124653.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;
+&lt;img src=&#34;https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091126680.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我目前的猜测wp中看到的是大佬编译了一份il2cpp.so然后恢复的符号，但是不确定是不是，打算自己编译一份看看的，但是不会，待办&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;question3加载global-metadatadat函数的调用链&#34;&gt;Question3:加载global-metadata.dat函数的调用链
+&lt;/h2&gt;&lt;p&gt;如图，不明白这个加载函数为什么调用到这里了
+&lt;img src=&#34;https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091113511.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>FridaHookSo</title>
         <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/fridahookso/</link>
         <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
