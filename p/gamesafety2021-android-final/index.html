@@ -252,8 +252,12 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#question2dump下来的il2cppso缺少符号">Question2:dump下来的il2cpp.so缺少符号</a></li>
+    <li><a href="#问题解决情况">问题解决情况</a></li>
+    <li><a href="#待办事项">待办事项</a></li>
+    <li><a href="#解题流程">解题流程</a></li>
+    <li><a href="#question2dump下来的il2cppso缺少符号已解决">Question2:dump下来的il2cpp.so缺少符号(已解决)</a></li>
     <li><a href="#question3加载global-metadatadat函数的调用链">Question3:加载global-metadata.dat函数的调用链</a></li>
+    <li><a href="#question4实现无敌之后未成功绕过app的crc校验导致重打包的apk无法运行">Question4:实现无敌之后未成功绕过app的crc校验，导致重打包的apk无法运行</a></li>
   </ol>
 </nav>
         </div>
@@ -340,7 +344,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 4 分钟
                 </time>
             </div>
         
@@ -359,27 +363,286 @@
 <p>wp参考链接如下：</p>
 <ul>
 <li><a class="link" href="https://linkleyping.top/gslab2021-final/"  target="_blank" rel="noopener"
-    >2021腾讯游戏安全大赛安卓方向决赛题解 - EP`s blog</a></li>
+    >2021腾讯游戏安全大赛安卓方向决赛题解 - EPs blog</a></li>
 <li><a class="link" href="https://mez.one/2021/04/15/2021-04-15-Tencent-GameSafe-2021/"  target="_blank" rel="noopener"
     >腾讯游戏安全技术竞赛-2021 Android Final 参赛纪录 - Mezone&rsquo;s Blog</a></li>
 <li><a class="link" href="https://blog.xhyeax.com/2021/04/10/gslab2021-final-android/"  target="_blank" rel="noopener"
     >gslab2021 决赛 - 安卓客户端安全 | Xhy&rsquo;s Blog</a></li>
+<li><a class="link" href="https://bbs.kanxue.com/thread-282821.htm"  target="_blank" rel="noopener"
+    >看雪中的一篇关于il2cpp编译方式的逆向文章，值得学习</a></li>
 </ul>
 </blockquote>
-<p>解包APK，lib目录下有<code>libil2cpp.so</code>，<code>\assets\bin\Data\Managed\Metadata</code>路径下有<code>global-metadata.dat</code>,可以知道这是il2cpp引擎的游戏
-<code>libil2cpp.so</code>和<code>global-metadata.dat</code>都是被加密的，打开<code>libsec2021.so</code>发现IDA无法正确识别ELF文件,发现是文件头的<code>e_phentsize</code>有问题，把23改成32即可正确识别
-<code>libil2cpp.so</code>也是同样的处理方式</p>
-<ul>
-<li>用<code>elf-dump-fix</code>把内存中的libil2cpp.so dump下来并修复了，暂时不知道有什么用</li>
-</ul>
 <blockquote>
 <ul>
 <li><strong>Question1</strong>:尝试使用<code>Zygisk-il2cppdumper</code>dump，但是程序会卡死，dump不出文件</li>
 <li><strong>Question2</strong>:用<code>elf-dump-fix</code>dump下来的il2cpp.so缺少符号，未知原因，但是可以搜字符串<code>global-metadata.dat</code>定位到加载函数</li>
 <li><strong>Question3</strong>:追踪加载<code>global-metadata.dat</code>函数的调用链，发现被hook到sec2021的函数中了，追踪到最后发现是个看不懂的地方（？）</li>
+<li><strong>Question4</strong>:实现无敌之后未成功绕过app的crc校验，导致重打包的apk无法运行</li>
 </ul>
 </blockquote>
-<h2 id="question2dump下来的il2cppso缺少符号">Question2:dump下来的il2cpp.so缺少符号
+<h2 id="问题解决情况">问题解决情况
+</h2><ul>
+<li><input disabled="" type="checkbox"> Question1</li>
+<li><input checked="" disabled="" type="checkbox"> Question2</li>
+<li><input disabled="" type="checkbox"> Question3</li>
+<li><input disabled="" type="checkbox"> Question4</li>
+</ul>
+<h2 id="待办事项">待办事项
+</h2><ul>
+<li><input disabled="" type="checkbox"> 分析libsec2021.so的解密函数</li>
+<li><input disabled="" type="checkbox"> 分析il2cpp.so的代码段校验并绕过</li>
+<li><input checked="" disabled="" type="checkbox"> dump解密后的il2cpp.so</li>
+<li><input checked="" disabled="" type="checkbox"> 编译一份flappybird游戏</li>
+<li><input checked="" disabled="" type="checkbox"> bindiff恢复符号</li>
+<li><input checked="" disabled="" type="checkbox"> 实现无敌功能</li>
+<li><input disabled="" type="checkbox"> 封包成破解版apk</li>
+</ul>
+<h2 id="解题流程">解题流程
+</h2><ul>
+<li>解包APK，lib目录下有<code>libil2cpp.so</code>，<code>\assets\bin\Data\Managed\Metadata</code>路径下有<code>global-metadata.dat</code>,可以知道这是il2cpp引擎的游戏</li>
+<li><code>libil2cpp.so</code>和<code>global-metadata.dat</code>都是被加密的，打开<code>libsec2021.so</code>发现IDA无法正确识别ELF文件,发现是文件头的<code>e_phentsize</code>有问题，把23改成32即可正确识别,<code>libil2cpp.so</code>也是同样的处理方式</li>
+<li>用<code>elf-dump-fix</code>把内存中的libil2cpp.so dump下来并修复了</li>
+<li>写了一个脚本，成功把<code>global-metadata.dat</code> dump下来了</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">WriteMemToFile</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">file_path</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">prefix</span> <span class="o">=</span> <span class="s1">&#39;/data/data/com.personal.flappybird/files/&#39;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">mkdir</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s1">&#39;libc.so&#39;</span><span class="p">,</span> <span class="s1">&#39;mkdir&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">chmod</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s1">&#39;libc.so&#39;</span><span class="p">,</span> <span class="s1">&#39;chmod&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">fopen</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s1">&#39;libc.so&#39;</span><span class="p">,</span> <span class="s1">&#39;fopen&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">fwrite</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s1">&#39;libc.so&#39;</span><span class="p">,</span> <span class="s1">&#39;fwrite&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">fclose</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s1">&#39;libc.so&#39;</span><span class="p">,</span> <span class="s1">&#39;fclose&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">call_mkdir</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">mkdir</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">]);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">call_chmod</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">chmod</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">]);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">call_fopen</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">            <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">fopen</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">call_fwrite</span> <span class="o">=</span>  
+</span></span><span class="line"><span class="cl">            <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">fwrite</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">call_fclose</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">fclose</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>  
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">        <span class="nx">call_mkdir</span><span class="p">(</span><span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="nx">prefix</span><span class="p">),</span> <span class="mh">0x1FF</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="nx">call_chmod</span><span class="p">(</span><span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="nx">prefix</span><span class="p">),</span> <span class="mh">0x1FF</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">fp</span> <span class="o">=</span> <span class="nx">call_fopen</span><span class="p">(</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="nx">prefix</span> <span class="o">+</span> <span class="nx">file_path</span><span class="p">),</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="s1">&#39;wb&#39;</span><span class="p">));</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">call_fwrite</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">fp</span><span class="p">))</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;[+] Write file success, file path: &#39;</span> <span class="o">+</span> <span class="nx">prefix</span> <span class="o">+</span> <span class="nx">file_path</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;[x] Write file failed&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>        <span class="nx">call_fclose</span><span class="p">(</span><span class="nx">fp</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="p">});}</span>  
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="nx">soName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readCString</span><span class="p">();</span>  
+</span></span><span class="line"><span class="cl">            <span class="c1">//console.log(&#39;openlib:&#39;, name);  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">soName</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">hook</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hook</span><span class="p">)</span> <span class="nx">callback</span><span class="p">();</span>  
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>    <span class="p">});}</span>  
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">dlopen</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;dlopen&#34;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">android_dlopen_ext</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;android_dlopen_ext&#34;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl"><span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">dlopen</span><span class="p">,</span> <span class="s2">&#34;libil2cpp.so&#34;</span><span class="p">,</span> <span class="nx">hook_il2cpp</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl"><span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">android_dlopen_ext</span><span class="p">,</span> <span class="s2">&#34;libil2cpp.so&#34;</span><span class="p">,</span> <span class="nx">hook_il2cpp</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_il2cpp</span><span class="p">(){</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">il2cpp</span> <span class="o">=</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">findModuleByName</span><span class="p">(</span><span class="s1">&#39;libil2cpp.so&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;il2cpp:&#39;</span><span class="p">,</span> <span class="nx">il2cpp</span><span class="p">.</span><span class="nx">base</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">il2cpp</span><span class="p">.</span><span class="nx">base</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x5B9238</span><span class="p">),</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;sub_0x5B9238 called!!!&#34;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;args[0] = &#34;</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readCString</span><span class="p">());</span>  
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;sub_0x5B9238 return!!!&#34;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;retval = &#34;</span><span class="p">,</span> <span class="nx">retval</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">metadataSize</span> <span class="o">=</span> <span class="nx">retval</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x108</span><span class="p">).</span><span class="nx">readInt</span><span class="p">()</span> <span class="o">+</span> <span class="nx">retval</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x10C</span><span class="p">).</span><span class="nx">readInt</span><span class="p">();</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;offset = &#34;</span><span class="p">,</span> <span class="nx">retval</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x108</span><span class="p">).</span><span class="nx">readInt</span><span class="p">());</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;size = &#34;</span><span class="p">,</span> <span class="nx">retval</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x10C</span><span class="p">).</span><span class="nx">readInt</span><span class="p">());</span>  
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;MetadataSize = &#34;</span><span class="p">,</span> <span class="nx">metadataSize</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">file_path</span> <span class="o">=</span> <span class="s2">&#34;global-metadata.dat&#34;</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">            <span class="c1">//console.log(&#34;[+]Metadata is dumping!!&#34;);  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">WriteMemToFile</span><span class="p">(</span><span class="nx">retval</span><span class="p">,</span> <span class="nx">metadataSize</span><span class="p">,</span> <span class="nx">file_path</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">            <span class="c1">//console.log(&#34;[+]Metadata dump success!!&#34;);  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">    <span class="p">});}</span>  
+</span></span><span class="line"><span class="cl"><span class="c1">//frida -H 127.0.0.1:12345 -f com.personal.flappybird -l hook.js
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501101847935.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<ul>
+<li>dump下来的文件放到il2cppdumper中仍然无用，在github上找到flappybird的源码(<a class="link" href="https://github.com/dgkanatsios/FlappyBirdStyleGame?tab=readme-ov-file"  target="_blank" rel="noopener"
+    >FlappyBirdStyleGame</a>)，打算自己编译一份，结果踩坑了。。。原因是版本太新，于是用下了个版本低一点unity</li>
+</ul>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501111218520.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>废了很大力才编译出来(选了好几个unity版本都不符合预期。。。)</p>
+<ul>
+<li>用il2cppdumper分析自己编译的libil2cpp.so，成功恢复符号并通过字符串的搜索找到对应的和实现无敌的函数<code>PlayerController__OnCollisionEnter2D</code>
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501111423385.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+<li>在该函数内部找到判定角色死亡的关键逻辑，但是现在目的是要在题目的so中找到对应游戏逻辑所在的位置，于是在<code>UnityEngine_Component__CompareTag</code>函数中发现有字符串信息
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501111426695.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+<li>在dump下来的so中通过<code>bindiff</code>恢复了部分符号之后，也是成功定位到题目的so的关键逻辑
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501112156627.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+<li>只需要把<code>0x540E60</code>处指令的<code>BNE</code>修改成<code>B</code>即可实现无敌
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501131427265.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></li>
+<li>经过<code>Frida</code>的验证确实可以实现无敌</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">patch</span><span class="p">(){</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">findModuleByName</span><span class="p">(</span><span class="s2">&#34;libil2cpp.so&#34;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">il2cppAddr</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="nx">base</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;il2cppAddr:&#34;</span><span class="p">,</span> <span class="nx">il2cppAddr</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">PatchPosition</span> <span class="o">=</span> <span class="mh">0x540E60</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">PatchCode</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0xE2</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0xEA</span><span class="p">];</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+]Patching...&#34;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">Memory</span><span class="p">.</span><span class="nx">protect</span><span class="p">(</span><span class="nx">il2cppAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">PatchPosition</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;rwx&#39;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">Memory</span><span class="p">.</span><span class="nx">writeByteArray</span><span class="p">(</span><span class="nx">il2cppAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">PatchPosition</span><span class="p">),</span> <span class="nx">PatchCode</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+]Patched success!!&#34;</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="question2dump下来的il2cppso缺少符号已解决">Question2:dump下来的il2cpp.so缺少符号(已解决)
 </h2><p>请看下面两个对比图，符号是有一些恢复的，但是关键代码符号没有恢复</p>
 <ul>
 <li>在别人wp中看到的
@@ -419,7 +682,7 @@
 ></li>
 </ul>
 <blockquote>
-<p>我目前的猜测wp中看到的是大佬编译了一份il2cpp.so然后恢复的符号，但是不确定是不是，打算自己编译一份看看的，但是不会，待办</p>
+<p>我目前的猜测wp中看到的是大佬编译了一份il2cpp.so然后恢复的符号，但是不确定是不是，打算自己编译一份看看的，但是不会，待办(确实是)</p>
 </blockquote>
 <h2 id="question3加载global-metadatadat函数的调用链">Question3:加载global-metadata.dat函数的调用链
 </h2><p>如图，不明白这个加载函数为什么调用到这里了
@@ -431,6 +694,8 @@
 	
 	
 ></p>
+<h2 id="question4实现无敌之后未成功绕过app的crc校验导致重打包的apk无法运行">Question4:实现无敌之后未成功绕过app的crc校验，导致重打包的apk无法运行
+</h2><p>因为没有分析libil2cpp.so的解密函数和其他的一些代码段校验函数，所以无法实现破解版apk可以直接运行😭</p>
 
 </section>
 
