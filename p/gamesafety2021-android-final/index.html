@@ -478,6 +478,12 @@
 </span><span class="lnt">70
 </span><span class="lnt">71
 </span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">WriteMemToFile</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">file_path</span><span class="p">)</span> <span class="p">{</span>  
@@ -512,7 +518,8 @@
 </span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  
 </span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;[x] Write file failed&#39;</span><span class="p">);</span>  
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>        <span class="nx">call_fclose</span><span class="p">(</span><span class="nx">fp</span><span class="p">);</span>  
-</span></span><span class="line"><span class="cl">    <span class="p">});}</span>  
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>  
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="nx">soName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>  
 </span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="p">{</span>  
@@ -520,9 +527,12 @@
 </span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readCString</span><span class="p">();</span>  
 </span></span><span class="line"><span class="cl">            <span class="c1">//console.log(&#39;openlib:&#39;, name);  
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">soName</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">hook</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>  
-</span></span><span class="line"><span class="cl">        <span class="p">},</span>        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>        
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>  
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hook</span><span class="p">)</span> <span class="nx">callback</span><span class="p">();</span>  
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>    <span class="p">});}</span>  
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>    
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>  
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">dlopen</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;dlopen&#34;</span><span class="p">);</span>  
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">android_dlopen_ext</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;android_dlopen_ext&#34;</span><span class="p">);</span>  
@@ -538,7 +548,8 @@
 </span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>  
 </span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;sub_0x5B9238 called!!!&#34;</span><span class="p">);</span>  
 </span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;args[0] = &#34;</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readCString</span><span class="p">());</span>  
-</span></span><span class="line"><span class="cl">        <span class="p">},</span>        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>  
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>        
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>  
 </span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;sub_0x5B9238 return!!!&#34;</span><span class="p">);</span>  
 </span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;retval = &#34;</span><span class="p">,</span> <span class="nx">retval</span><span class="p">);</span>  
 </span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">metadataSize</span> <span class="o">=</span> <span class="nx">retval</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x108</span><span class="p">).</span><span class="nx">readInt</span><span class="p">()</span> <span class="o">+</span> <span class="nx">retval</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x10C</span><span class="p">).</span><span class="nx">readInt</span><span class="p">();</span>  
@@ -550,7 +561,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">WriteMemToFile</span><span class="p">(</span><span class="nx">retval</span><span class="p">,</span> <span class="nx">metadataSize</span><span class="p">,</span> <span class="nx">file_path</span><span class="p">);</span>  
 </span></span><span class="line"><span class="cl">            <span class="c1">//console.log(&#34;[+]Metadata dump success!!&#34;);  
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>  
-</span></span><span class="line"><span class="cl">    <span class="p">});}</span>  
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>  
 </span></span><span class="line"><span class="cl"><span class="c1">//frida -H 127.0.0.1:12345 -f com.personal.flappybird -l hook.js
 </span></span></span></code></pre></td></tr></table>
 </div>
