@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录一下学习ARM汇编指令的一篇笔记">
+<title>ARM汇编初探</title>
+
+<link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/arm%E6%B1%87%E7%BC%96%E5%88%9D%E6%8E%A2/'>
+
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.7aa96d74f2b9faa58a114e370291693211b03d0fbd35588d635bc83a5c9dfa48.css"><meta property='og:title' content="ARM汇编初探">
+<meta property='og:description' content="记录一下学习ARM汇编指令的一篇笔记">
+<meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/arm%E6%B1%87%E7%BC%96%E5%88%9D%E6%8E%A2/'>
+<meta property='og:site_name' content='Jeremiah'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Android' /><meta property='article:tag' content='ARM' /><meta property='article:published_time' content='2025-01-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-21T00:00:00&#43;00:00'/><meta property='og:image' content='https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501211508562.png' />
+<meta name="twitter:title" content="ARM汇编初探">
+<meta name="twitter:description" content="记录一下学习ARM汇编指令的一篇笔记"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501211508562.png' />
+    <link rel="shortcut icon" href="/Je2em1ah_blog/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/Je2em1ah_blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/Je2em1ah_blog/img/avatar_hu5996220936993504373.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">👻</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/Je2em1ah_blog">Jeremiah</a></h1>
+            <h2 class="site-description">喜欢Reverse的菜鸟</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jeremiah-gdut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#1-arm-可执行文件的生成过程">1. ARM 可执行文件的生成过程</a>
+      <ol>
+        <li><a href="#11-预处理">1.1 预处理</a></li>
+        <li><a href="#12-编译">1.2 编译</a></li>
+        <li><a href="#13-汇编">1.3 汇编</a></li>
+        <li><a href="#14-链接">1.4 链接</a></li>
+      </ol>
+    </li>
+    <li><a href="#2-arm-汇编代码的基本结构">2. ARM 汇编代码的基本结构</a></li>
+    <li><a href="#3-arm-指令集概览">3. ARM 指令集概览</a>
+      <ol>
+        <li><a href="#31-数据处理指令">3.1 数据处理指令</a></li>
+        <li><a href="#32-移位指令">3.2 移位指令</a></li>
+        <li><a href="#33-乘法指令">3.3 乘法指令</a></li>
+        <li><a href="#34-内存访问指令">3.4 内存访问指令</a></li>
+        <li><a href="#35-跳转指令">3.5 跳转指令</a></li>
+        <li><a href="#36-数据加载与存储指令多寄存器">3.6 数据加载与存储指令（多寄存器）</a></li>
+        <li><a href="#37-中断指令">3.7 中断指令</a></li>
+      </ol>
+    </li>
+    <li><a href="#4-thumb-指令集简介">4. Thumb 指令集简介</a></li>
+    <li><a href="#5-常见寻址方式">5. 常见寻址方式</a></li>
+    <li><a href="#6-arm32-寄存器与函数调用约定">6. ARM32 寄存器与函数调用约定</a>
+      <ol>
+        <li><a href="#61-参数传递与返回值">6.1 参数传递与返回值</a></li>
+      </ol>
+    </li>
+    <li><a href="#7-其他可补充知识点">7. 其他可补充知识点</a></li>
+    <li><a href="#8-gdb-调试-arm">8. GDB 调试 ARM</a>
+      <ol>
+        <li><a href="#81-工具安装">8.1 工具安装</a></li>
+        <li><a href="#82-远程调试流程">8.2 远程调试流程</a></li>
+        <li><a href="#83-常用-gdb-命令">8.3 常用 GDB 命令</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    
+        
+        
+
+        
+
+        <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/Je2em1ah_blog/p/arm%E6%B1%87%E7%BC%96%E5%88%9D%E6%8E%A2/">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501211508562.png" loading="lazy" alt="Featured image of post ARM汇编初探" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/Je2em1ah_blog/categories/arm/" >
+                ARM
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/Je2em1ah_blog/p/arm%E6%B1%87%E7%BC%96%E5%88%9D%E6%8E%A2/">ARM汇编初探</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            记录一下学习ARM汇编指令的一篇笔记
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-01-21</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="arm-编程与调试综合笔记">ARM 编程与调试综合笔记
+</h1><h2 id="1-arm-可执行文件的生成过程">1. ARM 可执行文件的生成过程
+</h2><p>在使用 Clang/LLVM 或 GCC 等工具链时，从 C 语言源文件到可执行文件通常要经历以下 4 个阶段：</p>
+<ol>
+<li><strong>预处理（Preprocessing）</strong></li>
+<li><strong>编译（Compilation）</strong></li>
+<li><strong>汇编（Assembly）</strong></li>
+<li><strong>链接（Linking）</strong></li>
+</ol>
+<p>下面以 Clang 的交叉编译选项为例（目标为 <code>armv7a-linux-androideabi29</code>）：</p>
+<h3 id="11-预处理">1.1 预处理
+</h3><ul>
+<li>
+<p><strong>命令</strong>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clang -target armv7a-linux-androideabi29 -E hello.c -o hello.i
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>说明</strong>:</p>
+<ul>
+<li><code>-E</code> 选项表示只执行预处理阶段，把所有 <code>#include</code>、宏定义等处理后输出到 <code>hello.i</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="12-编译">1.2 编译
+</h3><ul>
+<li>
+<p><strong>命令</strong>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clang -target armv7a-linux-androideabi29 -S hello.i -o hello.s
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>说明</strong>:</p>
+<ul>
+<li><code>-S</code> 选项表示执行到编译阶段，并将结果生成汇编文件 <code>hello.s</code>。此时还没有进行汇编与链接。</li>
+</ul>
+</li>
+</ul>
+<h3 id="13-汇编">1.3 汇编
+</h3><ul>
+<li>
+<p><strong>命令</strong>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clang -target armv7a-linux-androideabi29 -c hello.s -o hello.o
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>说明</strong>:</p>
+<ul>
+<li><code>-c</code> 表示执行汇编，将汇编代码 <code>hello.s</code> 转为目标文件 <code>hello.o</code>。此时还没有进行链接。</li>
+</ul>
+</li>
+</ul>
+<h3 id="14-链接">1.4 链接
+</h3><ul>
+<li>
+<p><strong>命令</strong>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clang -target armv7a-linux-androideabi29 hello.o -o hello
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>说明</strong>:</p>
+<ul>
+<li>将目标文件（可以是多个 <code>.o</code> 文件）与库文件一起链接生成最终的可执行文件 <code>hello</code>。</li>
+<li>如果有多个 <code>.o</code> 文件，需要都包含在链接命令中。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="2-arm-汇编代码的基本结构">2. ARM 汇编代码的基本结构
+</h2><p>在查看或编写 ARM 汇编文件（例如上面生成的 <code>hello.s</code>）时，常见的关键字与结构如下：</p>
+<ol>
+<li>
+<p><strong><code>.text</code></strong></p>
+<ul>
+<li>声明接下来的内容属于代码段。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>.syntax</code></strong></p>
+<ul>
+<li>指示汇编器使用何种语法（<code>arm</code> 或 <code>thumb</code> 等）。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>.file</code></strong></p>
+<ul>
+<li>记录当前生成的文件符号信息（一般由编译器自动生成）。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>.globl &lt;symbol&gt;</code></strong></p>
+<ul>
+<li>声明符号是全局可见的，可以被其他模块引用。常用于声明 <code>main</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>.type &lt;symbol&gt;, %function</code></strong></p>
+<ul>
+<li>指定某个符号的类型为函数。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>&lt;label&gt;:</code></strong></p>
+<ul>
+<li>定义一个标号（Label）。典型用法是 <code>main:</code> 用于标识函数入口点。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>.section &lt;section_name&gt;</code></strong></p>
+<ul>
+<li>切换或声明后续内容所在的段，如 <code>.section .data</code> 等，用来存放全局或静态变量等。</li>
+</ul>
+</li>
+</ol>
+<p>例如，典型的汇编片段可能如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    .text
+</span></span><span class="line"><span class="cl">    .syntax unified
+</span></span><span class="line"><span class="cl">    .file   &#34;hello.c&#34;
+</span></span><span class="line"><span class="cl">    .globl  main
+</span></span><span class="line"><span class="cl">    .type   main, %function
+</span></span><span class="line"><span class="cl">main:
+</span></span><span class="line"><span class="cl">    ; 函数正文
+</span></span><span class="line"><span class="cl">    ; ...
+</span></span><span class="line"><span class="cl">    bx lr
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="3-arm-指令集概览">3. ARM 指令集概览
+</h2><p>本节介绍在 ARM 模式下常见的指令分类及示例，包括数据处理、移位、乘法、内存读写、跳转、堆栈操作和软件中断等。</p>
+<h3 id="31-数据处理指令">3.1 数据处理指令
+</h3><ul>
+<li>
+<p><strong>MOV</strong></p>
+<ul>
+<li>用法：<code>MOV &lt;Rd&gt;, &lt;operand&gt;</code></li>
+<li>示例：<code>MOV r11, sp</code> → <code>r11 = sp</code></li>
+</ul>
+</li>
+<li>
+<p><strong>ADD</strong></p>
+<ul>
+<li>用法：<code>ADD &lt;Rd&gt;, &lt;Rn&gt;, &lt;operand&gt;</code></li>
+<li>示例：<code>ADD r2, pc, r2</code> → <code>r2 = pc + r2</code></li>
+</ul>
+</li>
+<li>
+<p><strong>SUB</strong></p>
+<ul>
+<li>用法：<code>SUB &lt;Rd&gt;, &lt;Rn&gt;, &lt;operand&gt;</code></li>
+<li>示例：<code>SUB sp, sp, #16</code> → <code>sp = sp - 16</code></li>
+</ul>
+</li>
+<li>
+<p><strong>AND</strong></p>
+<ul>
+<li>用法：<code>AND &lt;Rd&gt;, &lt;Rn&gt;, &lt;operand&gt;</code></li>
+<li>示例：<code>AND r0, r0, #0x9</code> → <code>r0 &amp;= 0x9</code></li>
+</ul>
+</li>
+<li>
+<p><strong>ORR</strong></p>
+<ul>
+<li>用法：<code>ORR &lt;Rd&gt;, &lt;Rn&gt;, &lt;operand&gt;</code></li>
+<li>示例：<code>ORR r0, r0, #0x2</code> → <code>r0 |= 0x2</code></li>
+</ul>
+</li>
+<li>
+<p><strong>EOR</strong></p>
+<ul>
+<li>用法：<code>EOR &lt;Rd&gt;, &lt;Rn&gt;, &lt;operand&gt;</code></li>
+<li>示例：<code>EOR r0, r0, #0xAA</code> → <code>r0 ^= 0xAA</code></li>
+</ul>
+</li>
+<li>
+<p><strong>BIC</strong></p>
+<ul>
+<li>用法：<code>BIC &lt;Rd&gt;, &lt;Rn&gt;, &lt;operand&gt;</code></li>
+<li>示例：<code>BIC r0, r0, #0xF</code> → <code>r0 &amp;= ~0xF</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="32-移位指令">3.2 移位指令
+</h3><ul>
+<li>
+<p><strong>LSL (逻辑左移)</strong></p>
+<ul>
+<li><code>LSL r0, r0, #4</code> → <code>r0 &lt;&lt;= 4</code></li>
+</ul>
+</li>
+<li>
+<p><strong>LSR (逻辑右移)</strong></p>
+<ul>
+<li><code>LSR r0, r0, #8</code> → <code>r0 &gt;&gt;= 8</code>（高位补 0）</li>
+</ul>
+</li>
+<li>
+<p><strong>ROR (循环右移)</strong></p>
+<ul>
+<li><code>ROR r0, r0, #4</code> → 将 <code>r0</code> 循环右移 4 位</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="33-乘法指令">3.3 乘法指令
+</h3><ul>
+<li>
+<p><strong>MUL</strong></p>
+<ul>
+<li><code>MUL r0, r0, r1</code> → <code>r0 = r0 * r1</code></li>
+</ul>
+</li>
+<li>
+<p><strong>MLA (Multiply Accumulate)</strong></p>
+<ul>
+<li><code>MLA r0, r0, r1, r2</code> → <code>r0 = (r0 * r1) + r2</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="34-内存访问指令">3.4 内存访问指令
+</h3><ul>
+<li>
+<p><strong>LDR (Load Register)</strong></p>
+<ul>
+<li>用法：<code>LDR &lt;Rd&gt;, [&lt;Rn&gt;, #&lt;offset&gt;]</code></li>
+<li>示例：<code>LDR r0, [r1, #4]</code> → <code>r0 = *(uint32_t *)(r1 + 4)</code></li>
+</ul>
+</li>
+<li>
+<p><strong>STR (Store Register)</strong></p>
+<ul>
+<li>用法：<code>STR &lt;Rd&gt;, [&lt;Rn&gt;, #&lt;offset&gt;]</code></li>
+<li>示例：<code>STR r0, [r2, #4]</code> → <code>*(uint32_t *)(r2 + 4) = r0</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>字节级与半字节级读写指令：</p>
+<ul>
+<li><code>STRB</code> / <code>LDRB</code> → 单字节存取</li>
+<li><code>STRH</code> / <code>LDRH</code> → 半字（2 字节）存取</li>
+<li><code>STR</code> / <code>LDR</code> → 字（4 字节）存取</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="35-跳转指令">3.5 跳转指令
+</h3><ul>
+<li>
+<p><strong>B (Branch)</strong></p>
+<ul>
+<li>无条件跳转：<code>B &lt;label&gt;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>BL (Branch with Link)</strong></p>
+<ul>
+<li>带返回地址记录（保存在 <code>LR</code>）的跳转：<code>BL &lt;label&gt;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>BX (Branch and Exchange)</strong></p>
+<ul>
+<li>带状态切换（ARM ↔ Thumb）的跳转：<code>BX &lt;Rm&gt;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>BLX (Branch with Link and Exchange)</strong></p>
+<ul>
+<li>同时记录返回地址并切换状态：<code>BLX &lt;Rm&gt;</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="36-数据加载与存储指令多寄存器">3.6 数据加载与存储指令（多寄存器）
+</h3><ul>
+<li>
+<p><strong>PUSH / POP</strong></p>
+<ul>
+<li><code>PUSH {r4, r5, r6}</code>：一次性将 <code>r4, r5, r6</code> 入栈</li>
+<li><code>POP {r4, r5, r6}</code>：一次性将栈顶数据弹出到 <code>r4, r5, r6</code></li>
+</ul>
+</li>
+<li>
+<p><strong>LDM / STM (Load/Store Multiple)</strong></p>
+<ul>
+<li><code>LDMIA SP, {r0, r1, r2}</code>：从 <code>SP</code> 所在地址开始，依次读入 <code>r0, r1, r2</code></li>
+<li><code>STMIA SP, {r0, r1, r2}</code>：依次将 <code>r0, r1, r2</code> 写入以 <code>SP</code> 为起始的内存</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="37-中断指令">3.7 中断指令
+</h3><ul>
+<li><strong>SVC (Supervisor Call)</strong>
+<ul>
+<li><code>SVC 0</code> → 触发软件中断，一般用于系统调用</li>
+<li>在 Linux/Android 平台常配合 <code>r7</code> 存储 syscall 编号，实现 <code>open</code>, <code>openat</code> 等系统调用。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="4-thumb-指令集简介">4. Thumb 指令集简介
+</h2><ul>
+<li>Thumb 模式下，指令长度通常为 16 位（Thumb-2 为 16/32 位混合）。</li>
+<li>与 ARM 模式相比，Thumb 模式指令更短、执行效率在某些场景更佳，但寄存器使用和寻址方式可能受限。</li>
+<li>需要时可通过 <code>BX</code> 或 <code>BLX</code> 指令在 ARM / Thumb 模式之间切换；切换依据跳转地址最低位（1 → Thumb 模式，0 → ARM 模式）。</li>
+</ul>
+<hr>
+<h2 id="5-常见寻址方式">5. 常见寻址方式
+</h2><ul>
+<li>
+<p><strong>立即数寻址（Immediate Addressing）</strong></p>
+<ul>
+<li>例如：<code>MOV r1, #1</code></li>
+<li>指令中直接包含一个立即数。</li>
+</ul>
+</li>
+<li>
+<p><strong>寄存器寻址（Register Addressing）</strong></p>
+<ul>
+<li>例如：<code>MOV r0, r2</code></li>
+<li>操作数来自寄存器。</li>
+</ul>
+</li>
+<li>
+<p><strong>寄存器间接寻址（Register Indirect Addressing）</strong></p>
+<ul>
+<li>例如：<code>LDR r0, [r1]</code></li>
+<li>通过寄存器中存放的地址指向目标内存。</li>
+</ul>
+</li>
+<li>
+<p><strong>基址变址寻址（Base + Offset Addressing）</strong></p>
+<ul>
+<li>例如：<code>LDR r2, [r1, #4]</code></li>
+<li>以 <code>r1</code> 的值为基址，外加偏移量 <code>#4</code> 访问内存。</li>
+</ul>
+</li>
+<li>
+<p><strong>多寄存器寻址</strong></p>
+<ul>
+<li>例如：<code>PUSH {r4, r5, r6}</code></li>
+<li>一次性压栈多个寄存器的值。</li>
+</ul>
+</li>
+<li>
+<p><strong>相对寻址（PC-Relative Addressing）</strong></p>
+<ul>
+<li>例如：<code>B .LABEL_END</code></li>
+<li>通过当前 <code>PC</code> 与偏移相加获得目标地址。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="6-arm32-寄存器与函数调用约定">6. ARM32 寄存器与函数调用约定
+</h2><ul>
+<li><strong>通用寄存器</strong>: <code>R0</code> ~ <code>R12</code></li>
+<li><strong><code>R13</code> (SP)</strong>: 栈指针</li>
+<li><strong><code>R14</code> (LR)</strong>: 链接寄存器，用于存储返回地址</li>
+<li><strong><code>R15</code> (PC)</strong>: 程序计数器</li>
+</ul>
+<h3 id="61-参数传递与返回值">6.1 参数传递与返回值
+</h3><ul>
+<li>
+<p><strong>参数传递</strong></p>
+<ul>
+<li><code>R0, R1, R2, R3</code> 依次存放函数的前 4 个参数。</li>
+<li>超过 4 个参数会使用栈来传递。</li>
+</ul>
+</li>
+<li>
+<p><strong>返回值</strong></p>
+<ul>
+<li><code>R0</code> 用于返回值（若返回值需要更多存储空间，则会有更复杂的约定）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="7-其他可补充知识点">7. 其他可补充知识点
+</h2><ul>
+<li>
+<p><strong>条件执行</strong></p>
+<ul>
+<li>ARM 模式下支持带条件后缀的指令（<code>EQ, NE, GT, LT, ...</code>），根据 APSR（CPSR）中的条件标志位来执行或跳过指令。</li>
+<li>Thumb 模式多数情况下通过分支或 <code>IT</code> 指令进行条件执行。</li>
+</ul>
+</li>
+<li>
+<p><strong>CPSR &amp; SPSR</strong></p>
+<ul>
+<li><code>CPSR</code>（Current Program Status Register）: 当前程序状态寄存器，包含条件标志（N, Z, C, V）、CPU 模式等信息。</li>
+<li><code>SPSR</code>（Saved Program Status Register）: 在异常或中断发生时用来保存先前的状态寄存器值。</li>
+</ul>
+</li>
+<li>
+<p><strong>模式切换</strong></p>
+<ul>
+<li>ARM 处理器支持多种工作模式（User, FIQ, IRQ, Supervisor, Abort, Undefined, System）。</li>
+<li>异常或中断会触发模式切换；<code>BX</code> / <code>BLX</code> 会进行 ARM/Thumb 模式切换。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="8-gdb-调试-arm">8. GDB 调试 ARM
+</h2><h3 id="81-工具安装">8.1 工具安装
+</h3><ul>
+<li>
+<p><strong>安装 <code>gdb-multiarch</code></strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install gdb-multiarch
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>该版本 GDB 可以调试多种架构（包括 ARM）。</li>
+</ul>
+</li>
+<li>
+<p><strong>安装 GEF (GDB Enhanced Features)</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash -c <span class="s2">&#34;</span><span class="k">$(</span>curl -fsSL https://gef.blah.cat/sh<span class="k">)</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>安装后会在 GDB 中增加许多实用调试功能（内存显示、寄存器高亮等）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="82-远程调试流程">8.2 远程调试流程
+</h3><ol>
+<li>
+<p><strong>在目标设备（例如 Android）上找到并运行 <code>gdbserver</code></strong></p>
+<ul>
+<li>
+<p>查找命令：<code>find . -name gdbserver</code></p>
+</li>
+<li>
+<p>启动方式与 <code>frida-server</code> 类似，可指定调试端口，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./gdbserver :&lt;port&gt; --attach &lt;PID&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./gdbserver :&lt;port&gt; ./your_app
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+<li>
+<p><strong>在本机使用 <code>gdb-multiarch</code> 通过 GEF 进行远程连接</strong></p>
+<ul>
+<li>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gdb-multiarch your_app
+</span></span><span class="line"><span class="cl">gef-remote &lt;device_ip&gt;:&lt;port&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>或者在 GEF 里使用 <code>target remote &lt;device_ip&gt;:&lt;port&gt;</code>。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="83-常用-gdb-命令">8.3 常用 GDB 命令
+</h3><ul>
+<li><strong>断点</strong>
+<ul>
+<li><code>b main</code>：在 <code>main</code> 函数入口处下断点</li>
+<li><code>b *0x123456</code>：在地址 <code>0x123456</code> 处下断点</li>
+</ul>
+</li>
+<li><strong>单步调试</strong>
+<ul>
+<li><code>n</code>：源码级单步执行（Next）</li>
+<li><code>ni</code>：汇编级单步执行（Next Instruction）</li>
+<li><code>s</code>：单步跟进（Step）</li>
+</ul>
+</li>
+<li><strong>继续执行</strong>
+<ul>
+<li><code>c</code>：继续运行（Continue）</li>
+</ul>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/Je2em1ah_blog/tags/android/">Android</a>
+        
+            <a href="/Je2em1ah_blog/tags/arm/">ARM</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+        
+        
+
+         
+        
+            
+        
+
+        <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Je2em1ah
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+        
+<div id="image-viewer" class="image-viewer-container" style="display: none;">
+    <div class="image-viewer-backdrop"></div>
+    <div class="image-viewer-content">
+        <img id="viewer-image" src="" alt="">
+        <button class="close-button" onclick="closeImageViewer()">&times;</button>
+        <button class="nav-button prev" onclick="showPrevImage()">&#10094;</button>
+        <button class="nav-button next" onclick="showNextImage()">&#10095;</button>
+    </div>
+</div>
+
+<style>
+.image-viewer-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-viewer-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
+}
+
+.image-viewer-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    z-index: 1001;
+}
+
+#viewer-image {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close-button {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.2s;
+}
+
+.close-button:hover {
+    transform: scale(1.1);
+}
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 24px;
+    padding: 15px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 4px;
+}
+
+.nav-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.prev {
+    left: -60px;
+}
+
+.next {
+    right: -60px;
+}
+
+.article-content img {
+    cursor: zoom-in;
+    transition: transform 0.2s ease;
+}
+
+.article-content img:hover {
+    transform: scale(1.01);
+}
+
+ 
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.image-viewer-container.active {
+    animation: fadeIn 0.3s ease;
+}
+</style>
+
+<script>
+let currentImages = [];
+let currentIndex = 0;
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const images = document.querySelectorAll('.article-content img');
+    currentImages = Array.from(images);
+
+    
+    images.forEach((img, index) => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => openImageViewer(index));
+    });
+
+    
+    document.addEventListener('keydown', handleKeyPress);
+});
+
+function openImageViewer(index) {
+    currentIndex = index;
+    const viewer = document.getElementById('image-viewer');
+    const viewerImg = document.getElementById('viewer-image');
+    
+    viewerImg.src = currentImages[currentIndex].src;
+    viewer.style.display = 'flex';
+    viewer.classList.add('active');
+    
+    
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageViewer() {
+    const viewer = document.getElementById('image-viewer');
+    viewer.classList.remove('active');
+    viewer.style.display = 'none';
+    
+    
+    document.body.style.overflow = '';
+}
+
+function showPrevImage() {
+    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    document.getElementById('viewer-image').src = currentImages[currentIndex].src;
+}
+
+function showNextImage() {
+    currentIndex = (currentIndex + 1) % currentImages.length;
+    document.getElementById('viewer-image').src = currentImages[currentIndex].src;
+}
+
+function handleKeyPress(e) {
+    if (document.getElementById('image-viewer').style.display === 'none') return;
+    
+    switch(e.key) {
+        case 'Escape':
+            closeImageViewer();
+            break;
+        case 'ArrowLeft':
+            showPrevImage();
+            break;
+        case 'ArrowRight':
+            showNextImage();
+            break;
+    }
+}
+
+
+document.querySelector('.image-viewer-backdrop')?.addEventListener('click', closeImageViewer);
+</script>
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/Je2em1ah_blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<div id="particles-js"></div>
+
+
+<script src="/Je2em1ah_blog/background/particles.min.js"></script>
+<script>
+  particlesJS.load('particles-js', '\/Je2em1ah_blog\/background\/particlesjs-config.json', function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;  
+    z-index: -1;
+  }
+</style>
+
+<script src="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.css" crossorigin="anonymous" />
+<script>
+    NProgress.start();
+    document.addEventListener("readystatechange", () => {
+        if (document.readyState === "interactive") NProgress.inc(0.8);
+        if (document.readyState === "complete") NProgress.done();
+    });
+</script>
+<style>
+  #TableOfContents > ul, ol {
+      ul, ol {
+          display: none;
+      }
+      .open {
+          display: block;
+      }
+  }
+</style>
+
+<script>
+  function initTocHide() {
+      
+      let toc = document.querySelector(".widget--toc");
+      if (!toc) {
+          return;
+      }
+      
+      window.addEventListener('scroll', function() {
+          
+          let currentLi = document.querySelector(".active-class");
+          if (!currentLi) {
+              return
+          }
+          
+          let elementsByClassName = document.querySelectorAll(".open");
+          if (elementsByClassName.length > 0) {
+              elementsByClassName.forEach((ul) => {
+                  ul.classList.remove("open")
+              })
+          }
+          
+          if (currentLi.children.length > 1) {
+              currentLi.children[1].classList.add("open")
+          }
+          
+          let ul = currentLi.parentElement;
+          do {
+              ul.classList.add("open");
+              ul = ul.parentElement.parentElement
+          } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+      });
+  }
+  initTocHide()
+</script>
+
+    </body>
+</html>

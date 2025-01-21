@@ -7,7 +7,561 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Je2em1ah</copyright>
-        <lastBuildDate>Wed, 08 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://www.j3r3m14h.com.cn/Je2em1ah_blog/tags/android/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 21 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://www.j3r3m14h.com.cn/Je2em1ah_blog/tags/android/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>ARM汇编初探</title>
+        <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/arm%E6%B1%87%E7%BC%96%E5%88%9D%E6%8E%A2/</link>
+        <pubDate>Tue, 21 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/arm%E6%B1%87%E7%BC%96%E5%88%9D%E6%8E%A2/</guid>
+        <description>&lt;img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501211508562.png" alt="Featured image of post ARM汇编初探" /&gt;&lt;h1 id=&#34;arm-编程与调试综合笔记&#34;&gt;ARM 编程与调试综合笔记
+&lt;/h1&gt;&lt;h2 id=&#34;1-arm-可执行文件的生成过程&#34;&gt;1. ARM 可执行文件的生成过程
+&lt;/h2&gt;&lt;p&gt;在使用 Clang/LLVM 或 GCC 等工具链时，从 C 语言源文件到可执行文件通常要经历以下 4 个阶段：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;预处理（Preprocessing）&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;编译（Compilation）&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;汇编（Assembly）&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;链接（Linking）&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;下面以 Clang 的交叉编译选项为例（目标为 &lt;code&gt;armv7a-linux-androideabi29&lt;/code&gt;）：&lt;/p&gt;
+&lt;h3 id=&#34;11-预处理&#34;&gt;1.1 预处理
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;命令&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;clang -target armv7a-linux-androideabi29 -E hello.c -o hello.i
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-E&lt;/code&gt; 选项表示只执行预处理阶段，把所有 &lt;code&gt;#include&lt;/code&gt;、宏定义等处理后输出到 &lt;code&gt;hello.i&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;12-编译&#34;&gt;1.2 编译
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;命令&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;clang -target armv7a-linux-androideabi29 -S hello.i -o hello.s
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-S&lt;/code&gt; 选项表示执行到编译阶段，并将结果生成汇编文件 &lt;code&gt;hello.s&lt;/code&gt;。此时还没有进行汇编与链接。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;13-汇编&#34;&gt;1.3 汇编
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;命令&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;clang -target armv7a-linux-androideabi29 -c hello.s -o hello.o
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-c&lt;/code&gt; 表示执行汇编，将汇编代码 &lt;code&gt;hello.s&lt;/code&gt; 转为目标文件 &lt;code&gt;hello.o&lt;/code&gt;。此时还没有进行链接。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;14-链接&#34;&gt;1.4 链接
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;命令&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;clang -target armv7a-linux-androideabi29 hello.o -o hello
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;说明&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将目标文件（可以是多个 &lt;code&gt;.o&lt;/code&gt; 文件）与库文件一起链接生成最终的可执行文件 &lt;code&gt;hello&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;如果有多个 &lt;code&gt;.o&lt;/code&gt; 文件，需要都包含在链接命令中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2-arm-汇编代码的基本结构&#34;&gt;2. ARM 汇编代码的基本结构
+&lt;/h2&gt;&lt;p&gt;在查看或编写 ARM 汇编文件（例如上面生成的 &lt;code&gt;hello.s&lt;/code&gt;）时，常见的关键字与结构如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;.text&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;声明接下来的内容属于代码段。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;.syntax&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;指示汇编器使用何种语法（&lt;code&gt;arm&lt;/code&gt; 或 &lt;code&gt;thumb&lt;/code&gt; 等）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;.file&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;记录当前生成的文件符号信息（一般由编译器自动生成）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;.globl &amp;lt;symbol&amp;gt;&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;声明符号是全局可见的，可以被其他模块引用。常用于声明 &lt;code&gt;main&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;.type &amp;lt;symbol&amp;gt;, %function&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;指定某个符号的类型为函数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;&amp;lt;label&amp;gt;:&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;定义一个标号（Label）。典型用法是 &lt;code&gt;main:&lt;/code&gt; 用于标识函数入口点。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;.section &amp;lt;section_name&amp;gt;&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;切换或声明后续内容所在的段，如 &lt;code&gt;.section .data&lt;/code&gt; 等，用来存放全局或静态变量等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;例如，典型的汇编片段可能如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    .text
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    .syntax unified
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    .file   &amp;#34;hello.c&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    .globl  main
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    .type   main, %function
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;main:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ; 函数正文
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ; ...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    bx lr
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;3-arm-指令集概览&#34;&gt;3. ARM 指令集概览
+&lt;/h2&gt;&lt;p&gt;本节介绍在 ARM 模式下常见的指令分类及示例，包括数据处理、移位、乘法、内存读写、跳转、堆栈操作和软件中断等。&lt;/p&gt;
+&lt;h3 id=&#34;31-数据处理指令&#34;&gt;3.1 数据处理指令
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;MOV&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用法：&lt;code&gt;MOV &amp;lt;Rd&amp;gt;, &amp;lt;operand&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;MOV r11, sp&lt;/code&gt; → &lt;code&gt;r11 = sp&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ADD&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用法：&lt;code&gt;ADD &amp;lt;Rd&amp;gt;, &amp;lt;Rn&amp;gt;, &amp;lt;operand&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;ADD r2, pc, r2&lt;/code&gt; → &lt;code&gt;r2 = pc + r2&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;SUB&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用法：&lt;code&gt;SUB &amp;lt;Rd&amp;gt;, &amp;lt;Rn&amp;gt;, &amp;lt;operand&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;SUB sp, sp, #16&lt;/code&gt; → &lt;code&gt;sp = sp - 16&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;AND&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用法：&lt;code&gt;AND &amp;lt;Rd&amp;gt;, &amp;lt;Rn&amp;gt;, &amp;lt;operand&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;AND r0, r0, #0x9&lt;/code&gt; → &lt;code&gt;r0 &amp;amp;= 0x9&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ORR&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用法：&lt;code&gt;ORR &amp;lt;Rd&amp;gt;, &amp;lt;Rn&amp;gt;, &amp;lt;operand&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;ORR r0, r0, #0x2&lt;/code&gt; → &lt;code&gt;r0 |= 0x2&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;EOR&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用法：&lt;code&gt;EOR &amp;lt;Rd&amp;gt;, &amp;lt;Rn&amp;gt;, &amp;lt;operand&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;EOR r0, r0, #0xAA&lt;/code&gt; → &lt;code&gt;r0 ^= 0xAA&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;BIC&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用法：&lt;code&gt;BIC &amp;lt;Rd&amp;gt;, &amp;lt;Rn&amp;gt;, &amp;lt;operand&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;BIC r0, r0, #0xF&lt;/code&gt; → &lt;code&gt;r0 &amp;amp;= ~0xF&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;32-移位指令&#34;&gt;3.2 移位指令
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;LSL (逻辑左移)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;LSL r0, r0, #4&lt;/code&gt; → &lt;code&gt;r0 &amp;lt;&amp;lt;= 4&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;LSR (逻辑右移)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;LSR r0, r0, #8&lt;/code&gt; → &lt;code&gt;r0 &amp;gt;&amp;gt;= 8&lt;/code&gt;（高位补 0）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ROR (循环右移)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ROR r0, r0, #4&lt;/code&gt; → 将 &lt;code&gt;r0&lt;/code&gt; 循环右移 4 位&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;33-乘法指令&#34;&gt;3.3 乘法指令
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;MUL&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;MUL r0, r0, r1&lt;/code&gt; → &lt;code&gt;r0 = r0 * r1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;MLA (Multiply Accumulate)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;MLA r0, r0, r1, r2&lt;/code&gt; → &lt;code&gt;r0 = (r0 * r1) + r2&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;34-内存访问指令&#34;&gt;3.4 内存访问指令
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;LDR (Load Register)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用法：&lt;code&gt;LDR &amp;lt;Rd&amp;gt;, [&amp;lt;Rn&amp;gt;, #&amp;lt;offset&amp;gt;]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;LDR r0, [r1, #4]&lt;/code&gt; → &lt;code&gt;r0 = *(uint32_t *)(r1 + 4)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;STR (Store Register)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用法：&lt;code&gt;STR &amp;lt;Rd&amp;gt;, [&amp;lt;Rn&amp;gt;, #&amp;lt;offset&amp;gt;]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;示例：&lt;code&gt;STR r0, [r2, #4]&lt;/code&gt; → &lt;code&gt;*(uint32_t *)(r2 + 4) = r0&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;字节级与半字节级读写指令：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;STRB&lt;/code&gt; / &lt;code&gt;LDRB&lt;/code&gt; → 单字节存取&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;STRH&lt;/code&gt; / &lt;code&gt;LDRH&lt;/code&gt; → 半字（2 字节）存取&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;STR&lt;/code&gt; / &lt;code&gt;LDR&lt;/code&gt; → 字（4 字节）存取&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;35-跳转指令&#34;&gt;3.5 跳转指令
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;B (Branch)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;无条件跳转：&lt;code&gt;B &amp;lt;label&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;BL (Branch with Link)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;带返回地址记录（保存在 &lt;code&gt;LR&lt;/code&gt;）的跳转：&lt;code&gt;BL &amp;lt;label&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;BX (Branch and Exchange)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;带状态切换（ARM ↔ Thumb）的跳转：&lt;code&gt;BX &amp;lt;Rm&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;BLX (Branch with Link and Exchange)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同时记录返回地址并切换状态：&lt;code&gt;BLX &amp;lt;Rm&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;36-数据加载与存储指令多寄存器&#34;&gt;3.6 数据加载与存储指令（多寄存器）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;PUSH / POP&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;PUSH {r4, r5, r6}&lt;/code&gt;：一次性将 &lt;code&gt;r4, r5, r6&lt;/code&gt; 入栈&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POP {r4, r5, r6}&lt;/code&gt;：一次性将栈顶数据弹出到 &lt;code&gt;r4, r5, r6&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;LDM / STM (Load/Store Multiple)&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;LDMIA SP, {r0, r1, r2}&lt;/code&gt;：从 &lt;code&gt;SP&lt;/code&gt; 所在地址开始，依次读入 &lt;code&gt;r0, r1, r2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;STMIA SP, {r0, r1, r2}&lt;/code&gt;：依次将 &lt;code&gt;r0, r1, r2&lt;/code&gt; 写入以 &lt;code&gt;SP&lt;/code&gt; 为起始的内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;37-中断指令&#34;&gt;3.7 中断指令
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SVC (Supervisor Call)&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SVC 0&lt;/code&gt; → 触发软件中断，一般用于系统调用&lt;/li&gt;
+&lt;li&gt;在 Linux/Android 平台常配合 &lt;code&gt;r7&lt;/code&gt; 存储 syscall 编号，实现 &lt;code&gt;open&lt;/code&gt;, &lt;code&gt;openat&lt;/code&gt; 等系统调用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;4-thumb-指令集简介&#34;&gt;4. Thumb 指令集简介
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Thumb 模式下，指令长度通常为 16 位（Thumb-2 为 16/32 位混合）。&lt;/li&gt;
+&lt;li&gt;与 ARM 模式相比，Thumb 模式指令更短、执行效率在某些场景更佳，但寄存器使用和寻址方式可能受限。&lt;/li&gt;
+&lt;li&gt;需要时可通过 &lt;code&gt;BX&lt;/code&gt; 或 &lt;code&gt;BLX&lt;/code&gt; 指令在 ARM / Thumb 模式之间切换；切换依据跳转地址最低位（1 → Thumb 模式，0 → ARM 模式）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;5-常见寻址方式&#34;&gt;5. 常见寻址方式
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;立即数寻址（Immediate Addressing）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如：&lt;code&gt;MOV r1, #1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;指令中直接包含一个立即数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;寄存器寻址（Register Addressing）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如：&lt;code&gt;MOV r0, r2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;操作数来自寄存器。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;寄存器间接寻址（Register Indirect Addressing）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如：&lt;code&gt;LDR r0, [r1]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;通过寄存器中存放的地址指向目标内存。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;基址变址寻址（Base + Offset Addressing）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如：&lt;code&gt;LDR r2, [r1, #4]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;以 &lt;code&gt;r1&lt;/code&gt; 的值为基址，外加偏移量 &lt;code&gt;#4&lt;/code&gt; 访问内存。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;多寄存器寻址&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如：&lt;code&gt;PUSH {r4, r5, r6}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;一次性压栈多个寄存器的值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;相对寻址（PC-Relative Addressing）&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;例如：&lt;code&gt;B .LABEL_END&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;通过当前 &lt;code&gt;PC&lt;/code&gt; 与偏移相加获得目标地址。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;6-arm32-寄存器与函数调用约定&#34;&gt;6. ARM32 寄存器与函数调用约定
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;通用寄存器&lt;/strong&gt;: &lt;code&gt;R0&lt;/code&gt; ~ &lt;code&gt;R12&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;R13&lt;/code&gt; (SP)&lt;/strong&gt;: 栈指针&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;R14&lt;/code&gt; (LR)&lt;/strong&gt;: 链接寄存器，用于存储返回地址&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;R15&lt;/code&gt; (PC)&lt;/strong&gt;: 程序计数器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;61-参数传递与返回值&#34;&gt;6.1 参数传递与返回值
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;参数传递&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;R0, R1, R2, R3&lt;/code&gt; 依次存放函数的前 4 个参数。&lt;/li&gt;
+&lt;li&gt;超过 4 个参数会使用栈来传递。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;返回值&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;R0&lt;/code&gt; 用于返回值（若返回值需要更多存储空间，则会有更复杂的约定）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;7-其他可补充知识点&#34;&gt;7. 其他可补充知识点
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;条件执行&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ARM 模式下支持带条件后缀的指令（&lt;code&gt;EQ, NE, GT, LT, ...&lt;/code&gt;），根据 APSR（CPSR）中的条件标志位来执行或跳过指令。&lt;/li&gt;
+&lt;li&gt;Thumb 模式多数情况下通过分支或 &lt;code&gt;IT&lt;/code&gt; 指令进行条件执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;CPSR &amp;amp; SPSR&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;CPSR&lt;/code&gt;（Current Program Status Register）: 当前程序状态寄存器，包含条件标志（N, Z, C, V）、CPU 模式等信息。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SPSR&lt;/code&gt;（Saved Program Status Register）: 在异常或中断发生时用来保存先前的状态寄存器值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;模式切换&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ARM 处理器支持多种工作模式（User, FIQ, IRQ, Supervisor, Abort, Undefined, System）。&lt;/li&gt;
+&lt;li&gt;异常或中断会触发模式切换；&lt;code&gt;BX&lt;/code&gt; / &lt;code&gt;BLX&lt;/code&gt; 会进行 ARM/Thumb 模式切换。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;8-gdb-调试-arm&#34;&gt;8. GDB 调试 ARM
+&lt;/h2&gt;&lt;h3 id=&#34;81-工具安装&#34;&gt;8.1 工具安装
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安装 &lt;code&gt;gdb-multiarch&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install gdb-multiarch
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;该版本 GDB 可以调试多种架构（包括 ARM）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安装 GEF (GDB Enhanced Features)&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;bash -c &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;curl -fsSL https://gef.blah.cat/sh&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;安装后会在 GDB 中增加许多实用调试功能（内存显示、寄存器高亮等）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;82-远程调试流程&#34;&gt;8.2 远程调试流程
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在目标设备（例如 Android）上找到并运行 &lt;code&gt;gdbserver&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;查找命令：&lt;code&gt;find . -name gdbserver&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;启动方式与 &lt;code&gt;frida-server&lt;/code&gt; 类似，可指定调试端口，如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./gdbserver :&amp;lt;port&amp;gt; --attach &amp;lt;PID&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;或&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./gdbserver :&amp;lt;port&amp;gt; ./your_app
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在本机使用 &lt;code&gt;gdb-multiarch&lt;/code&gt; 通过 GEF 进行远程连接&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gdb-multiarch your_app
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gef-remote &amp;lt;device_ip&amp;gt;:&amp;lt;port&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;或者在 GEF 里使用 &lt;code&gt;target remote &amp;lt;device_ip&amp;gt;:&amp;lt;port&amp;gt;&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;83-常用-gdb-命令&#34;&gt;8.3 常用 GDB 命令
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;断点&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;b main&lt;/code&gt;：在 &lt;code&gt;main&lt;/code&gt; 函数入口处下断点&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;b *0x123456&lt;/code&gt;：在地址 &lt;code&gt;0x123456&lt;/code&gt; 处下断点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;单步调试&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;n&lt;/code&gt;：源码级单步执行（Next）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ni&lt;/code&gt;：汇编级单步执行（Next Instruction）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;s&lt;/code&gt;：单步跟进（Step）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;继续执行&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;c&lt;/code&gt;：继续运行（Continue）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>GameSafety2021 Android Final</title>
         <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/gamesafety2021-android-final/</link>
         <pubDate>Wed, 08 Jan 2025 00:00:00 +0000</pubDate>
