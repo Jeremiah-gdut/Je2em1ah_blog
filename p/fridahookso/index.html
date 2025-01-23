@@ -63,7 +63,7 @@
                     
                     
                         
-                        <img src="/Je2em1ah_blog/img/avatar_hu5996220936993504373.png" width="300"
+                        <img src="/Je2em1ah_blog/img/avatar_hu_cdec5454298e0430.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -1698,8 +1698,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">dlopen</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libdl.so&#34;</span><span class="p">,</span> <span class="s2">&#34;dlopen&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">android_dlopen_ext</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="s2">&#34;libdl.so&#34;</span><span class="p">,</span> <span class="s2">&#34;android_dlopen_ext&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">dlopen</span><span class="p">,</span> <span class="s2">&#34;libxiaojianbang.so&#34;</span><span class="p">,</span> <span class="nx">set_read_write_break</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">android_dlopen_ext</span><span class="p">,</span> <span class="s2">&#34;libxiaojianbang.so&#34;</span><span class="p">,</span> <span class="nx">set_read_write_break</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">dlopen</span><span class="p">,</span> <span class="s2">&#34;libxxx.so&#34;</span><span class="p">,</span> <span class="nx">set_read_write_break</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">hook_dlopen</span><span class="p">(</span><span class="nx">android_dlopen_ext</span><span class="p">,</span> <span class="s2">&#34;libxxx.so&#34;</span><span class="p">,</span> <span class="nx">set_read_write_break</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="2-设置异常处理器以监控内存读写">2. 设置异常处理器以监控内存读写
@@ -1749,7 +1749,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">});</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 目标内存地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">addr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxiaojianbang.so&#34;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x3DED</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">addr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x3DED</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">// 修改内存权限为不可读写，只能执行，触发异常
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Memory</span><span class="p">.</span><span class="nx">protect</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">);</span>
