@@ -93,8 +93,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：函数名以汇编中出现的为准。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：函数名以汇编中出现的为准。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;步骤二使用-interceptorattach-进行-hook&#34;&gt;步骤二：使用 &lt;code&gt;Interceptor.attach&lt;/code&gt; 进行 Hook
 &lt;/h3&gt;&lt;p&gt;获取到函数地址后，使用 &lt;code&gt;Interceptor.attach&lt;/code&gt; 对函数进行 Hook。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1806,8 +1805,7 @@
 &lt;p&gt;&lt;code&gt;SocketInputStream&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;读写文件相关的 &lt;code&gt;java.io.File&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;证书双向验证 &lt;code&gt;Keystore.load&lt;/code&gt; 通常有证书和密码&lt;/p&gt;
-&lt;p&gt;安卓退出进程的方式&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;安卓退出进程的方式&lt;/p&gt;&lt;/blockquote&gt;
 </description>
         </item>
         

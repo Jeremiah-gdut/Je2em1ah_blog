@@ -292,8 +292,7 @@
 &lt;li&gt;&lt;code&gt;STRB&lt;/code&gt; / &lt;code&gt;LDRB&lt;/code&gt; → 单字节存取&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;STRH&lt;/code&gt; / &lt;code&gt;LDRH&lt;/code&gt; → 半字（2 字节）存取&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;STR&lt;/code&gt; / &lt;code&gt;LDR&lt;/code&gt; → 字（4 字节）存取&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;35-跳转指令&#34;&gt;3.5 跳转指令
 &lt;/h3&gt;&lt;ul&gt;
@@ -577,16 +576,14 @@
     &gt;gslab2021 决赛 - 安卓客户端安全 | Xhy&amp;rsquo;s Blog&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://bbs.kanxue.com/thread-282821.htm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;看雪中的一篇关于il2cpp编译方式的逆向文章，值得学习&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Question1&lt;/strong&gt;:尝试使用&lt;code&gt;Zygisk-il2cppdumper&lt;/code&gt;dump，但是程序会卡死，dump不出文件&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Question2&lt;/strong&gt;:用&lt;code&gt;elf-dump-fix&lt;/code&gt;dump下来的il2cpp.so缺少符号，未知原因，但是可以搜字符串&lt;code&gt;global-metadata.dat&lt;/code&gt;定位到加载函数&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Question3&lt;/strong&gt;:追踪加载&lt;code&gt;global-metadata.dat&lt;/code&gt;函数的调用链，发现被hook到sec2021的函数中了，追踪到最后发现是个看不懂的地方（？）&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Question4&lt;/strong&gt;:实现无敌之后未成功绕过app的crc校验，导致重打包的apk无法运行&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;问题解决情况&#34;&gt;问题解决情况
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Question1&lt;/li&gt;
@@ -901,8 +898,7 @@
 &gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;我目前的猜测wp中看到的是大佬编译了一份il2cpp.so然后恢复的符号，但是不确定是不是，打算自己编译一份看看的，但是不会，待办(确实是)&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;我目前的猜测wp中看到的是大佬编译了一份il2cpp.so然后恢复的符号，但是不确定是不是，打算自己编译一份看看的，但是不会，待办(确实是)&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;question3加载global-metadatadat函数的调用链&#34;&gt;Question3:加载global-metadata.dat函数的调用链
 &lt;/h2&gt;&lt;p&gt;如图，不明白这个加载函数为什么调用到这里了
 &lt;img src=&#34;https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091113511.png&#34;
@@ -1003,8 +999,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：函数名以汇编中出现的为准。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：函数名以汇编中出现的为准。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;步骤二使用-interceptorattach-进行-hook&#34;&gt;步骤二：使用 &lt;code&gt;Interceptor.attach&lt;/code&gt; 进行 Hook
 &lt;/h3&gt;&lt;p&gt;获取到函数地址后，使用 &lt;code&gt;Interceptor.attach&lt;/code&gt; 对函数进行 Hook。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -2980,8 +2975,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;String类的构造函数要Hook &lt;code&gt;StringFactory&lt;/code&gt;类下的某一些方法&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;String类的构造函数要Hook &lt;code&gt;StringFactory&lt;/code&gt;类下的某一些方法&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;对象参数的构造与修改-new&#34;&gt;对象参数的构造与修改 $new
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -3621,8 +3615,7 @@
 &lt;p&gt;&lt;code&gt;SocketInputStream&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;读写文件相关的 &lt;code&gt;java.io.File&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;证书双向验证 &lt;code&gt;Keystore.load&lt;/code&gt; 通常有证书和密码&lt;/p&gt;
-&lt;p&gt;安卓退出进程的方式&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;安卓退出进程的方式&lt;/p&gt;&lt;/blockquote&gt;
 </description>
         </item>
         

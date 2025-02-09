@@ -370,16 +370,14 @@
     >gslab2021 决赛 - 安卓客户端安全 | Xhy&rsquo;s Blog</a></li>
 <li><a class="link" href="https://bbs.kanxue.com/thread-282821.htm"  target="_blank" rel="noopener"
     >看雪中的一篇关于il2cpp编译方式的逆向文章，值得学习</a></li>
-</ul>
-</blockquote>
+</ul></blockquote>
 <blockquote>
 <ul>
 <li><strong>Question1</strong>:尝试使用<code>Zygisk-il2cppdumper</code>dump，但是程序会卡死，dump不出文件</li>
 <li><strong>Question2</strong>:用<code>elf-dump-fix</code>dump下来的il2cpp.so缺少符号，未知原因，但是可以搜字符串<code>global-metadata.dat</code>定位到加载函数</li>
 <li><strong>Question3</strong>:追踪加载<code>global-metadata.dat</code>函数的调用链，发现被hook到sec2021的函数中了，追踪到最后发现是个看不懂的地方（？）</li>
 <li><strong>Question4</strong>:实现无敌之后未成功绕过app的crc校验，导致重打包的apk无法运行</li>
-</ul>
-</blockquote>
+</ul></blockquote>
 <h2 id="问题解决情况">问题解决情况
 </h2><ul>
 <li><input disabled="" type="checkbox"> Question1</li>
@@ -694,8 +692,7 @@
 ></li>
 </ul>
 <blockquote>
-<p>我目前的猜测wp中看到的是大佬编译了一份il2cpp.so然后恢复的符号，但是不确定是不是，打算自己编译一份看看的，但是不会，待办(确实是)</p>
-</blockquote>
+<p>我目前的猜测wp中看到的是大佬编译了一份il2cpp.so然后恢复的符号，但是不确定是不是，打算自己编译一份看看的，但是不会，待办(确实是)</p></blockquote>
 <h2 id="question3加载global-metadatadat函数的调用链">Question3:加载global-metadata.dat函数的调用链
 </h2><p>如图，不明白这个加载函数为什么调用到这里了
 <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091113511.png"
