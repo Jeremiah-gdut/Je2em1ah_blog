@@ -3772,7 +3772,7 @@ IDA打开直接搜到了&lt;/p&gt;
         
         <guid>http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/2024ciscn-writeup%E6%9C%80%E5%A5%BD%E3%81%AE%E4%B8%80%E5%8F%89%E6%A0%91%E4%BD%BF%E7%94%A8%E8%80%85/</guid>
         <description>&lt;img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501032016159.png" alt="Featured image of post 2024CISCN Writeup(最好の一叉树使用者)" /&gt;&lt;h1 id=&#34;write-up最好的一叉树使用者&#34;&gt;&lt;strong&gt;Write UP最好的一叉树使用者&lt;/strong&gt;
-&lt;/h1&gt;&lt;h2 id=&#34;web-safe_proxy-by-ron&#34;&gt;&lt;strong&gt;WEB Safe_Proxy&lt;/strong&gt; By Ron
+&lt;/h1&gt;&lt;h2 id=&#34;web-safe_-by-ron&#34;&gt;&lt;strong&gt;WEB Safe_Proxy&lt;/strong&gt; By Ron
 &lt;/h2&gt;&lt;p&gt;SSTI题，脚本一把梭&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -4048,7 +4048,7 @@ IDA打开直接搜到了&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;requests&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;post&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;code&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;payload2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;cat /flag &amp;gt; /app/static/flag.html&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)})&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;web-hello_web-by-ron&#34;&gt;&lt;strong&gt;WEB hello_web&lt;/strong&gt; By Ron
+&lt;/div&gt;&lt;h2 id=&#34;web-hello_-by-ron&#34;&gt;&lt;strong&gt;WEB hello_web&lt;/strong&gt; By Ron
 &lt;/h2&gt;&lt;p&gt;连接容器，发现自动跳转到&lt;code&gt;index.php?file=hello.php&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;?file&lt;/code&gt;字样猜测是文件包含&lt;/p&gt;
 &lt;p&gt;看主页源代码发现&lt;code&gt;../tips.php&lt;/code&gt;和&lt;code&gt;../hackme.php&lt;/code&gt;，&lt;code&gt;?file&lt;/code&gt;过滤了&lt;code&gt;data&lt;/code&gt;,&lt;code&gt;http&lt;/code&gt;,&lt;code&gt;php://&lt;/code&gt;&lt;/p&gt;
@@ -4482,7 +4482,7 @@ IDA打开直接搜到了&lt;/p&gt;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;推测为自定义字符表，所以可以爆破，爆破得到结果为&lt;code&gt;flag{MTczMDc4MzQ2Ng==}&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;forensic-zeroshell_1&#34;&gt;&lt;strong&gt;Forensic zeroshell_1&lt;/strong&gt;
+&lt;h2 id=&#34;forensic-zeroshell_&#34;&gt;&lt;strong&gt;Forensic zeroshell_1&lt;/strong&gt;
 &lt;/h2&gt;&lt;p&gt;在Packet 11029的http请求的Referer发现疑似Base64编码内容&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;ZmxhZ3s2QzJFMzhEQS1EOEU0LThEODQtNEE0Ri1FMkFCRDA3QTFGM0F9&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.bili33.top/img/CTF-CISCN2024-Preliminary-round-Writeup/eb89ed23-81a9-4e41-bb55-e8f796f00443.png&#34;
@@ -4502,7 +4502,7 @@ IDA打开直接搜到了&lt;/p&gt;
 	
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;forensic-zeroshell_2&#34;&gt;&lt;strong&gt;Forensic zeroshell_2&lt;/strong&gt;
+&lt;h2 id=&#34;forensic-zeroshell_-1&#34;&gt;&lt;strong&gt;Forensic zeroshell_2&lt;/strong&gt;
 &lt;/h2&gt;&lt;p&gt;因为给了虚拟机，直接用Diskgenius挂载磁盘&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.bili33.top/img/CTF-CISCN2024-Preliminary-round-Writeup/53f7a426-8cf7-476a-a09b-9a478fbe1712.png&#34;
 	
@@ -4513,7 +4513,7 @@ IDA打开直接搜到了&lt;/p&gt;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;发现四个分区，经过寻找后在第四个分区&lt;code&gt;PROFILES/\_DB.001&lt;/code&gt;里面找到flag文件，内容为&lt;code&gt;c6045425-6e6e-41d0-be09-95682a4f65c4&lt;/code&gt;，所以flag为&lt;code&gt;flag{c6045425-6e6e-41d0-be09-95682a4f65c4}&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;forensic-zeroshell_3&#34;&gt;&lt;strong&gt;Forensic zeroshell_3&lt;/strong&gt;
+&lt;h2 id=&#34;forensic-zeroshell_-2&#34;&gt;&lt;strong&gt;Forensic zeroshell_3&lt;/strong&gt;
 &lt;/h2&gt;&lt;p&gt;在找第二题的时候，同级目录下发现用&lt;code&gt;.nginx&lt;/code&gt;文件且大小异常（816.4KB)，纯文本打开发现ELF头&lt;/p&gt;
 &lt;p&gt;丢进IDA，在&lt;code&gt;sub_804D9A4&lt;/code&gt;函数中发现IP地址&lt;code&gt;202.115.89.103&lt;/code&gt;，所以结果为&lt;code&gt;flag{202.115.89.103}&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.bili33.top/img/CTF-CISCN2024-Preliminary-round-Writeup/7a0f1117-cdd5-42f1-8554-b17f0eaa2152.png&#34;
@@ -4524,9 +4524,9 @@ IDA打开直接搜到了&lt;/p&gt;
 	
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;forensic-zeroshell_4&#34;&gt;&lt;strong&gt;Forensic zeroshell_4&lt;/strong&gt;
+&lt;h2 id=&#34;forensic-zeroshell_-3&#34;&gt;&lt;strong&gt;Forensic zeroshell_4&lt;/strong&gt;
 &lt;/h2&gt;&lt;p&gt;随着上一题，因为&lt;code&gt;.nginx&lt;/code&gt;大小异常且带有&lt;code&gt;ELF&lt;/code&gt;头，所以答案是&lt;code&gt;flag{.nginx}&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;forensic-zeroshell_5&#34;&gt;&lt;strong&gt;Forensic zeroshell_5&lt;/strong&gt;
+&lt;h2 id=&#34;forensic-zeroshell_-4&#34;&gt;&lt;strong&gt;Forensic zeroshell_5&lt;/strong&gt;
 &lt;/h2&gt;&lt;p&gt;在IDA中，按下&lt;kbd&gt;Shift&lt;/kbd&gt; + &lt;kbd&gt;F12&lt;/kbd&gt;，在上面IP地址的正下方发现意义不明的字符串&lt;code&gt;11223344qweasdzxc&lt;/code&gt;，推测为密码，提交正确&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.bili33.top/img/CTF-CISCN2024-Preliminary-round-Writeup/3e351703-6f1a-491c-ae5b-bee3715772dd.png&#34;
 	
@@ -4536,7 +4536,7 @@ IDA打开直接搜到了&lt;/p&gt;
 	
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;forensic-winft_1&#34;&gt;&lt;strong&gt;Forensic WinFT_1&lt;/strong&gt;
+&lt;h2 id=&#34;forensic-winft_&#34;&gt;&lt;strong&gt;Forensic WinFT_1&lt;/strong&gt;
 &lt;/h2&gt;&lt;p&gt;打开题目提供的虚拟机，使用桌面提供的&lt;code&gt;Currport.exe&lt;/code&gt;，发现可疑程序&lt;code&gt;flvupdate.exe&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.bili33.top/img/CTF-CISCN2024-Preliminary-round-Writeup/efc34bab-bd7b-455e-88b3-9cf7b50e9cdf.png&#34;
 	
@@ -4547,7 +4547,7 @@ IDA打开直接搜到了&lt;/p&gt;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;进一步查看发现远端域名为&lt;code&gt;miscsecure.com&lt;/code&gt;，IP地址为&lt;code&gt;192.168.116.130&lt;/code&gt;，端口为&lt;code&gt;443&lt;/code&gt;，所以flag为&lt;code&gt;flag{miscsecure.com:192.168.116.130:443}&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;forensic-winft_2&#34;&gt;&lt;strong&gt;Forensic WinFT_2&lt;/strong&gt;
+&lt;h2 id=&#34;forensic-winft_-1&#34;&gt;&lt;strong&gt;Forensic WinFT_2&lt;/strong&gt;
 &lt;/h2&gt;&lt;p&gt;计划任务程序发现可以计划&lt;code&gt;Driverupdates&lt;/code&gt;，点入发现描述内有内容&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;f^l^a^g^:JiM3ODsmIzEwNTsmIzk5OyYjMTAxOyYjNjUyOTI7JiMxMDI7JiMxMDg7JiM5NzsmIzEwMzsmIzMyOyYjMTA1OyYjMTE1OyYjMzI7JiMxMjM7JiM2NTsmIzY5OyYjODM7JiM5NTsmIzEwMTsmIzExMDsmIzk5OyYjMTE0OyYjMTIxOyYjMTEyOyYjMTE2OyYjMTA1OyYjMTExOyYjMTEwOyYjOTU7JiM5NzsmIzEwODsmIzEwMzsmIzExMTsmIzExNDsmIzEwNTsmIzExNjsmIzEwNDsmIzEwOTsmIzk1OyYjMTA1OyYjMTE1OyYjOTU7JiM5NzsmIzExMDsmIzk1OyYjMTAxOyYjMTIwOyYjOTk7JiMxMDE7JiMxMDg7JiMxMDg7JiMxMDE7JiMxMTA7JiMxMTY7JiM5NTsmIzEwMTsmIzExMDsmIzk5OyYjMTE0OyYjMTIxOyYjMTEyOyYjMTE2OyYjMTA1OyYjMTExOyYjMTEwOyYjOTU7JiM5NzsmIzEwODsmIzEwMzsmIzExMTsmIzExNDsmIzEwNTsmIzExNjsmIzEwNDsmIzEwOTsmIzEyNTs=&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.bili33.top/img/CTF-CISCN2024-Preliminary-round-Writeup/c68138ff-fb9f-44b8-8261-4dc7a41525a1.png&#34;
@@ -4567,7 +4567,7 @@ IDA打开直接搜到了&lt;/p&gt;
 	
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;forensic-sc05_1&#34;&gt;&lt;strong&gt;Forensic Sc05_1&lt;/strong&gt;
+&lt;h2 id=&#34;forensic-sc05_&#34;&gt;&lt;strong&gt;Forensic Sc05_1&lt;/strong&gt;
 &lt;/h2&gt;&lt;p&gt;从给的Excel表格中搜索IP &lt;code&gt;134.6.4.12&lt;/code&gt;，发现TCP连接比HTTP早，所以采用TCP连接的时间2024/11/09 16:22:42&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://assets.bili33.top/img/CTF-CISCN2024-Preliminary-round-Writeup/d20c8219-b9ba-47e2-aab9-bf2d90de1c5b.png&#34;
 	
