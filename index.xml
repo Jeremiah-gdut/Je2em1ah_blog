@@ -13214,11 +13214,15 @@ IDA打开直接搜到了&lt;/p&gt;
           &lt;td&gt;2025-01-02&lt;/td&gt;
           &lt;td&gt;Hello Hugo&lt;br&gt;正式采用 Hugo 作为博客框架 并使用Stack为主题&lt;/td&gt;
       &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2025-03-13&lt;/td&gt;
+          &lt;td&gt;采用 twikoo 作为评论系统&lt;/td&gt;
+      &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;h2 id=&#34;-todo&#34;&gt;📜 TODO
 &lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 添加评论功能&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 添加评论功能&lt;/li&gt;
 &lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 修改不同级标题的颜色&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;-投喂作者&#34;&gt;👍 投喂作者
