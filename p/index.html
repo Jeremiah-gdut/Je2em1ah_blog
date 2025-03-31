@@ -241,7 +241,8 @@
         <article class="main-article">
     <header class="article-header">
 
-    <div class="article-details">
+    
+<div class="article-details">
     
 
     <div class="article-title-wrapper">
@@ -274,6 +275,13 @@
                 </time>
             </div>
         
+        <div id="viewCount">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <time class="article-time--reading">
+                
+                <span id="vercount_value_page_pv">loading... </span>次
+            </time>
+        </div>
     </footer>
     
 
@@ -569,6 +577,23 @@ document.querySelector('.image-viewer-backdrop')?.addEventListener('click', clos
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    @font-face {
+      font-family: 'MapleMono';
+      src: url(http://www.j3r3m14h.com.cn/Je2em1ah_blog/font/MapleMono-NF-CN-Medium.ttf) format('truetype');
+    }
+  
+    :root {
+      --base-font-family: '字体名';
+      --code-font-family: '字体名';
+    }
+</style>
+  
+
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+
 <div id="particles-js"></div>
 
 
@@ -644,6 +669,23 @@ document.querySelector('.image-viewer-backdrop')?.addEventListener('click', clos
       });
   }
   initTocHide()
+</script>
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
 </script>
 
 

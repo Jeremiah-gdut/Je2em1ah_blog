@@ -484,6 +484,23 @@
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+    @font-face {
+      font-family: 'MapleMono';
+      src: url(http://www.j3r3m14h.com.cn/Je2em1ah_blog/font/MapleMono-NF-CN-Medium.ttf) format('truetype');
+    }
+  
+    :root {
+      --base-font-family: '字体名';
+      --code-font-family: '字体名';
+    }
+</style>
+  
+
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+
 <div id="particles-js"></div>
 
 
@@ -559,6 +576,23 @@
       });
   }
   initTocHide()
+</script>
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
 </script>
 
 
