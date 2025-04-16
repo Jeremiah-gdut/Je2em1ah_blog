@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="2025游戏安全题解 ">
+<title>2025游戏安全技术竞赛-Android-初赛WriteUp</title>
+
+<link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/2025%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E7%AB%9E%E8%B5%9B-android-%E5%88%9D%E8%B5%9Bwriteup/'>
+
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.278b145f23fea5cbea33ae1d0c9decc28dfd4b18773ea5bacef860d5cb31efb2.css"><meta property='og:title' content="2025游戏安全技术竞赛-Android-初赛WriteUp">
+<meta property='og:description' content="2025游戏安全题解 ">
+<meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/2025%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E7%AB%9E%E8%B5%9B-android-%E5%88%9D%E8%B5%9Bwriteup/'>
+<meta property='og:site_name' content='Jeremiah'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Android' /><meta property='article:published_time' content='2025-04-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-04-16T00:00:00&#43;00:00'/><meta property='og:image' content='https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504161759440.png' />
+<meta name="twitter:title" content="2025游戏安全技术竞赛-Android-初赛WriteUp">
+<meta name="twitter:description" content="2025游戏安全题解 "><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504161759440.png' />
+    <link rel="shortcut icon" href="/Je2em1ah_blog/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/Je2em1ah_blog/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/Je2em1ah_blog/img/avatar_hu_cdec5454298e0430.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">👻</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/Je2em1ah_blog">Jeremiah</a></h1>
+            <h2 class="site-description">喜欢Reverse的菜鸟</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Jeremiah-gdut'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/Je2em1ah_blog/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#附件说明">附件说明</a></li>
+    <li><a href="#获取ue4三件套">获取UE4三件套</a></li>
+    <li><a href="#分析外挂加载逻辑">分析外挂加载逻辑</a></li>
+    <li><a href="#外挂逻辑实现">外挂逻辑实现</a>
+      <ol>
+        <li><a href="#字符串解密">字符串解密</a></li>
+        <li><a href="#sub_b80获取libue4基址">sub_B80(获取libUE4基址)</a></li>
+        <li><a href="#获取gworld">获取GWorld</a></li>
+        <li><a href="#获取persistentlevel">获取PersistentLevel</a></li>
+        <li><a href="#获取actors和actors的数量">获取Actors和Actors的数量</a></li>
+        <li><a href="#遍历actors">遍历Actors</a></li>
+        <li><a href="#修改移速和后坐力">修改移速和后坐力</a></li>
+        <li><a href="#自瞄">自瞄</a></li>
+        <li><a href="#弹道">弹道</a></li>
+        <li><a href="#透视未实现">透视(未实现)</a></li>
+      </ol>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    
+        
+        
+
+        
+
+        <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/Je2em1ah_blog/p/2025%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E7%AB%9E%E8%B5%9B-android-%E5%88%9D%E8%B5%9Bwriteup/">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504161759440.png" loading="lazy" alt="Featured image of post 2025游戏安全技术竞赛-Android-初赛WriteUp" />
+                
+            </a>
+        </div>
+    
+
+    
+<div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/Je2em1ah_blog/categories/android/" style="background-color: #2a9d8f; color: #fff;">
+                Android
+            </a>
+        
+            <a href="/Je2em1ah_blog/categories/gamesafety/" style="background-color: #2a9d8f; color: #fff;">
+                GameSafety
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/Je2em1ah_blog/p/2025%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E7%AB%9E%E8%B5%9B-android-%E5%88%9D%E8%B5%9Bwriteup/">2025游戏安全技术竞赛-Android-初赛WriteUp</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            2025游戏安全题解 
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-04-16</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 12 分钟
+                </time>
+            </div>
+        
+        <div id="viewCount">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <time class="article-time--reading">
+                
+                <span id="vercount_value_page_pv">loading... </span>次
+            </time>
+        </div>
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="附件说明">附件说明
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>文件名称</th>
+          <th>功能</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>decode.py</td>
+          <td>处理字符串解密</td>
+      </tr>
+      <tr>
+          <td>hack.js</td>
+          <td>实现修复功能的Frida脚本</td>
+      </tr>
+      <tr>
+          <td>SDK.txt</td>
+          <td>Dump得到的游戏SDK</td>
+      </tr>
+      <tr>
+          <td>Actor.txt</td>
+          <td>Dump得到的Actorlist</td>
+      </tr>
+      <tr>
+          <td>hack.js的用法为：终端输入</td>
+          <td></td>
+      </tr>
+  </tbody>
+</table></div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">frida -U -f com.ACE2025.Game -l hack.js
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>等待游戏启动之后继续在终端输入: my_hack()调用my_hack函数</p>
+<h2 id="获取ue4三件套">获取UE4三件套
+</h2><p>用frida-ue4dumper得到<code>base: 0x764bd2f000, GUObjectArray: undefined, GName: 0x7656b1f7c0</code>
+得到<strong>GName</strong>偏移：<code>0xADF07C0</code>
+<strong>GWorld</strong>: <code>0xAFAC398</code> (通过字符串<code>SeamlessTravel FlushLevelStreaming</code>定位)
+<strong>GUObject</strong>: <code>0xAE34A98</code> (通过字符串<code>Max UObject count is invalid. It must be a number that is greater than 0.</code>定位)</p>
+<p>dumpSDK</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./ue4dumper64 --package com.ACE2025.Game --ptrdec --sdku --gname 0xADF07C0 --guobj 0xAE34A98 --output /data/local/tmp --newue+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>dumpActors</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./ue4dumper64 -- package com.ACE2025.Game --ptrdec --actors --gname 0xADF07C0 --gworld 0xAFAC398 --output /data/local/tmp/actors.txt --newue+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>dump libUE4.so</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[INFO] RootService: Service connected
+</span></span><span class="line"><span class="cl">==========================
+</span></span><span class="line"><span class="cl">Process : com.ACE2025.Game
+</span></span><span class="line"><span class="cl">PID: 15801
+</span></span><span class="line"><span class="cl">FILE: libUE4.so
+</span></span><span class="line"><span class="cl">Start Address: 764bd2f000
+</span></span><span class="line"><span class="cl">End Address: 7656a3d000
+</span></span><span class="line"><span class="cl">Size Memory: 173MB (181460992)
+</span></span><span class="line"><span class="cl">[INFO] Fixing...
+</span></span><span class="line"><span class="cl">[INFO] Fixer output :
+</span></span><span class="line"><span class="cl">Rebuilding Elf(So)
+</span></span><span class="line"><span class="cl">warning load size [185078944] is bigger than so size [181460992], dump maybe incomplete!!!
+</span></span><span class="line"><span class="cl">warning DT_HASH not found,try to detect dynsym size...
+</span></span><span class="line"><span class="cl">fixed so has write to /sdcard/PADumper/com.ACE2025.Game/764bd2f000-7656a3d000-libUE4_fix.so
+</span></span><span class="line"><span class="cl">Rebuilding Complete
+</span></span><span class="line"><span class="cl">Output: /sdcard/PADumper/com.ACE2025.Game
+</span></span><span class="line"><span class="cl">[INFO] Dump Success
+</span></span><span class="line"><span class="cl">==========================
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="分析外挂加载逻辑">分析外挂加载逻辑
+</h2><p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034574.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034575.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>直接删掉libGame.so再启动游戏会crash，查看log可以定位到<code>libGame.so</code>是在<code>libUE4.so</code>加载的时候加载的，并且发现libUE4.so的依赖中包含了libGame.so，可以确认是<strong>ELF感染注入</strong>
+通过readelf可以看到libGame.so是libUE4.so的依赖，具体的实现逻辑应该是通过修改<code>DT_NEEDED</code>标签来加载这个so.</p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034576.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>检查PHT数组中<strong>p_tag</strong>为<code>PT_DYNAMIC</code>的元素，并找到其中<strong>d_tag</strong>为<code>DT_STRTAB</code>的元素，其值就是字符串表在文件中的偏移，<strong>d_tag</strong>为<code>DT_STRSZ</code>的元素的值是字符串表的长度，将两者相加即为字符串表末尾的地址，发现字符串表中有<code>libGame.so</code>，并且<strong>DT_NEEDED</strong>条目中包含了<code>libGame.so</code>，当<strong>linker</strong>加载libUE4.so时，会解析libUE4.so的<strong>dynamic</strong>段，并遍历DT_NEEDED条目，生成新的 <code>LoadTask</code>，递归加载所有依赖库</p>
+<h2 id="外挂逻辑实现">外挂逻辑实现
+</h2><p>libGame.so的函数都被CFF混淆过了，用D810插件可以有比较不错的去混淆效果，起码算是能看了
+libGame.so的init_array段中会调用一个函数，追踪这个函数的调用链可以发现sub_27F0会创建一个线程，那么这个线程执行的函数就是外挂逻辑的实现了
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034577.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h3 id="字符串解密">字符串解密
+</h3><p>0x1B9C函数是主要执行外挂逻辑的函数</p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034578.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034579.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>在libGame.so里面还有几个字符串解密函数，由于数量不是很多所以我并没有写一个一次性解密所有字符串的函数，如果需要解密字符串可以通过<strong>特征匹配</strong>的思路来解决，字符串解密函数的第一个参数存放解密后的字符串，第二个参数是密文，<strong>这种字符串解密函数的特征就是前n个字节做密钥，后面的则是密文</strong>，字符串的长度就是if条件中的值，如果使用特征匹配的话思路就是匹配<code>^</code>,<code>%</code>, <code>if == n</code>这样的式子来<strong>获取字符串长度和密钥长度</strong>，然后查找字符串函数的交叉引用，提取参数中的地址，并用IDA的api读取指定地址的数据，然后复现解密函数进行批量解密</p>
+<p>我这里为了不复杂化就写一个解密函数来手动修改长度和数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0xA5</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x5E</span><span class="p">,</span> <span class="mh">0x29</span><span class="p">,</span> <span class="mh">0xE2</span><span class="p">,</span> <span class="mh">0x9A</span><span class="p">,</span> <span class="mh">0xBB</span><span class="p">,</span> <span class="mh">0x6E</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">,</span> <span class="mh">0x42</span><span class="p">,</span> <span class="mh">0xC3</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0xEC</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x7C</span><span class="p">,</span> <span class="mh">0xA9</span><span class="p">,</span> <span class="mh">0x96</span><span class="p">,</span> <span class="mh">0xD3</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0xA8</span><span class="p">,</span> <span class="mh">0x91</span><span class="p">,</span> <span class="mh">0xCF</span><span class="p">,</span> <span class="mh">0x89</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0xD6</span><span class="p">,</span> <span class="mh">0xC9</span><span class="p">,</span> <span class="mh">0x6C</span><span class="p">,</span> <span class="mh">0x3C</span><span class="p">,</span> <span class="mh">0x7C</span><span class="p">,</span> <span class="mh">0xA7</span><span class="p">,</span> <span class="mh">0xAE</span><span class="p">,</span> <span class="mh">0x95</span><span class="p">,</span> <span class="mh">0x1D</span><span class="p">,</span> <span class="mh">0x67</span><span class="p">,</span> <span class="mh">0x42</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mh">0x1A</span><span class="p">]</span> <span class="o">^</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="mh">0x1A</span><span class="p">]),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mh">0x9</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>于是可以得到字符串信息</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>地址</th>
+          <th>字符串</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0xB658</td>
+          <td><code>libUE4.so</code></td>
+      </tr>
+      <tr>
+          <td>0xB650</td>
+          <td><code>-</code></td>
+      </tr>
+      <tr>
+          <td>0xB648</td>
+          <td><code>r</code></td>
+      </tr>
+      <tr>
+          <td>0xB634</td>
+          <td><code>/proc/%d/maps</code></td>
+      </tr>
+      <tr>
+          <td>0xB620</td>
+          <td><code>/proc/self/maps</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="sub_b80获取libue4基址">sub_B80(获取libUE4基址)
+</h3><p>sub_B80函数是寻找libUE4.so的基址，具体实现流程如下:通过fopen函数打开proc/pid/maps文件打开程序的虚拟内存空间，通过fgets函数遍历maps文件的每一行字符串，通过strstr函数筛选包含<code>libUE4.so</code>字符串的行，然后通过strtok函数以字符<code>-</code>分割文本，提取字符串，最后使用<code>strtoul</code>函数讲字符串转换成unsigned long int类型的整数，通过Fridahook可以很容易分析出来这一函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_strstr</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">targetModule</span> <span class="o">=</span> <span class="s2">&#34;libGame.so&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">strstrPtr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">getExportByName</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;strstr&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">strstrPtr</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">const</span> <span class="nx">returnAddress</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">returnAddress</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">const</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">findModuleByAddress</span><span class="p">(</span><span class="nx">returnAddress</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">module</span> <span class="o">||</span> <span class="nx">module</span><span class="p">.</span><span class="nx">name</span> <span class="o">!==</span> <span class="nx">targetModule</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">            <span class="kr">const</span> <span class="nx">mainStr</span> <span class="o">=</span> <span class="nx">Memory</span><span class="p">.</span><span class="nx">readCString</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">const</span> <span class="nx">subStr</span> <span class="o">=</span> <span class="nx">Memory</span><span class="p">.</span><span class="nx">readCString</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`[</span><span class="si">${</span><span class="nx">targetModule</span><span class="si">}</span><span class="sb">] strstr(&#34;</span><span class="si">${</span><span class="nx">mainStr</span><span class="si">}</span><span class="sb">&#34;, &#34;</span><span class="si">${</span><span class="nx">subStr</span><span class="si">}</span><span class="sb">&#34;)`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">waitForGameLib</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libGame.so&#34;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">waitForGameLib</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">hook_strstr</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span> <span class="mi">100</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034580.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h3 id="获取gworld">获取GWorld
+</h3><p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034581.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>发现这里和之前找到的GWorld偏移一致，可以知道这里获取了GWorld的地址</p>
+<h3 id="获取persistentlevel">获取PersistentLevel
+</h3><p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034582.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>这里获取了<strong>持久关卡</strong>的指针，这是UWorld类中的一个重要成员，存放了<code>Actors</code>等数据，是遍历玩家角色的关键成员变量</p>
+<h3 id="获取actors和actors的数量">获取Actors和Actors的数量
+</h3><p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034583.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>这里获取了Actor的数组和长度，用于下面遍历Actor获取目标对象</p>
+<h3 id="遍历actors">遍历Actors
+</h3><p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034584.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+>
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034585.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>此处遍历Actor并获取指定对象，这里的0xA63BE28是对象的虚标指针，UE4中每个类的虚表（vtable）在<code>libUE4.so</code>中的偏移是固定的。通过比对虚表偏移，判断当前 Actor 是否为目标对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">my_hack</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">getlibue4</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">actorsAddr</span> <span class="o">=</span> <span class="nx">getActorsAddr</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">getBaseAddress</span><span class="p">(</span><span class="s2">&#34;libUE4.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">actorsAddr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//console.log(&#34;[+] current actor is : &#34;, key);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//console.log(&#34;UE4 base = &#34;, base);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">actorsAddr</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">readPointer</span><span class="p">()</span> <span class="o">-</span> <span class="nx">base</span> <span class="o">==</span> <span class="mh">0xA63BE28</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] Successful Get target Actor : &#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034586.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>通过frida脚本可以发现程序寻找的Actor为: <code>FirstPersonCharacter_C</code></p>
+<h3 id="修改移速和后坐力">修改移速和后坐力
+</h3><p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034587.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>这里可以看到外挂寻找了几个当前对象的偏移</p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034588.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034589.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034590.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>可以在SDK找到这几个偏移对应的变量</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>偏移</th>
+          <th>类</th>
+          <th>对象</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0x538</td>
+          <td><code>MyProjectCharacter.Character.Pawn.Actor.Object</code></td>
+          <td><strong>RecoilAccumulationRate</strong></td>
+      </tr>
+      <tr>
+          <td>0x288</td>
+          <td><code>Character.Pawn.Actor.Object</code></td>
+          <td><strong>CharacterMovementComponent</strong></td>
+      </tr>
+      <tr>
+          <td>0x1A0</td>
+          <td><code>CharacterMovementComponent.PawnMovementComponent....</code></td>
+          <td><strong>MaxAcceleration</strong></td>
+      </tr>
+  </tbody>
+</table></div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">my_hack</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">getlibue4</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">actorsAddr</span> <span class="o">=</span> <span class="nx">getActorsAddr</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">getBaseAddress</span><span class="p">(</span><span class="s2">&#34;libUE4.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">actorsAddr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//console.log(&#34;[+] current actor is : &#34;, key);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//console.log(&#34;UE4 base = &#34;, base);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">actorsAddr</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">readPointer</span><span class="p">()</span> <span class="o">-</span> <span class="nx">base</span> <span class="o">==</span> <span class="mh">0xA63BE28</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] Successful Get target Actor : &#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">player_addr</span> <span class="o">=</span> <span class="nx">actorsAddr</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">RecoilAccumulationRate</span> <span class="o">=</span> <span class="nx">player_addr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x538</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">CharacterMovementComponent</span> <span class="o">=</span> <span class="nx">player_addr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x288</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">MaxAcceleration</span> <span class="o">=</span> <span class="nx">CharacterMovementComponent</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1A0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Memory</span><span class="p">.</span><span class="nx">writeFloat</span><span class="p">(</span><span class="nx">MaxAcceleration</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Memory</span><span class="p">.</span><span class="nx">writeFloat</span><span class="p">(</span><span class="nx">RecoilAccumulationRate</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过修改对应的内存值可以发现<code>RecoilAccumulationRate</code>实际上是计算枪口抖动的系数，外挂中把此处修改成了0，改成非0的值就可以发现开枪之后枪口会上调
+<code>MaxAcceleration</code> 是人物移动速度的变量，程序把这里的值修改成了1000000000，把值改成1000则可以使人物正常行走</p>
+<h3 id="自瞄">自瞄
+</h3><p>仔细观察游戏会发现，每次开枪的时候准星都会锁定在<strong>一个箱子</strong>那里，无论是重启游戏还是移动角色或者箱子到不同位置，准星始终在一个箱子身上，于是先寻找出来是哪一个箱子，在之前dump的Actor列表中发现有名为<code>EditorCube</code>的对象，一共有14个，数了一下箱子的数量也是14个，那么基本可以确定箱子就是这个对象，然后通过输出所有箱子的<code>vector</code>的值获取坐标，再移动目标箱子就可以比对出来是哪一个箱子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Vector</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//设置向量对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">constructor</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">z</span> <span class="o">=</span> <span class="nx">z</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 将向量转换为字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">toString</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="sb">`(</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="si">}</span><span class="sb">, </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">y</span><span class="si">}</span><span class="sb">, </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">z</span><span class="si">}</span><span class="sb">)`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">dumpVector</span><span class="p">(</span><span class="nx">addr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// dumpAddr(&#39;firstPersion_RootComponent&#39;,firstPersion_RootComponent_ptr,0x152)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 从地址空间中读取三个浮点数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">Memory</span><span class="p">.</span><span class="nx">readByteArray</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">4</span><span class="p">);</span> <span class="c1">// 3个float共占12个字节
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 解析浮点数并初始化 Vector 对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">vec</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vector</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">values</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="c1">// 读取第一个浮点数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">values</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="c1">// 读取第二个浮点数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">values</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">// 读取第三个浮点数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] 坐标：&#34;</span><span class="p">,</span> <span class="nx">vec</span><span class="p">);</span> <span class="c1">//打出坐标。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">get_box_vec</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">getlibue4</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">getBaseAddress</span><span class="p">(</span><span class="s2">&#34;libUE4.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">actorsAddr</span> <span class="o">=</span> <span class="nx">getActorsAddr</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">actorsAddr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">key</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s2">&#34;EditorCube&#34;</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">actor_addr</span> <span class="o">=</span> <span class="nx">actorsAddr</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">RootComponent</span> <span class="o">=</span> <span class="nx">actor_addr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x130</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">Location</span> <span class="o">=</span> <span class="nx">RootComponent</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x11C</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+]Actor: &#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">dumpVector</span><span class="p">(</span><span class="nx">Location</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Part 1 :
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube8
+</span></span><span class="line"><span class="cl">[+] 坐标： (843.998779296875, -1169.60498046875, 295.23797607421875)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube9
+</span></span><span class="line"><span class="cl">[+] 坐标： (1464.425537109375, -657.312744140625, 245.24537658691406)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube10
+</span></span><span class="line"><span class="cl">[+] 坐标： (1464.425537109375, -46.785343170166016, 245.24537658691406)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube11
+</span></span><span class="line"><span class="cl">[+] 坐标： (860.821533203125, -46.78565216064453, 245.23817443847656)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube12
+</span></span><span class="line"><span class="cl">[+] 坐标： (1307.8231201171875, 714.8047485351563, 245.24351501464844)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube13
+</span></span><span class="line"><span class="cl">[+] 坐标： (1310.8233642578125, 874.9715576171875, 245.2435302734375)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube14
+</span></span><span class="line"><span class="cl">[+] 坐标： (1310.8233642578125, 790.3173828125, 395.24346923828125)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube15
+</span></span><span class="line"><span class="cl">[+] 坐标： (-896.7808227539063, 828.98193359375, 245.21722412109375)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube16
+</span></span><span class="line"><span class="cl">[+] 坐标： (-1034.357666015625, 746.9696655273437, 245.21559143066406)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube17
+</span></span><span class="line"><span class="cl">[+] 坐标： (-961.6449584960938, 790.31689453125, 395.21636962890625)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube18
+</span></span><span class="line"><span class="cl">[+] 坐标： (-1439.8385009765625, -811.4144897460937, 245.21078491210937)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube19
+</span></span><span class="line"><span class="cl">[+] 坐标： (-1439.401123046875, -811.4213256835937, 395.2096862792969)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube20
+</span></span><span class="line"><span class="cl">[+] 坐标： (-1309.3416748046875, -373.11163330078125, 295.2123107910156)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube21
+</span></span><span class="line"><span class="cl">[+] 坐标： (-1123.3922119140625, 153.2134246826172, 245.2145233154297)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Part 2:
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube8
+</span></span><span class="line"><span class="cl">[+] 坐标： (859.3866577148438, -1172.3924560546875, 295.2377624511719)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube9
+</span></span><span class="line"><span class="cl">[+] 坐标： (1464.425537109375, -657.312744140625, 245.24537658691406)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube10
+</span></span><span class="line"><span class="cl">[+] 坐标： (1464.425537109375, -46.785343170166016, 245.24537658691406)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube11
+</span></span><span class="line"><span class="cl">[+] 坐标： (860.821533203125, -46.78565216064453, 245.23817443847656)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube12
+</span></span><span class="line"><span class="cl">[+] 坐标： (1307.8231201171875, 714.8047485351563, 245.24351501464844)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube13
+</span></span><span class="line"><span class="cl">[+] 坐标： (1310.8233642578125, 874.9715576171875, 245.2435302734375)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube14
+</span></span><span class="line"><span class="cl">[+] 坐标： (1310.8233642578125, 790.3173828125, 395.24346923828125)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube15
+</span></span><span class="line"><span class="cl">[+] 坐标： (-896.7808227539063, 828.98193359375, 245.21722412109375)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube16
+</span></span><span class="line"><span class="cl">[+] 坐标： (-1034.357666015625, 746.9696655273437, 245.21559143066406)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube17
+</span></span><span class="line"><span class="cl">[+] 坐标： (-961.6449584960938, 790.31689453125, 395.21636962890625)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube18
+</span></span><span class="line"><span class="cl">[+] 坐标： (-1439.8385009765625, -811.4144897460937, 245.21078491210937)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube19
+</span></span><span class="line"><span class="cl">[+] 坐标： (-1439.401123046875, -811.4213256835937, 395.2096862792969)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube20
+</span></span><span class="line"><span class="cl">[+] 坐标： (-1309.3416748046875, -373.11163330078125, 295.2123107910156)
+</span></span><span class="line"><span class="cl">[+]Actor:  EditorCube21
+</span></span><span class="line"><span class="cl">[+] 坐标： (-1123.3922119140625, 153.2134246826172, 245.2145233154297)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过上述方法比对之后不难发现只有<code>EditorCube8</code>的值发生了变化，那么可以确定这个就是我们的目标Actor，接下来寻找这个箱子的世界坐标并给坐标下硬件断点打印调用栈</p>
+<p>通过Frida hook 我们可以获取角色视角的Vector的值，通过<code>PlayerController + 0x288</code>的偏移处可以获取到<code>ControlRotation</code>的地址，其中后续的12个字节就是角色的相机的位置信息，即<code>FRotator</code>结构体，其成员变量分别是<code>Pitch</code>，<code>Yaw</code>，<code>Roll</code>，使用<code>stackplz</code>给此处下硬件断点(w)并打印调用栈可回溯到写入此内存地址的函数的调用栈</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">my_hack</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">getlibue4</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">actorsAddr</span> <span class="o">=</span> <span class="nx">getActorsAddr</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">getBaseAddress</span><span class="p">(</span><span class="s2">&#34;libUE4.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] UE4 base = &#34;</span><span class="p">,</span> <span class="nx">base</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hook_addr</span><span class="p">(</span><span class="nx">base</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x670f3f8</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">actorsAddr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//console.log(&#34;[+] current actor is : &#34;, key);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//console.log(&#34;UE4 base = &#34;, base);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">actorsAddr</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">readPointer</span><span class="p">()</span> <span class="o">-</span> <span class="nx">base</span> <span class="o">==</span> <span class="mh">0xA63BE28</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] Successful Get target Actor : &#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">player_addr</span> <span class="o">=</span> <span class="nx">actorsAddr</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">RecoilAccumulationRate</span> <span class="o">=</span> <span class="nx">player_addr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x538</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">CharacterMovementComponent</span> <span class="o">=</span> <span class="nx">player_addr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x288</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">MaxAcceleration</span> <span class="o">=</span> <span class="nx">CharacterMovementComponent</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1A0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Memory</span><span class="p">.</span><span class="nx">writeFloat</span><span class="p">(</span><span class="nx">MaxAcceleration</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Memory</span><span class="p">.</span><span class="nx">writeFloat</span><span class="p">(</span><span class="nx">RecoilAccumulationRate</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">key</span> <span class="o">==</span> <span class="s2">&#34;PlayerController&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] Successful Get target Actor : &#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">ControlRotation</span> <span class="o">=</span> <span class="nx">actorsAddr</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x288</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">Pitch</span> <span class="o">=</span> <span class="nx">ControlRotation</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x0</span><span class="p">).</span><span class="nx">readFloat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">Yaw</span> <span class="o">=</span> <span class="nx">ControlRotation</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x4</span><span class="p">).</span><span class="nx">readFloat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">Roll</span> <span class="o">=</span> <span class="nx">ControlRotation</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x8</span><span class="p">).</span><span class="nx">readFloat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] Pitch = {}, Yaw = {}, Roll = {}&#34;</span><span class="p">,</span> <span class="nx">Pitch</span><span class="p">,</span> <span class="nx">Yaw</span><span class="p">,</span> <span class="nx">Roll</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] ControlRotation = &#34;</span><span class="p">,</span> <span class="nx">ControlRotation</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下断点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./stackplz --brk 0x758eb0f5c8:w --brk-len <span class="m">4</span> --stack -o pitch.log
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[23330|23381] event_addr:0x758eb0f5c8 hit_count:1, Backtrace:
+</span></span><span class="line"><span class="cl">  #00 pc 0000000008b387c0  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #01 pc 000000000670f3f8  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #02 pc 000000000670feac  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #03 pc 0000000009268e34  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #04 pc 0000000009266e00  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #05 pc 0000000008fa0588  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #06 pc 0000000008f9f6f0  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #07 pc 0000000008f9f370  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #08 pc 0000000008fa7354  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #09 pc 00000000091fdb88  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #10 pc 00000000067cebac  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #11 pc 00000000067ce72c  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #12 pc 00000000067cde20  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #13 pc 00000000091f9c00  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #14 pc 00000000091f73b8  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #15 pc 0000000008d3b75c  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #16 pc 0000000008c068ec  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #17 pc 0000000005af53b8  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #18 pc 0000000005af3510  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[23330|23381] event_addr:0x758eb0f5c8 hit_count:2, Backtrace:
+</span></span><span class="line"><span class="cl">  #00 pc 0000000008b387c0  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #01 pc 0000000008f9b600  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #02 pc 0000000008fa7354  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #03 pc 00000000091fdb88  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #04 pc 00000000067cebac  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #05 pc 00000000067ce72c  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #06 pc 00000000067cde20  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #07 pc 00000000091f9c00  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #08 pc 00000000091f73b8  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #09 pc 0000000008d3b75c  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #10 pc 0000000008c068ec  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #11 pc 0000000005af53b8  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span><span class="line"><span class="cl">  #12 pc 0000000005af3510  /data/app/~~10p5bElEgTHlqQoqeGftBw==/com.ACE2025.Game-INpbz7MxpBsqqBF6R0aTwA==/lib/arm64/libUE4.so
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>得到调用栈信息，经过分析发现<code>0x8b387c0</code>位置的函数是向<code>FRotator</code>结构体的成员变量写入坐标的，而<code>0x670f3f8</code>貌似是处理用户交互的函数，也就是<strong>处理射击</strong>这一行为的函数，使用Frida将这一处的调用Patch成NOP可以实现<strong>自瞄的去除</strong></p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034591.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>可以看到这里会对坐标进行一些计算，之后就调用函数<code>0x8b387c0</code>将坐标写入到对应结构体中，patch此处函数调用即可使外挂只计算而不写入坐标信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">patch_addr</span><span class="p">(</span><span class="nx">Addr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Memory</span><span class="p">.</span><span class="nx">protect</span><span class="p">(</span><span class="nx">Addr</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;rwx&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Memory</span><span class="p">.</span><span class="nx">patchCode</span><span class="p">(</span><span class="nx">Addr</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">code</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">code</span><span class="p">.</span><span class="nx">writeByteArray</span><span class="p">([</span><span class="mh">0x1F</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0xD5</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">patch_addr</span><span class="p">(</span><span class="mi">0</span><span class="nx">x</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="弹道">弹道
+</h3><p>考虑到自瞄实现的逻辑中，角色视角和子弹弹道的改变应该同时处理，所以在前面修改角色视角的函数中同样实现了修改子弹弹道的具体实现逻辑</p>
+<p>分析Actorlist可以知道子弹的对象是<code>FirstPersonProjectile_C</code>,这个类继承自<code>ProjectileMovementComponent.MovementComponent.ActorComponent.Object</code> 通过hook打印这个类的<code>InitialSpeed</code>和<code>MaxSpeed</code>可以发现这两个值都是<strong>3000</strong>说明子弹速度并没有被修改</p>
+<p>在函数<code>sub_670F110</code>中继续分析可以看到前面patch的地方的后面就是处理子弹弹道的逻辑
+<img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034592.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>其中<code>ChangeCorner</code>函数(已改名)是用来<strong>控制子弹弹道随机化</strong>的(-30°到30°)</p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034593.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>sub8D2ED80函数是控制枪口Location和Rotation的关键逻辑，函数调用链为<code>sub_8D2ED80-&gt;sub_8D2E214</code>，sub_8D2E214是处理spawnactor的函数，见下图</p>
+<p><img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202504160034594.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>阅读UE4官方文档可以知道子弹对象的生成逻辑和发射方向的逻辑</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Cpp" data-lang="Cpp"><span class="line"><span class="cl"><span class="n">UWorld</span><span class="o">*</span> <span class="n">World</span> <span class="o">=</span> <span class="n">GetWorld</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">World</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">FActorSpawnParameters</span> <span class="n">SpawnParams</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">SpawnParams</span><span class="p">.</span><span class="n">Owner</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">SpawnParams</span><span class="p">.</span><span class="n">Instigator</span> <span class="o">=</span> <span class="n">GetInstigator</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 在枪口位置生成发射物。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">AFPSProjectile</span><span class="o">*</span> <span class="n">Projectile</span> <span class="o">=</span> <span class="n">World</span><span class="o">-&gt;</span><span class="n">SpawnActor</span><span class="o">&lt;</span><span class="n">AFPSProjectile</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ProjectileClass</span><span class="p">,</span> <span class="n">MuzzleLocation</span><span class="p">,</span> <span class="n">MuzzleRotation</span><span class="p">,</span> <span class="n">SpawnParams</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">Projectile</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 设置发射物的初始轨迹。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">FVector</span> <span class="n">LaunchDirection</span> <span class="o">=</span> <span class="n">MuzzleRotation</span><span class="p">.</span><span class="n">Vector</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Projectile</span><span class="o">-&gt;</span><span class="n">FireInDirection</span><span class="p">(</span><span class="n">LaunchDirection</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到<code>MuzzleLocation</code>是枪口的<strong>位置信息</strong>，<code>MuzzleRotation</code>是枪口的<strong>朝向信息</strong>，而发射物的初始轨迹就是通过<code>MuzzleRotation</code>来设置的，通过Frida hook获取 sub_8D2ED80函数调用前的寄存器信息可以知道其第三和第四个参数就是我们需要的Location和Rotation</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">base</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x670F6B8</span><span class="p">),</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">X2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">x2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">X3</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">x3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">X4</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">x4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] dump Muzzle location&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">dumpVector</span><span class="p">(</span><span class="nx">X2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] dump Muzzle rotation&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">dumpVector</span><span class="p">(</span><span class="nx">X3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">},</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] dump Muzzle location
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] 坐标： (-156.2298126220703, -194.9197540283203, 398.4053649902344)
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] dump Muzzle rotation
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] 坐标： (-0.8549373745918274, -45.907772064208984, 0)
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] dump Muzzle location
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] 坐标： (-156.7232666015625, -193.81390380859375, 397.9298095703125)
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] dump Muzzle rotation
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] 坐标： (-0.8514755964279175, -45.91944122314453, 0)
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] dump Muzzle location
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] 坐标： (-156.3829803466797, -194.585205078125, 398.2392272949219)
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] dump Muzzle rotation
+</span></span></span><span class="line"><span class="cl"><span class="cm">[+] 坐标： (-0.8617335557937622, -45.91222381591797, 0)
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过控制变量多次调整角色的位置并触发hook可以知道我们的分析没有问题，下面只需要把子弹的<code>Rotation</code>换成摄像机的Rotation即可,在onEnter回调中动态获取角色的Rotation并修改进去即可,Frida脚本如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">changeVector</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">//修改向量  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Memory</span><span class="p">.</span><span class="nx">writeFloat</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="nx">x</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">Memory</span><span class="p">.</span><span class="nx">writeFloat</span><span class="p">(</span><span class="nx">addr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="nx">y</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">Memory</span><span class="p">.</span><span class="nx">writeFloat</span><span class="p">(</span><span class="nx">addr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="nx">z</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">my_hack</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">getlibue4</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">actorsAddr</span> <span class="o">=</span> <span class="nx">getActorsAddr</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">getBaseAddress</span><span class="p">(</span><span class="s2">&#34;libUE4.so&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] UE4 base = &#34;</span><span class="p">,</span> <span class="nx">base</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">patch_addr</span><span class="p">(</span><span class="nx">base</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x670f3f8</span><span class="p">));</span>   <span class="c1">// 修复角色视角自瞄
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">patch_addr</span><span class="p">(</span><span class="nx">base</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x670F644</span><span class="p">));</span>   <span class="c1">// 修复子弹随机分布
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">actorsAddr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//console.log(&#34;[+] current actor is : &#34;, key);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//console.log(&#34;UE4 base = &#34;, base);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">actorsAddr</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">readPointer</span><span class="p">()</span> <span class="o">-</span> <span class="nx">base</span> <span class="o">==</span> <span class="mh">0xA63BE28</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//瞬移及后座力修复
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] Successful Get target Actor : &#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">player_addr</span> <span class="o">=</span> <span class="nx">actorsAddr</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">RecoilAccumulationRate</span> <span class="o">=</span> <span class="nx">player_addr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x538</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">CharacterMovementComponent</span> <span class="o">=</span> <span class="nx">player_addr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x288</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">MaxAcceleration</span> <span class="o">=</span> <span class="nx">CharacterMovementComponent</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1A0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Memory</span><span class="p">.</span><span class="nx">writeFloat</span><span class="p">(</span><span class="nx">MaxAcceleration</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Memory</span><span class="p">.</span><span class="nx">writeFloat</span><span class="p">(</span><span class="nx">RecoilAccumulationRate</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">key</span> <span class="o">==</span> <span class="s2">&#34;PlayerController&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] Successful Get target Actor : &#34;</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">ControlRotation</span> <span class="o">=</span> <span class="nx">actorsAddr</span><span class="p">[</span><span class="nx">key</span><span class="p">].</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x288</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">Pitch</span> <span class="o">=</span> <span class="nx">ControlRotation</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x0</span><span class="p">).</span><span class="nx">readFloat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">Yaw</span> <span class="o">=</span> <span class="nx">ControlRotation</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x4</span><span class="p">).</span><span class="nx">readFloat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">Roll</span> <span class="o">=</span> <span class="nx">ControlRotation</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x8</span><span class="p">).</span><span class="nx">readFloat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//changeVector(ControlRotation, 0, 0, 0);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] Pitch = {}, Yaw = {}, Roll = {}&#34;</span><span class="p">,</span> <span class="nx">Pitch</span><span class="p">,</span> <span class="nx">Yaw</span><span class="p">,</span> <span class="nx">Roll</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] ControlRotation = &#34;</span><span class="p">,</span> <span class="nx">ControlRotation</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Interceptor.replace(base.add(0x670FBAC), new NativeCallback(() =&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     return 0.0; // 返回零散布角度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// }, &#39;float&#39;, [&#39;pointer&#39;]));
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 修复弹道
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">base</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x670F6B8</span><span class="p">),</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">player_rotation</span> <span class="o">=</span> <span class="nx">ControlRotation</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">PlayerPitch</span> <span class="o">=</span> <span class="nx">player_rotation</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x0</span><span class="p">).</span><span class="nx">readFloat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">PlayerYaw</span> <span class="o">=</span> <span class="nx">player_rotation</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x4</span><span class="p">).</span><span class="nx">readFloat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">PlayerRoll</span> <span class="o">=</span> <span class="nx">player_rotation</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x8</span><span class="p">).</span><span class="nx">readFloat</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">X2</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">x2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">X3</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">x3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// console.log(&#34;[+] dump Muzzle location&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// dumpVector(X2);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// console.log(&#34;[+] dump Muzzle rotation&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// dumpVector(X3);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">changeVector</span><span class="p">(</span><span class="nx">X3</span><span class="p">,</span> <span class="nx">PlayerPitch</span><span class="p">,</span> <span class="nx">PlayerYaw</span><span class="p">,</span> <span class="nx">PlayerRoll</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="透视未实现">透视(未实现)
+</h3><p>观察游戏中透视的特征可以发现无视了墙壁直接渲染在我们的视角中，说明他可能修改了材质的<code>bDisableDepthTest</code>的值为<strong>True</strong>，使得人物模型可以透过墙壁看见，也可能是<strong>修改了模型的渲染顺序</strong>使得玩家的模型最后渲染，并且人物变成了<strong>红色高亮</strong>状态，这通常会调用<code>SetVectorParameterValue</code>函数对材质的RGB值进行修改。</p>
+<p>通过类成员变量之间的引用，可以找到一条获取<code>Material</code>对象的指针链：<strong>Character -&gt; SkeletalMeshComponent - &gt;SkinnedMeshComponent -&gt; SkeletalMesh -&gt; SkeletalMaterial -&gt; MaterialInterface -&gt; Material</strong>；获取到Material之后就可以修改他的成员变量<code>bDisableDepthTest</code>，经过Frida hook之后也确实发现这个值是True，但是修改成False之后透视效果依然存在，也想过可能是这个bool变量只会读取一次，但是实在是找不到hook时机来修改这一点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">get_material</span><span class="p">(</span><span class="nx">Name</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">getlibue4</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">ThirdPerson</span> <span class="o">=</span> <span class="nx">getActorAddr</span><span class="p">(</span><span class="nx">Name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">SkeletalMeshComponent</span> <span class="o">=</span> <span class="nx">ThirdPerson</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x280</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// var bCollideWithEnvironment = SkeletalMeshComponent.add(0x8C0).readU8() &amp; 0x80;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// console.log(&#34;[+] bCollideWithEnvironment = &#34;, bCollideWithEnvironment);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Memory.protect(SkeletalMeshComponent.add(0x8C0), 4, &#39;rwx&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// const newByteValue_1 = SkeletalMeshComponent.add(0x8C0).readU8() ^ 0x80;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// SkeletalMeshComponent.add(0x8C0).writeU8(newByteValue_1);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] bCollideWithEnvironment Patched = &#34;</span><span class="p">,</span> <span class="nx">SkeletalMeshComponent</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x8C0</span><span class="p">).</span><span class="nx">readU8</span><span class="p">()</span> <span class="o">&amp;</span> <span class="mh">0x80</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">SkeletalMesh</span> <span class="o">=</span>  <span class="nx">SkeletalMeshComponent</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x478</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">SkeletalMaterial_array</span> <span class="o">=</span> <span class="nx">SkeletalMesh</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0xD8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">dataPtr</span> <span class="o">=</span> <span class="nx">SkeletalMaterial_array</span><span class="p">.</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="nx">SkeletalMaterial_array</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x8</span><span class="p">).</span><span class="nx">readU32</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] SkeletalMaterial count = &#34;</span><span class="p">,</span> <span class="nx">count</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Materials数组: 数量=</span><span class="si">${</span><span class="nx">count</span><span class="si">}</span><span class="sb">, 指针=0x</span><span class="si">${</span><span class="nx">dataPtr</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">getMaterial</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">Module</span><span class="p">.</span><span class="nx">getBaseAddress</span><span class="p">(</span><span class="s2">&#34;libUE4.so&#34;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x94e8370</span><span class="p">),</span> <span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">count</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">MaterialInterface</span> <span class="o">=</span> <span class="nx">dataPtr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">i</span> <span class="o">*</span> <span class="mi">8</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">Material</span> <span class="o">=</span> <span class="nx">getMaterial</span><span class="p">(</span><span class="nx">MaterialInterface</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] bDisableDepthTest = &#34;</span><span class="p">,</span> <span class="nx">Material</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1f8</span><span class="p">).</span><span class="nx">readU8</span><span class="p">()</span> <span class="o">&amp;</span> <span class="mh">0x1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">bDisableDepthTest</span> <span class="o">=</span> <span class="p">(</span><span class="nx">Material</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1f8</span><span class="p">).</span><span class="nx">readU8</span><span class="p">()</span> <span class="o">&amp;</span> <span class="mh">0x1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//console.log(`Material[${i}] = 0x${Material.toString(16)}, bDisableDepthTest = ${bDisableDepthTest}`);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">Memory</span><span class="p">.</span><span class="nx">protect</span><span class="p">(</span><span class="nx">Material</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1f8</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;rwx&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">const</span> <span class="nx">newByteValue</span> <span class="o">=</span> <span class="nx">Material</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1f8</span><span class="p">).</span><span class="nx">readU8</span><span class="p">()</span> <span class="o">^</span> <span class="mh">0x1</span><span class="p">;</span> <span class="c1">// 按异或或操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">Material</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1f8</span><span class="p">).</span><span class="nx">writeU8</span><span class="p">(</span><span class="nx">newByteValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;[+] bDisableDepthTest Patched = &#34;</span><span class="p">,</span> <span class="nx">Material</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1f8</span><span class="p">).</span><span class="nx">readU8</span><span class="p">()</span> <span class="o">&amp;</span> <span class="mh">0x1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//console.log(`Material[${i}] = 0x${Material.toString(16)}, bDisableDepthTest = ${bDisableDepthTest}`);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>也尝试了去修改<code>bCollideWithEnvironment</code>的值，然而也是没有效果，实在是想不到还有哪些地方会修改了</p>
+<h2 id="总结">总结
+</h2><p>这次比赛的题目主要是考验对UE4引擎的熟悉程度，逆向的部分占比不算特别大，也没有出什么比较难的混淆加壳之类的，虽然已经做出了大部分的内容，但是还是需要加深对UE4引擎的理解，如果对UE4足够熟悉，应该能减少很多在寻找各个类之间的关系和所需的成员变量上。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/Je2em1ah_blog/tags/android/">Android</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+        
+        
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/gamesafety2021-android-final/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091217153.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091217153.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">GameSafety2021 Android Final</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/gamesafety2021-android%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927719.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927719.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">GameSafety2021 Android方向初赛题目复现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/fridahookso/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501012305144.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501012305144.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">FridaHookSo</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/android-so%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927263.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501011927263.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Android So相关知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/Je2em1ah_blog/p/frida%E5%B8%B8%E7%94%A8api%E8%AE%B0%E5%BD%95/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501012305417.png" loading="lazy" data-key="" data-hash="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501012305417.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Frida常用API记录</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+         
+        
+            
+    <script src="//cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.all.min.js"></script>
+<div id="tcomment"></div>
+<style>
+    .twikoo {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+    :root[data-scheme="dark"] {
+        --twikoo-body-text-color-main: rgba(255, 255, 255, 0.9);
+        --twikoo-body-text-color: rgba(255, 255, 255, 0.7);
+    }
+    .twikoo .el-input-group__prepend,
+    .twikoo .tk-action-icon,
+    .twikoo .tk-submit-action-icon,
+    .twikoo .tk-time,
+    .twikoo .tk-comments-no,
+    .twikoo .tk-comments-count {
+        color: var(--twikoo-body-text-color);
+    }
+    .twikoo .el-input__inner,
+    .twikoo .el-textarea__inner,
+    .twikoo .tk-preview-container,
+    .twikoo .tk-content,
+    .twikoo .tk-nick,
+    .twikoo .tk-send {
+        color: var(--twikoo-body-text-color-main);
+    }
+    .twikoo .el-button{
+        color: var(--twikoo-body-text-color)!important;
+    }
+    .twikoo .el-input__count {
+        color: var(--twikoo-body-text-color) !important;
+    }
+    .OwO .OwO-body {
+        background-color: var(--body-background) !important;
+        color: var(--body-text-color) !important;
+    }
+</style><script>
+    twikoo.init({
+        envId: 'https:\/\/twikoo.j3r3m14h.com.cn',
+        el: '#tcomment',region: 'ap-shanghai',path: 'twikoo',lang: 'zh-cn',})
+</script>
+
+        
+
+        <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Je2em1ah
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+        
+<div id="image-viewer" class="image-viewer-container" style="display: none;">
+    <div class="image-viewer-backdrop"></div>
+    <div class="image-viewer-content">
+        <img id="viewer-image" src="" alt="">
+        <button class="close-button" onclick="closeImageViewer()">&times;</button>
+        <button class="nav-button prev" onclick="showPrevImage()">&#10094;</button>
+        <button class="nav-button next" onclick="showNextImage()">&#10095;</button>
+    </div>
+</div>
+
+<style>
+.image-viewer-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-viewer-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
+}
+
+.image-viewer-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    z-index: 1001;
+}
+
+#viewer-image {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close-button {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.2s;
+}
+
+.close-button:hover {
+    transform: scale(1.1);
+}
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 24px;
+    padding: 15px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 4px;
+}
+
+.nav-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.prev {
+    left: -60px;
+}
+
+.next {
+    right: -60px;
+}
+
+.article-content img {
+    cursor: zoom-in;
+    transition: transform 0.2s ease;
+}
+
+.article-content img:hover {
+    transform: scale(1.01);
+}
+
+ 
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.image-viewer-container.active {
+    animation: fadeIn 0.3s ease;
+}
+</style>
+
+<script>
+let currentImages = [];
+let currentIndex = 0;
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const images = document.querySelectorAll('.article-content img');
+    currentImages = Array.from(images);
+
+    
+    images.forEach((img, index) => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => openImageViewer(index));
+    });
+
+    
+    document.addEventListener('keydown', handleKeyPress);
+});
+
+function openImageViewer(index) {
+    currentIndex = index;
+    const viewer = document.getElementById('image-viewer');
+    const viewerImg = document.getElementById('viewer-image');
+    
+    viewerImg.src = currentImages[currentIndex].src;
+    viewer.style.display = 'flex';
+    viewer.classList.add('active');
+    
+    
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageViewer() {
+    const viewer = document.getElementById('image-viewer');
+    viewer.classList.remove('active');
+    viewer.style.display = 'none';
+    
+    
+    document.body.style.overflow = '';
+}
+
+function showPrevImage() {
+    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    document.getElementById('viewer-image').src = currentImages[currentIndex].src;
+}
+
+function showNextImage() {
+    currentIndex = (currentIndex + 1) % currentImages.length;
+    document.getElementById('viewer-image').src = currentImages[currentIndex].src;
+}
+
+function handleKeyPress(e) {
+    if (document.getElementById('image-viewer').style.display === 'none') return;
+    
+    switch(e.key) {
+        case 'Escape':
+            closeImageViewer();
+            break;
+        case 'ArrowLeft':
+            showPrevImage();
+            break;
+        case 'ArrowRight':
+            showNextImage();
+            break;
+    }
+}
+
+
+document.querySelector('.image-viewer-backdrop')?.addEventListener('click', closeImageViewer);
+</script>
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/Je2em1ah_blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+    @font-face {
+      font-family: 'MapleMono';
+      src: url(http://www.j3r3m14h.com.cn/Je2em1ah_blog/font/MapleMono-NF-CN-Medium.ttf) format('truetype');
+    }
+  
+    :root {
+      --base-font-family: '字体名';
+      --code-font-family: '字体名';
+    }
+</style>
+  
+
+
+<script defer src="https://cn.vercount.one/js"></script>
+
+
+<div id="particles-js"></div>
+
+
+<script src="/Je2em1ah_blog/background/particles.min.js"></script>
+<script>
+  particlesJS.load('particles-js', '\/Je2em1ah_blog\/background\/particlesjs-config.json', function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;  
+    z-index: -1;
+  }
+</style>
+
+<script src="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://npm.elemecdn.com/nprogress@0.2.0/nprogress.css" crossorigin="anonymous" />
+<script>
+    NProgress.start();
+    document.addEventListener("readystatechange", () => {
+        if (document.readyState === "interactive") NProgress.inc(0.8);
+        if (document.readyState === "complete") NProgress.done();
+    });
+</script>
+<style>
+  #TableOfContents > ul, ol {
+      ul, ol {
+          display: none;
+      }
+      .open {
+          display: block;
+      }
+  }
+</style>
+
+<script>
+  function initTocHide() {
+      
+      let toc = document.querySelector(".widget--toc");
+      if (!toc) {
+          return;
+      }
+      
+      window.addEventListener('scroll', function() {
+          
+          let currentLi = document.querySelector(".active-class");
+          if (!currentLi) {
+              return
+          }
+          
+          let elementsByClassName = document.querySelectorAll(".open");
+          if (elementsByClassName.length > 0) {
+              elementsByClassName.forEach((ul) => {
+                  ul.classList.remove("open")
+              })
+          }
+          
+          if (currentLi.children.length > 1) {
+              currentLi.children[1].classList.add("open")
+          }
+          
+          let ul = currentLi.parentElement;
+          do {
+              ul.classList.add("open");
+              ul = ul.parentElement.parentElement
+          } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+      });
+  }
+  initTocHide()
+</script>
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
+</script>
+
+
+    </body>
+</html>
