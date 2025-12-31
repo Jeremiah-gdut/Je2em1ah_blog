@@ -5,7 +5,7 @@
         <link>http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/arm/</link>
         <description>Recent content in ARM on Jeremiah</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
+        <language>en-us</language>
         <copyright>Je2em1ah</copyright>
         <lastBuildDate>Tue, 21 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://www.j3r3m14h.com.cn/Je2em1ah_blog/categories/arm/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>ARM汇编初探</title>
@@ -292,7 +292,8 @@
 &lt;li&gt;&lt;code&gt;STRB&lt;/code&gt; / &lt;code&gt;LDRB&lt;/code&gt; → 单字节存取&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;STRH&lt;/code&gt; / &lt;code&gt;LDRH&lt;/code&gt; → 半字（2 字节）存取&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;STR&lt;/code&gt; / &lt;code&gt;LDR&lt;/code&gt; → 字（4 字节）存取&lt;/li&gt;
-&lt;/ul&gt;&lt;/blockquote&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;35-跳转指令&#34;&gt;3.5 跳转指令
 &lt;/h3&gt;&lt;ul&gt;

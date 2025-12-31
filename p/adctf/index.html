@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="A&D新生赛的个人Writeup">
 <title>ADCTF</title>
 
 <link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/adctf/'>
 
-<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.a87b4b7c2fd27d776be11d416ae1bf2f2647012ce401455cce83fd717238a7f0.css"><meta property='og:title' content="ADCTF">
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.0acc6c7e9480d9ed72002f573d9114bda7fa411300d9024a19cdb02009eaf961.css"><meta property='og:title' content="ADCTF">
 <meta property='og:description' content="A&D新生赛的个人Writeup">
 <meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/adctf/'>
 <meta property='og:site_name' content='Jeremiah'>
@@ -63,7 +63,7 @@
                     
                     
                         
-                        <img src="/Je2em1ah_blog/img/avatar_hu_cdec5454298e0430.png" width="300"
+                        <img src="/Je2em1ah_blog/img/avatar_hu_21a900cd51f94953.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -422,7 +422,7 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">encoded</span><span class="p">[</span><span class="mi">30</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x17</span><span class="p">,</span> <span class="mh">0xC9</span><span class="p">,</span> <span class="mh">0xBB</span><span class="p">,</span> <span class="mh">0x4A</span><span class="p">,</span> <span class="mh">0xA5</span><span class="p">,</span> <span class="mh">0x86</span><span class="p">,</span> <span class="mh">0xDF</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x0A</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">  <span class="mh">0x1C</span><span class="p">,</span> <span class="mh">0xA3</span><span class="p">,</span> <span class="mh">0x27</span><span class="p">,</span> <span class="mh">0xA1</span><span class="p">,</span> <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0x35</span><span class="p">,</span> <span class="mh">0xC3</span><span class="p">,</span> <span class="mh">0xDB</span><span class="p">,</span> <span class="mh">0x91</span><span class="p">,</span> <span class="mh">0x88</span><span class="p">,</span> 
@@ -736,12 +736,12 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span> <span class="nf">tea_decrypt</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">*</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">*</span> <span class="n">a2</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">tea_decrypt</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">*</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">*</span> <span class="n">a2</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// [esp+2Ch] [ebp-28h]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// [esp+30h] [ebp-24h]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// [esp+34h] [ebp-20h]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// [esp+38h] [ebp-1Ch]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// [esp+30h] [ebp-24h]
+</span></span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// [esp+34h] [ebp-20h]
+</span></span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// [esp+38h] [ebp-1Ch]
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">v4</span> <span class="o">=</span> <span class="o">*</span><span class="n">a1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">v3</span> <span class="o">=</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="n">v5</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -751,15 +751,15 @@
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">randoms</span><span class="p">[</span><span class="mi">31</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">31</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">randoms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">rand</span><span class="p">();</span>  <span class="c1">// 生成一个随机数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">v5</span> <span class="o">+=</span> <span class="n">randoms</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">v5</span> <span class="o">+=</span> <span class="n">randoms</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="n">v5</span> <span class="o">-=</span> <span class="mh">0x61C88647</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//v4 += (a2[v5 &amp; 3] + v5) ^ (v3 + ((v3 &gt;&gt; 5) ^ (16 * v3)));
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//v5 -= 0x61C88647;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">v3</span> <span class="o">-=</span> <span class="p">(</span><span class="n">a2</span><span class="p">[(</span><span class="n">v5</span> <span class="o">&gt;&gt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">v5</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">v4</span> <span class="o">+</span> <span class="p">((</span><span class="n">v4</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="n">v4</span><span class="p">)));</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//v5 -= 0x61C88647;
+</span></span></span><span class="line"><span class="cl">        <span class="n">v3</span> <span class="o">-=</span> <span class="p">(</span><span class="n">a2</span><span class="p">[(</span><span class="n">v5</span> <span class="o">&gt;&gt;</span> <span class="mi">11</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">v5</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">v4</span> <span class="o">+</span> <span class="p">((</span><span class="n">v4</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="n">v4</span><span class="p">)));</span>
 </span></span><span class="line"><span class="cl">        <span class="n">v5</span> <span class="o">+=</span> <span class="mh">0x61C88647</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="mi">31</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="n">v5</span> <span class="o">-=</span> <span class="n">randoms</span><span class="p">[</span><span class="mi">30</span> <span class="o">-</span> <span class="n">i</span><span class="p">];</span>
@@ -772,9 +772,9 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 加密的数据（假设为两个 32 位整数）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">key</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mh">0x114514</span><span class="p">,</span> <span class="mh">0x1919810</span><span class="p">,</span> <span class="mh">0x39C5BB</span><span class="p">,</span> <span class="mh">0xFFE211</span> <span class="p">};</span>  <span class="c1">// 密钥
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">data</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mh">0xC20B1189</span><span class="p">,</span><span class="mh">0x275D3ADE</span><span class="p">,</span> <span class="mh">0xB1ADFCDE</span><span class="p">,</span> <span class="mh">0x8201166D</span><span class="p">,</span> <span class="mh">0xCD1E08DC</span><span class="p">,</span> <span class="mh">0xA0830899</span><span class="p">,</span> <span class="mh">0xC7C8C706</span><span class="p">,</span> <span class="mh">0x9FC9A9F5</span><span class="p">,</span> <span class="mh">0x8250A71D</span><span class="p">,</span> <span class="mh">0xED329E66</span><span class="p">,</span> <span class="mh">0xB88D21D7</span><span class="p">,</span> <span class="mh">0x2EDA3C43</span> <span class="p">};</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">data</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mh">0xC20B1189</span><span class="p">,</span><span class="mh">0x275D3ADE</span><span class="p">,</span> <span class="mh">0xB1ADFCDE</span><span class="p">,</span> <span class="mh">0x8201166D</span><span class="p">,</span> <span class="mh">0xCD1E08DC</span><span class="p">,</span> <span class="mh">0xA0830899</span><span class="p">,</span> <span class="mh">0xC7C8C706</span><span class="p">,</span> <span class="mh">0x9FC9A9F5</span><span class="p">,</span> <span class="mh">0x8250A71D</span><span class="p">,</span> <span class="mh">0xED329E66</span><span class="p">,</span> <span class="mh">0xB88D21D7</span><span class="p">,</span> <span class="mh">0x2EDA3C43</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">temp</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
@@ -1334,7 +1334,7 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;time.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">input</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> 
 </span></span><span class="line"><span class="cl">    <span class="mh">0x87</span><span class="p">,</span> <span class="mh">0xE9</span><span class="p">,</span> <span class="mh">0x72</span><span class="p">,</span> <span class="mh">0x0E</span><span class="p">,</span> <span class="mh">0x1F</span><span class="p">,</span> <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0xEC</span><span class="p">,</span> <span class="mh">0x0C</span><span class="p">,</span> 
@@ -1457,7 +1457,7 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;time.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">input</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> 
 </span></span><span class="line"><span class="cl">    <span class="mh">0x87</span><span class="p">,</span> <span class="mh">0xE9</span><span class="p">,</span> <span class="mh">0x72</span><span class="p">,</span> <span class="mh">0x0E</span><span class="p">,</span> <span class="mh">0x1F</span><span class="p">,</span> <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0xEC</span><span class="p">,</span> <span class="mh">0x0C</span><span class="p">,</span> 
@@ -1482,7 +1482,7 @@
 </span></span><span class="line"><span class="cl">        <span class="n">seed</span> <span class="o">=</span> <span class="nf">rand</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="n">seed</span> <span class="o">!=</span> <span class="mh">0xD000721</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">			<span class="n">seed</span> <span class="o">^=</span> <span class="mh">0x7A71571</span><span class="p">;</span>			<span class="c1">//srand被修改之后的加密逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">srand</span><span class="p">(</span><span class="n">seed</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="nf">srand</span><span class="p">(</span><span class="n">seed</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">64</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>

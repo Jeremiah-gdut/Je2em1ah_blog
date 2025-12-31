@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录一下FridaHookSo函数和Java函数的API使用">
 <title>Frida常用API记录</title>
 
 <link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/frida%E5%B8%B8%E7%94%A8api%E8%AE%B0%E5%BD%95/'>
 
-<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.a87b4b7c2fd27d776be11d416ae1bf2f2647012ce401455cce83fd717238a7f0.css"><meta property='og:title' content="Frida常用API记录">
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.0acc6c7e9480d9ed72002f573d9114bda7fa411300d9024a19cdb02009eaf961.css"><meta property='og:title' content="Frida常用API记录">
 <meta property='og:description' content="记录一下FridaHookSo函数和Java函数的API使用">
 <meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/frida%E5%B8%B8%E7%94%A8api%E8%AE%B0%E5%BD%95/'>
 <meta property='og:site_name' content='Jeremiah'>
@@ -63,7 +63,7 @@
                     
                     
                         
-                        <img src="/Je2em1ah_blog/img/avatar_hu_cdec5454298e0430.png" width="300"
+                        <img src="/Je2em1ah_blog/img/avatar_hu_21a900cd51f94953.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -391,13 +391,13 @@
 <pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">money</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;com.Jeremiah.hook.money&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//不需要区分修饰符，也不需要区分静态和实例方法，hook代码的写法都是一样的
 </span></span></span><span class="line"><span class="cl"><span class="c1">//hook实例方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">money</span><span class="p">.</span><span class="nx">getInfo</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="nx">money</span><span class="p">.</span><span class="nx">getInfo</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInfo</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;result: &#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//hook静态方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">money</span><span class="p">.</span><span class="nx">setFlag</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="nx">money</span><span class="p">.</span><span class="nx">setFlag</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;param: &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">setFlag</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -433,13 +433,13 @@
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;money.getInfo result: &#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">$new</span><span class="p">(</span><span class="s2">&#34;Jeremiah&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//上述字符串&#34;Jeremiah&#34;是JS的string，而被hook的Java方法返回值是Java的String
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//因此，可以主动调用Java方法转成Java的String
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//但是为了方便起见，通常会直接直接返回JS的string，这时frida会自动处理，代码类似如下
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//return &#34;Jeremiah&#34;;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//Java的类型可以调用Java的方法，JS的类型可以调用JS的方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//区分清楚何时是Java的类型，何时是JS的类型，有助于代码的编写
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//frida在参数传递的处理上也类似
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//因此，可以主动调用Java方法转成Java的String
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//但是为了方便起见，通常会直接直接返回JS的string，这时frida会自动处理，代码类似如下
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//return &#34;Jeremiah&#34;;
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//Java的类型可以调用Java的方法，JS的类型可以调用JS的方法
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//区分清楚何时是Java的类型，何时是JS的类型，有助于代码的编写
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//frida在参数传递的处理上也类似
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="nx">money</span><span class="p">.</span><span class="nx">setFlag</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;money.setFlag param: &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">setFlag</span><span class="p">(</span><span class="s2">&#34;Jeremiah&#34;</span><span class="p">);</span>
@@ -464,7 +464,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>String类的构造函数要Hook <code>StringFactory</code>类下的某一些方法</p></blockquote>
+<p>String类的构造函数要Hook <code>StringFactory</code>类下的某一些方法</p>
+</blockquote>
 <h3 id="对象参数的构造与修改-new">对象参数的构造与修改 $new
 </h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -523,7 +524,7 @@
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">stringBuilder</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;java.lang.StringBuilder&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="nx">utils</span><span class="p">.</span><span class="nx">shufferMap</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">keySet</span><span class="p">();</span>     <span class="c1">//得到所有的key
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">it</span> <span class="o">=</span> <span class="nx">key</span><span class="p">.</span><span class="nx">iterator</span><span class="p">();</span>  
+</span></span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">it</span> <span class="o">=</span> <span class="nx">key</span><span class="p">.</span><span class="nx">iterator</span><span class="p">();</span>  
 </span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">stringBuilder</span><span class="p">.</span><span class="nx">$new</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nx">it</span><span class="p">.</span><span class="nx">hasNext</span><span class="p">()){</span>
 </span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">keystr</span> <span class="o">=</span> <span class="nx">it</span><span class="p">.</span><span class="nx">next</span><span class="p">();</span>
@@ -598,24 +599,24 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">utils</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;com.Jeremiah.hook.Utils&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">overloadsArr</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">getCalc</span><span class="p">.</span><span class="nx">overloads</span><span class="p">;</span>  <span class="c1">//包含该方法的所有重载函数，overloads返回重载函数的数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">overloadsArr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">overloadsArr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">overloadsArr</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">showStacks</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">//arguments存储所有传进函数的参数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">params</span> <span class="o">+=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34; &#34;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">            <span class="nx">params</span> <span class="o">+=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34; &#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;utils.getCalc is called! params is: &#34;</span><span class="p">,</span> <span class="nx">params</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// if(arguments.length == 2){
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     return this.getCalc(arguments[0], arguments[1]);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// }else if(arguments.length == 3){
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     return this.getCalc(arguments[0], arguments[1], arguments[2]);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// }else if(arguments.length == 4){
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     return this.getCalc(arguments[0], arguments[1], arguments[2], arguments[3]);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// }
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//     return this.getCalc(arguments[0], arguments[1]);
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// }else if(arguments.length == 3){
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//     return this.getCalc(arguments[0], arguments[1], arguments[2]);
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// }else if(arguments.length == 4){
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//     return this.getCalc(arguments[0], arguments[1], arguments[2], arguments[3]);
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// }
+</span></span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getCalc</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span> <span class="c1">//第一个参数为当前的Java对象实例，第二个参数为一个数组或类数组对象，这里包含了传进函数的参数，此处apply用于调用原来的getCalc方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>

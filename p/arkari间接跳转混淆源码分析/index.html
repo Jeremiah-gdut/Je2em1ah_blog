@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从源码的视角分析Arkari间接跳转混淆">
 <title>Arkari间接跳转混淆源码分析</title>
 
 <link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/arkari%E9%97%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC%E6%B7%B7%E6%B7%86%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/'>
 
-<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.a87b4b7c2fd27d776be11d416ae1bf2f2647012ce401455cce83fd717238a7f0.css"><meta property='og:title' content="Arkari间接跳转混淆源码分析">
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.0acc6c7e9480d9ed72002f573d9114bda7fa411300d9024a19cdb02009eaf961.css"><meta property='og:title' content="Arkari间接跳转混淆源码分析">
 <meta property='og:description' content="从源码的视角分析Arkari间接跳转混淆">
 <meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/arkari%E9%97%B4%E6%8E%A5%E8%B7%B3%E8%BD%AC%E6%B7%B7%E6%B7%86%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/'>
 <meta property='og:site_name' content='Jeremiah'>
@@ -63,7 +63,7 @@
                     
                     
                         
-                        <img src="/Je2em1ah_blog/img/avatar_hu_cdec5454298e0430.png" width="300"
+                        <img src="/Je2em1ah_blog/img/avatar_hu_21a900cd51f94953.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -388,7 +388,8 @@
 文章大部分对源码的解释都直接以注释的形式写在代码中</p>
 <blockquote>
 <p>PS: 本文所有分析均基于开源项目Arkari：<a class="link" href="https://github.com/KomiMoe/Arkari"  target="_blank" rel="noopener"
-    >Arkari</a> LLVM19.x 架构为ARM64</p></blockquote>
+    >Arkari</a> LLVM19.x 架构为ARM64</p>
+</blockquote>
 <h2 id="arkari支持的混淆特性">Arkari支持的混淆特性
 </h2><ul>
 <li>混淆过程间相关</li>
@@ -560,11 +561,11 @@
 </span></span><span class="line"><span class="cl">    <span class="n">LLVMContext</span> <span class="o">&amp;</span><span class="n">Ctx</span> <span class="o">=</span> <span class="n">Fn</span><span class="p">.</span><span class="n">getContext</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// Init member fields
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">BBNumbering</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">BBNumbering</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="n">BBTargets</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// llvm cannot split critical edge from IndirectBrInst
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">SplitAllCriticalEdges</span><span class="p">(</span><span class="n">Fn</span><span class="p">,</span> <span class="n">CriticalEdgeSplittingOptions</span><span class="p">(</span><span class="k">nullptr</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">SplitAllCriticalEdges</span><span class="p">(</span><span class="n">Fn</span><span class="p">,</span> <span class="n">CriticalEdgeSplittingOptions</span><span class="p">(</span><span class="k">nullptr</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">NumberBasicBlock</span><span class="p">(</span><span class="n">Fn</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">BBNumbering</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
@@ -624,7 +625,7 @@
 </span></span><span class="line"><span class="cl">            <span class="n">GEP</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="s">&#34;EncDestAddr&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// -EncKey = X - FuncSecret
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Value</span> <span class="o">*</span><span class="n">DecKey</span> <span class="o">=</span> <span class="n">EncKey</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">Value</span> <span class="o">*</span><span class="n">DecKey</span> <span class="o">=</span> <span class="n">EncKey</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">GXorKey</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="n">LoadInst</span> <span class="o">*</span><span class="n">XorKey</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateLoad</span><span class="p">(</span><span class="n">GXorKey</span><span class="o">-&gt;</span><span class="n">getValueType</span><span class="p">(),</span> <span class="n">GXorKey</span><span class="p">);</span>
@@ -673,7 +674,8 @@
 <li><code>BBTargets</code> : 临时存储所有唯一条件分支目标块</li>
 </ul>
 <blockquote>
-<p>这里需要提一下，OLLVM中一个函数对象(Function)是由基本块(BasicBlock)组成，而基本块由每一条指令(Instruction)组成</p></blockquote>
+<p>这里需要提一下，OLLVM中一个函数对象(Function)是由基本块(BasicBlock)组成，而基本块由每一条指令(Instruction)组成</p>
+</blockquote>
 <p>接着调用<code>SplitAllCriticalEdges</code>函数，分割关键边，原理是在有多个前驱和后继的边之间<strong>插入新基本块</strong></p>
 <p>再调用<code>NumberBasicBlock</code>函数，这个函数将所有<strong>条件分支目标基本块</strong>分配随机化编号，打乱程序原有的顺序执行流程</p>
 <div class="highlight"><div class="chroma">
@@ -707,28 +709,28 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-CPP" data-lang="CPP"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">NumberBasicBlock</span><span class="p">(</span><span class="n">Function</span> <span class="o">&amp;</span><span class="n">F</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">BB</span> <span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// 遍历所有基本块
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="p">(</span><span class="k">auto</span> <span class="o">*</span><span class="n">BI</span> <span class="o">=</span> <span class="n">dyn_cast</span><span class="o">&lt;</span><span class="n">BranchInst</span><span class="o">&gt;</span><span class="p">(</span><span class="n">BB</span><span class="p">.</span><span class="n">getTerminator</span><span class="p">()))</span> <span class="p">{</span>  <span class="c1">// 获取基本块的最后一条跳转指令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">BI</span><span class="o">-&gt;</span><span class="n">isConditional</span><span class="p">())</span> <span class="p">{</span>    <span class="c1">// 判断是否是条件跳转
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="kt">unsigned</span> <span class="n">N</span> <span class="o">=</span> <span class="n">BI</span><span class="o">-&gt;</span><span class="n">getNumSuccessors</span><span class="p">();</span>   <span class="c1">// N为分支数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">I</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">I</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">I</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="k">auto</span> <span class="o">*</span><span class="n">BI</span> <span class="o">=</span> <span class="n">dyn_cast</span><span class="o">&lt;</span><span class="n">BranchInst</span><span class="o">&gt;</span><span class="p">(</span><span class="n">BB</span><span class="p">.</span><span class="n">getTerminator</span><span class="p">()))</span> <span class="p">{</span>  <span class="c1">// 获取基本块的最后一条跳转指令
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">BI</span><span class="o">-&gt;</span><span class="n">isConditional</span><span class="p">())</span> <span class="p">{</span>    <span class="c1">// 判断是否是条件跳转
+</span></span></span><span class="line"><span class="cl">          <span class="kt">unsigned</span> <span class="n">N</span> <span class="o">=</span> <span class="n">BI</span><span class="o">-&gt;</span><span class="n">getNumSuccessors</span><span class="p">();</span>   <span class="c1">// N为分支数
+</span></span></span><span class="line"><span class="cl">          <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">I</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">I</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">I</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">BasicBlock</span> <span class="o">*</span><span class="n">Succ</span> <span class="o">=</span> <span class="n">BI</span><span class="o">-&gt;</span><span class="n">getSuccessor</span><span class="p">(</span><span class="n">I</span><span class="p">);</span>   <span class="c1">// 获取后继基本块
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">BBNumbering</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">Succ</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// 检查Succ是否已存在于map中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>              <span class="n">BBTargets</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Succ</span><span class="p">);</span>   
+</span></span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">BBNumbering</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">Succ</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// 检查Succ是否已存在于map中
+</span></span></span><span class="line"><span class="cl">              <span class="n">BBTargets</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Succ</span><span class="p">);</span>   
 </span></span><span class="line"><span class="cl">              <span class="n">BBNumbering</span><span class="p">[</span><span class="n">Succ</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>       <span class="c1">// 添加到BBTargets并初始化编号为0
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">          <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="n">seed</span> <span class="o">=</span> <span class="n">RandomEngine</span><span class="p">.</span><span class="n">get_uint32_t</span><span class="p">();</span>      <span class="c1">// 随机数种子
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">default_random_engine</span> <span class="n">e</span><span class="p">(</span><span class="n">seed</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">default_random_engine</span> <span class="n">e</span><span class="p">(</span><span class="n">seed</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">shuffle</span><span class="p">(</span><span class="n">BBTargets</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">BBTargets</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">e</span><span class="p">);</span>      <span class="c1">// 用随机数打乱
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">BB</span><span class="p">:</span><span class="n">BBTargets</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="n">BBNumbering</span><span class="p">[</span><span class="n">BB</span><span class="p">]</span> <span class="o">=</span> <span class="n">N</span><span class="o">++</span><span class="p">;</span>   <span class="c1">// 打乱的基本块重新编号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -754,19 +756,19 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-CPP" data-lang="CPP"><span class="line"><span class="cl"><span class="c1">// 生成 64 位随机密钥
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">uint64_t</span> <span class="n">V</span> <span class="o">=</span> <span class="n">RandomEngine</span><span class="p">.</span><span class="n">get_uint64_t</span><span class="p">();</span> 
+</span></span></span><span class="line"><span class="cl"><span class="kt">uint64_t</span> <span class="n">V</span> <span class="o">=</span> <span class="n">RandomEngine</span><span class="p">.</span><span class="n">get_uint64_t</span><span class="p">();</span> 
 </span></span><span class="line"><span class="cl"><span class="kt">uint64_t</span> <span class="n">XV</span> <span class="o">=</span> <span class="n">RandomEngine</span><span class="p">.</span><span class="n">get_uint64_t</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 根据指针大小选择整数类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">IntegerType</span><span class="o">*</span> <span class="n">intType</span> <span class="o">=</span> <span class="n">Type</span><span class="o">::</span><span class="n">getInt32Ty</span><span class="p">(</span><span class="n">Ctx</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">IntegerType</span><span class="o">*</span> <span class="n">intType</span> <span class="o">=</span> <span class="n">Type</span><span class="o">::</span><span class="n">getInt32Ty</span><span class="p">(</span><span class="n">Ctx</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">pointerSize</span> <span class="o">==</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">intType</span> <span class="o">=</span> <span class="n">Type</span><span class="o">::</span><span class="n">getInt64Ty</span><span class="p">(</span><span class="n">Ctx</span><span class="p">);</span> 
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 构造加密常数（核心密钥）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ConstantInt</span> <span class="o">*</span><span class="n">EncKey</span> <span class="o">=</span> <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>      <span class="c1">// 加密密钥
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ConstantInt</span> <span class="o">*</span><span class="n">EncKey1</span> <span class="o">=</span> <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="o">-</span><span class="n">V</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>   <span class="c1">// 解密密钥
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">ConstantInt</span> <span class="o">*</span><span class="n">Zero</span> <span class="o">=</span> <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>              <span class="c1">// 零值常量
+</span></span></span><span class="line"><span class="cl"><span class="n">ConstantInt</span> <span class="o">*</span><span class="n">EncKey</span> <span class="o">=</span> <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>      <span class="c1">// 加密密钥
+</span></span></span><span class="line"><span class="cl"><span class="n">ConstantInt</span> <span class="o">*</span><span class="n">EncKey1</span> <span class="o">=</span> <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="o">-</span><span class="n">V</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>   <span class="c1">// 解密密钥
+</span></span></span><span class="line"><span class="cl"><span class="n">ConstantInt</span> <span class="o">*</span><span class="n">Zero</span> <span class="o">=</span> <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>              <span class="c1">// 零值常量
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="2-全局变量声明"><strong>2. 全局变量声明</strong>
@@ -778,8 +780,8 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-CPP" data-lang="CPP"><span class="line"><span class="cl"><span class="n">GlobalVariable</span> <span class="o">*</span><span class="n">GXorKey</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>   <span class="c1">// 一级异或密钥存储
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">GlobalVariable</span> <span class="o">*</span><span class="n">DestBBs</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>   <span class="c1">// 加密跳转表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">GlobalVariable</span> <span class="o">*</span><span class="n">XorKeys</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>   <span class="c1">// 动态异或密钥池
+</span></span></span><span class="line"><span class="cl"><span class="n">GlobalVariable</span> <span class="o">*</span><span class="n">DestBBs</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>   <span class="c1">// 加密跳转表
+</span></span></span><span class="line"><span class="cl"><span class="n">GlobalVariable</span> <span class="o">*</span><span class="n">XorKeys</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>   <span class="c1">// 动态异或密钥池
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="table-wrapper"><table>
@@ -838,7 +840,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">//^icall=表示指定icall的强度
 </span></span></span><span class="line"><span class="cl"><span class="c1">//+icall表示当前函数启用icall混淆, 如果你在命令行中启用了icall则无需添加+icall
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="na">[[clang::annotate(&#34;+icall ^icall=3&#34;)]]</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;HelloWorld&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
@@ -847,7 +849,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>2.通过命令行参数指定特定混淆Pass的强度</p>
-<p>Eg.间接函数调用,并加密目标函数地址,强度设置为3(<code>-mllvm -irobf-icall -mllvm -level-icall=3</code>)</p></blockquote>
+<p>Eg.间接函数调用,并加密目标函数地址,强度设置为3(<code>-mllvm -irobf-icall -mllvm -level-icall=3</code>)</p>
+</blockquote>
 <h4 id="控制逻辑"><strong>控制逻辑</strong>
 </h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -878,10 +881,10 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-CPP" data-lang="CPP"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">opt</span><span class="p">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">DestBBs</span> <span class="o">=</span> <span class="n">getIndirectTargets0</span><span class="p">(</span><span class="n">Fn</span><span class="p">,</span> <span class="n">EncKey1</span><span class="p">);</span>        <span class="c1">//level 0 的处理逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">opt</span><span class="p">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">opt</span><span class="p">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>                <span class="c1">//level 1 和 2 共同的逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">ConstantInt</span> <span class="o">*</span><span class="n">CXK</span> <span class="o">=</span> <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="n">XV</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">opt</span><span class="p">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">opt</span><span class="p">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>                <span class="c1">//level 1 和 2 共同的逻辑
+</span></span></span><span class="line"><span class="cl">  <span class="n">ConstantInt</span> <span class="o">*</span><span class="n">CXK</span> <span class="o">=</span> <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="n">XV</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">GXorKey</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GlobalVariable</span><span class="p">(</span>                        <span class="c1">//生成用于XOR的key的全局变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	  <span class="o">*</span><span class="n">Fn</span><span class="p">.</span><span class="n">getParent</span><span class="p">(),</span> 
+</span></span></span><span class="line"><span class="cl">	  <span class="o">*</span><span class="n">Fn</span><span class="p">.</span><span class="n">getParent</span><span class="p">(),</span> 
 </span></span><span class="line"><span class="cl">	  <span class="n">CXK</span><span class="o">-&gt;</span><span class="n">getType</span><span class="p">(),</span> 
 </span></span><span class="line"><span class="cl">	  <span class="nb">false</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">	  <span class="n">GlobalValue</span><span class="o">::</span><span class="n">LinkageTypes</span><span class="o">::</span><span class="n">PrivateLinkage</span><span class="p">,</span>
@@ -891,12 +894,12 @@
 </span></span><span class="line"><span class="cl">  <span class="n">appendToCompilerUsed</span><span class="p">(</span><span class="o">*</span><span class="n">Fn</span><span class="p">.</span><span class="n">getParent</span><span class="p">(),</span> <span class="p">{</span><span class="n">GXorKey</span><span class="p">});</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">opt</span><span class="p">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">DestBBs</span> <span class="o">=</span> <span class="n">getIndirectTargets1</span><span class="p">(</span><span class="n">Fn</span><span class="p">,</span> <span class="n">EncKey1</span><span class="p">,</span> <span class="n">CXK</span><span class="p">);</span>   <span class="c1">//level 1 方案
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">DestBBs</span> <span class="o">=</span> <span class="n">getIndirectTargets2</span><span class="p">(</span><span class="n">Fn</span><span class="p">,</span> <span class="n">EncKey1</span><span class="p">,</span> <span class="n">CXK</span><span class="p">);</span>   <span class="c1">//level 2 方案
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">auto</span> <span class="p">[</span><span class="n">fst</span><span class="p">,</span> <span class="n">snd</span><span class="p">]</span> <span class="o">=</span> <span class="n">getIndirectTargets3</span><span class="p">(</span><span class="n">Fn</span><span class="p">,</span> <span class="n">EncKey1</span><span class="p">);</span>  <span class="c1">//level 3 方案
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">DestBBs</span> <span class="o">=</span> <span class="n">fst</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="n">DestBBs</span> <span class="o">=</span> <span class="n">fst</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">XorKeys</span> <span class="o">=</span> <span class="n">snd</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -954,45 +957,45 @@
 <pre tabindex="0" class="chroma"><code class="language-CPP" data-lang="CPP"><span class="line"><span class="cl">  <span class="n">GlobalVariable</span> <span class="o">*</span><span class="nf">getIndirectTargets0</span><span class="p">(</span><span class="n">Function</span> <span class="o">&amp;</span><span class="n">F</span><span class="p">,</span> <span class="n">ConstantInt</span> <span class="o">*</span><span class="n">EncKey</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">GVName</span><span class="p">(</span><span class="n">F</span><span class="p">.</span><span class="n">getName</span><span class="p">().</span><span class="n">str</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#34;_IndirectBrTargets&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">GlobalVariable</span> <span class="o">*</span><span class="n">GV</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">getParent</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNamedGlobal</span><span class="p">(</span><span class="n">GVName</span><span class="p">);</span>    <span class="c1">//获取对应函数的加密地址的全局变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">GV</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">GV</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">GV</span><span class="p">;</span>   <span class="c1">//如果已经生成过全局变量，则直接返回，防止重复生成
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Constant</span> <span class="o">*&gt;</span> <span class="n">Elements</span><span class="p">;</span>  <span class="c1">//存储加密后的基本块地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//遍历需要加密的基本块
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="nl">BB</span><span class="p">:</span><span class="n">BBTargets</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="nl">BB</span><span class="p">:</span><span class="n">BBTargets</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	  <span class="c1">// 获取基本块地址并转换为通用指针类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">Constant</span> <span class="o">*</span><span class="n">CE</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getBitCast</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">      <span class="n">Constant</span> <span class="o">*</span><span class="n">CE</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getBitCast</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">			<span class="n">BlockAddress</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">BB</span><span class="p">),</span> 
 </span></span><span class="line"><span class="cl">			<span class="n">PointerType</span><span class="o">::</span><span class="n">getUnqual</span><span class="p">(</span><span class="n">F</span><span class="p">.</span><span class="n">getContext</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">		<span class="p">);</span>
 </span></span><span class="line"><span class="cl">	  <span class="c1">// 加密基本块地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">CE</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getGetElementPtr</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">      <span class="n">CE</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getGetElementPtr</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">	      <span class="n">Type</span><span class="o">::</span><span class="n">getInt8Ty</span><span class="p">(</span><span class="n">F</span><span class="p">.</span><span class="n">getContext</span><span class="p">()),</span> 
 </span></span><span class="line"><span class="cl">	      <span class="n">CE</span><span class="p">,</span>       <span class="c1">//原始地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	      <span class="n">EncKey</span>    <span class="c1">//加密偏移
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">	      <span class="n">EncKey</span>    <span class="c1">//加密偏移
+</span></span></span><span class="line"><span class="cl">      <span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="n">Elements</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">CE</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">// 定义数组类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">ArrayType</span> <span class="o">*</span><span class="n">ATy</span> <span class="o">=</span> <span class="n">ArrayType</span><span class="o">::</span><span class="n">get</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">ArrayType</span> <span class="o">*</span><span class="n">ATy</span> <span class="o">=</span> <span class="n">ArrayType</span><span class="o">::</span><span class="n">get</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">	  <span class="n">PointerType</span><span class="o">::</span><span class="n">getUnqual</span><span class="p">(</span><span class="n">F</span><span class="p">.</span><span class="n">getContext</span><span class="p">()),</span> 
 </span></span><span class="line"><span class="cl">	  <span class="n">Elements</span><span class="p">.</span><span class="n">size</span><span class="p">()</span>                         <span class="c1">// 数组长度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">	<span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// 将加密地址封装为常量数组
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Constant</span> <span class="o">*</span><span class="n">CA</span> <span class="o">=</span> <span class="n">ConstantArray</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">ATy</span><span class="p">,</span> <span class="n">Elements</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">Constant</span> <span class="o">*</span><span class="n">CA</span> <span class="o">=</span> <span class="n">ConstantArray</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">ATy</span><span class="p">,</span> <span class="n">Elements</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// 创建全局变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">GV</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GlobalVariable</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">GV</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GlobalVariable</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">	  <span class="o">*</span><span class="n">F</span><span class="p">.</span><span class="n">getParent</span><span class="p">(),</span>                 <span class="c1">// 所属模块
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	  <span class="n">ATy</span><span class="p">,</span>                            <span class="c1">// 数组类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	  <span class="nb">false</span><span class="p">,</span>                          <span class="c1">// 是否常量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	  <span class="n">GlobalValue</span><span class="o">::</span><span class="n">LinkageTypes</span><span class="o">::</span><span class="n">PrivateLinkage</span><span class="p">,</span> <span class="c1">// 链接属性
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	  <span class="n">CA</span><span class="p">,</span>                             <span class="c1">// 初始值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	  <span class="n">GVName</span>                          <span class="c1">// 变量名
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">	  <span class="n">ATy</span><span class="p">,</span>                            <span class="c1">// 数组类型
+</span></span></span><span class="line"><span class="cl">	  <span class="nb">false</span><span class="p">,</span>                          <span class="c1">// 是否常量
+</span></span></span><span class="line"><span class="cl">	  <span class="n">GlobalValue</span><span class="o">::</span><span class="n">LinkageTypes</span><span class="o">::</span><span class="n">PrivateLinkage</span><span class="p">,</span> <span class="c1">// 链接属性
+</span></span></span><span class="line"><span class="cl">	  <span class="n">CA</span><span class="p">,</span>                             <span class="c1">// 初始值
+</span></span></span><span class="line"><span class="cl">	  <span class="n">GVName</span>                          <span class="c1">// 变量名
+</span></span></span><span class="line"><span class="cl">	<span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// 防止优化器删除该全局变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">appendToCompilerUsed</span><span class="p">(</span><span class="o">*</span><span class="n">F</span><span class="p">.</span><span class="n">getParent</span><span class="p">(),</span> <span class="p">{</span><span class="n">GV</span><span class="p">});</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">appendToCompilerUsed</span><span class="p">(</span><span class="o">*</span><span class="n">F</span><span class="p">.</span><span class="n">getParent</span><span class="p">(),</span> <span class="p">{</span><span class="n">GV</span><span class="p">});</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">GV</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
@@ -1049,7 +1052,7 @@
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">GV</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// encrypt branch targets
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Constant</span> <span class="o">*&gt;</span> <span class="n">Elements</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Constant</span> <span class="o">*&gt;</span> <span class="n">Elements</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="nl">BB</span><span class="p">:</span><span class="n">BBTargets</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="n">Constant</span> <span class="o">*</span><span class="n">CE</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getBitCast</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">	      <span class="n">BlockAddress</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">BB</span><span class="p">),</span>
@@ -1059,7 +1062,7 @@
 </span></span><span class="line"><span class="cl">	      <span class="n">Type</span><span class="o">::</span><span class="n">getInt8Ty</span><span class="p">(</span><span class="n">F</span><span class="p">.</span><span class="n">getContext</span><span class="p">()),</span> 
 </span></span><span class="line"><span class="cl">	      <span class="n">CE</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">	      <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getXor</span><span class="p">(</span><span class="n">AddKey</span><span class="p">,</span> <span class="n">XorKey</span><span class="p">)</span>     <span class="c1">//不同点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">      <span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="n">Elements</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">CE</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1138,7 +1141,7 @@
 </span></span><span class="line"><span class="cl">      <span class="n">intType</span> <span class="o">=</span> <span class="n">Type</span><span class="o">::</span><span class="n">getInt64Ty</span><span class="p">(</span><span class="n">Ctx</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// encrypt branch targets
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Constant</span> <span class="o">*&gt;</span> <span class="n">Elements</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Constant</span> <span class="o">*&gt;</span> <span class="n">Elements</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">BB</span><span class="p">:</span><span class="n">BBTargets</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="n">Constant</span> <span class="o">*</span><span class="n">CE</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getBitCast</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">	      <span class="n">BlockAddress</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">BB</span><span class="p">),</span> 
@@ -1148,7 +1151,7 @@
 </span></span><span class="line"><span class="cl">	      <span class="n">Type</span><span class="o">::</span><span class="n">getInt8Ty</span><span class="p">(</span><span class="n">F</span><span class="p">.</span><span class="n">getContext</span><span class="p">()),</span> 
 </span></span><span class="line"><span class="cl">	      <span class="n">CE</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">	      <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getXor</span><span class="p">(</span>            <span class="c1">//主要修改点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		      <span class="n">AddKey</span><span class="p">,</span> 
+</span></span></span><span class="line"><span class="cl">		      <span class="n">AddKey</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">		      <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getMul</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">			      <span class="n">XorKey</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">			      <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="n">BBNumbering</span><span class="p">[</span><span class="n">BB</span><span class="p">],</span> <span class="nb">false</span><span class="p">)</span>
@@ -1256,7 +1259,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">GVNameXor</span><span class="p">(</span><span class="n">F</span><span class="p">.</span><span class="n">getName</span><span class="p">().</span><span class="n">str</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#34;_IndirectBr3_Xor&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">GlobalVariable</span> <span class="o">*</span><span class="n">GVAdd</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">getParent</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNamedGlobal</span><span class="p">(</span><span class="n">GVNameAdd</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">GlobalVariable</span> <span class="o">*</span><span class="n">GVXor</span> <span class="o">=</span> <span class="n">F</span><span class="p">.</span><span class="n">getParent</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getNamedGlobal</span><span class="p">(</span><span class="n">GVNameXor</span><span class="p">);</span>   <span class="c1">//新的XorKey数组全局变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">GVAdd</span> <span class="o">&amp;&amp;</span> <span class="n">GVXor</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">GVAdd</span><span class="p">,</span> <span class="n">GVXor</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -1267,7 +1270,7 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// encrypt branch targets
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Constant</span> <span class="o">*&gt;</span> <span class="n">Elements</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Constant</span> <span class="o">*&gt;</span> <span class="n">Elements</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Constant</span> <span class="o">*&gt;</span> <span class="n">XorKeys</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">BB</span><span class="p">:</span><span class="n">BBTargets</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="kt">uint64_t</span> <span class="n">V</span> <span class="o">=</span> <span class="n">RandomEngine</span><span class="p">.</span><span class="n">get_uint64_t</span><span class="p">();</span>
@@ -1277,8 +1280,8 @@
 </span></span><span class="line"><span class="cl">	      <span class="n">PointerType</span><span class="o">::</span><span class="n">getUnqual</span><span class="p">(</span><span class="n">F</span><span class="p">.</span><span class="n">getContext</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">      <span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="c1">// 加密地址计算
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// 与level 2相似，但是采用动态密钥
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">CE</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getGetElementPtr</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">      <span class="c1">// 与level 2相似，但是采用动态密钥
+</span></span></span><span class="line"><span class="cl">      <span class="n">CE</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getGetElementPtr</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">	      <span class="n">Type</span><span class="o">::</span><span class="n">getInt8Ty</span><span class="p">(</span><span class="n">F</span><span class="p">.</span><span class="n">getContext</span><span class="p">()),</span> 
 </span></span><span class="line"><span class="cl">	      <span class="n">CE</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">	      <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getXor</span><span class="p">(</span>
@@ -1290,10 +1293,10 @@
 </span></span><span class="line"><span class="cl">			 <span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">);</span>
 </span></span><span class="line"><span class="cl">	  <span class="c1">//特别之处：使用密钥对原基本块地址加密之后，通过取反和异或等运算混淆密钥，使得原密钥更难被计算
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">XorKey</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getNeg</span><span class="p">(</span><span class="n">XorKey</span><span class="p">);</span>            <span class="c1">//XorKey = ~Xorkey
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">XorKey</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getXor</span><span class="p">(</span><span class="n">XorKey</span><span class="p">,</span> <span class="n">AddKey</span><span class="p">);</span>    <span class="c1">//XorKey ^= Addkey
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">XorKey</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getNeg</span><span class="p">(</span><span class="n">XorKey</span><span class="p">);</span>            <span class="c1">//Xorkey = ~XorKey
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">XorKeys</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">XorKey</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">      <span class="n">XorKey</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getNeg</span><span class="p">(</span><span class="n">XorKey</span><span class="p">);</span>            <span class="c1">//XorKey = ~Xorkey
+</span></span></span><span class="line"><span class="cl">      <span class="n">XorKey</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getXor</span><span class="p">(</span><span class="n">XorKey</span><span class="p">,</span> <span class="n">AddKey</span><span class="p">);</span>    <span class="c1">//XorKey ^= Addkey
+</span></span></span><span class="line"><span class="cl">      <span class="n">XorKey</span> <span class="o">=</span> <span class="n">ConstantExpr</span><span class="o">::</span><span class="n">getNeg</span><span class="p">(</span><span class="n">XorKey</span><span class="p">);</span>            <span class="c1">//Xorkey = ~XorKey
+</span></span></span><span class="line"><span class="cl">      <span class="n">XorKeys</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">XorKey</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="n">Elements</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">CE</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1318,7 +1321,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">ArrayType</span> <span class="o">*</span><span class="n">XTy</span> <span class="o">=</span> <span class="n">ArrayType</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="n">XorKeys</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Constant</span> <span class="o">*</span><span class="n">CX</span> <span class="o">=</span> <span class="n">ConstantArray</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">XTy</span><span class="p">,</span> <span class="n">XorKeys</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">GVXor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GlobalVariable</span><span class="p">(</span>   <span class="c1">//把混淆后的密钥放到新的全局变量中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	    <span class="o">*</span><span class="n">F</span><span class="p">.</span><span class="n">getParent</span><span class="p">(),</span> 
+</span></span></span><span class="line"><span class="cl">	    <span class="o">*</span><span class="n">F</span><span class="p">.</span><span class="n">getParent</span><span class="p">(),</span> 
 </span></span><span class="line"><span class="cl">	    <span class="n">XTy</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">	    <span class="nb">false</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">	    <span class="n">GlobalValue</span><span class="o">::</span><span class="n">LinkageTypes</span><span class="o">::</span><span class="n">PrivateLinkage</span><span class="p">,</span> 
@@ -1397,38 +1400,38 @@
 <pre tabindex="0" class="chroma"><code class="language-CPP" data-lang="CPP"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">BB</span> <span class="p">:</span> <span class="n">Fn</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">auto</span> <span class="o">*</span><span class="n">BI</span> <span class="o">=</span> <span class="n">dyn_cast</span><span class="o">&lt;</span><span class="n">BranchInst</span><span class="o">&gt;</span><span class="p">(</span><span class="n">BB</span><span class="p">.</span><span class="n">getTerminator</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">BI</span> <span class="o">&amp;&amp;</span> <span class="n">BI</span><span class="o">-&gt;</span><span class="n">isConditional</span><span class="p">())</span> <span class="p">{</span>            <span class="c1">//判断基本块结尾是否是条件跳转指令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">IRBuilder</span><span class="o">&lt;&gt;</span> <span class="n">IRB</span><span class="p">(</span><span class="n">BI</span><span class="p">);</span>                      <span class="c1">//获取IR代码的构造器
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">IRBuilder</span><span class="o">&lt;&gt;</span> <span class="n">IRB</span><span class="p">(</span><span class="n">BI</span><span class="p">);</span>                      <span class="c1">//获取IR代码的构造器
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">Value</span> <span class="o">*</span><span class="n">Cond</span> <span class="o">=</span> <span class="n">BI</span><span class="o">-&gt;</span><span class="n">getCondition</span><span class="p">();</span>         <span class="c1">//获取跳转的条件
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Value</span> <span class="o">*</span><span class="n">Idx</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">Value</span> <span class="o">*</span><span class="n">Idx</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">Value</span> <span class="o">*</span><span class="n">TIdx</span><span class="p">,</span> <span class="o">*</span><span class="n">FIdx</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">TIdx</span> <span class="o">=</span> <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="n">BBNumbering</span><span class="p">[</span><span class="n">BI</span><span class="o">-&gt;</span><span class="n">getSuccessor</span><span class="p">(</span><span class="mi">0</span><span class="p">)]);</span>    <span class="c1">//获取使得条件为真的后继块的编号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">FIdx</span> <span class="o">=</span> <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="n">BBNumbering</span><span class="p">[</span><span class="n">BI</span><span class="o">-&gt;</span><span class="n">getSuccessor</span><span class="p">(</span><span class="mi">1</span><span class="p">)]);</span>    <span class="c1">//获取使得条件为假的后继块的编号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Idx</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateSelect</span><span class="p">(</span><span class="n">Cond</span><span class="p">,</span> <span class="n">TIdx</span><span class="p">,</span> <span class="n">FIdx</span><span class="p">);</span>         <span class="c1">//构造CSEL指令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">FIdx</span> <span class="o">=</span> <span class="n">ConstantInt</span><span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="n">BBNumbering</span><span class="p">[</span><span class="n">BI</span><span class="o">-&gt;</span><span class="n">getSuccessor</span><span class="p">(</span><span class="mi">1</span><span class="p">)]);</span>    <span class="c1">//获取使得条件为假的后继块的编号
+</span></span></span><span class="line"><span class="cl">        <span class="n">Idx</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateSelect</span><span class="p">(</span><span class="n">Cond</span><span class="p">,</span> <span class="n">TIdx</span><span class="p">,</span> <span class="n">FIdx</span><span class="p">);</span>         <span class="c1">//构造CSEL指令
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">Value</span> <span class="o">*</span><span class="n">GEP</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateGEP</span><span class="p">(</span><span class="n">DestBBs</span><span class="o">-&gt;</span><span class="n">getValueType</span><span class="p">(),</span> <span class="n">DestBBs</span><span class="p">,{</span><span class="n">Zero</span><span class="p">,</span> <span class="n">Idx</span><span class="p">});</span><span class="c1">//计算数组元素地址(DestBBs(Idx))
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Value</span> <span class="o">*</span><span class="n">EncDestAddr</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateLoad</span><span class="p">(</span>     <span class="c1">//取出加密后的目标地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">GEP</span><span class="o">-&gt;</span><span class="n">getType</span><span class="p">(),</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">Value</span> <span class="o">*</span><span class="n">EncDestAddr</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateLoad</span><span class="p">(</span>     <span class="c1">//取出加密后的目标地址
+</span></span></span><span class="line"><span class="cl">            <span class="n">GEP</span><span class="o">-&gt;</span><span class="n">getType</span><span class="p">(),</span>
 </span></span><span class="line"><span class="cl">            <span class="n">GEP</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="s">&#34;EncDestAddr&#34;</span><span class="p">);</span>   
 </span></span><span class="line"><span class="cl">        <span class="c1">// -EncKey = X - FuncSecret
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Value</span> <span class="o">*</span><span class="n">DecKey</span> <span class="o">=</span> <span class="n">EncKey</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">Value</span> <span class="o">*</span><span class="n">DecKey</span> <span class="o">=</span> <span class="n">EncKey</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">GXorKey</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="n">LoadInst</span> <span class="o">*</span><span class="n">XorKey</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateLoad</span><span class="p">(</span><span class="n">GXorKey</span><span class="o">-&gt;</span><span class="n">getValueType</span><span class="p">(),</span> <span class="n">GXorKey</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span><span class="n">opt</span><span class="p">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>         <span class="c1">//生成level 1对应的解密密钥
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">DecKey</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateXor</span><span class="p">(</span><span class="n">EncKey1</span><span class="p">,</span> <span class="n">XorKey</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">DecKey</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateXor</span><span class="p">(</span><span class="n">EncKey1</span><span class="p">,</span> <span class="n">XorKey</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">            <span class="n">DecKey</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateNeg</span><span class="p">(</span><span class="n">DecKey</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">          <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">opt</span><span class="p">.</span><span class="n">level</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">//生成level 2对应的解密密钥
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">DecKey</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateXor</span><span class="p">(</span><span class="n">EncKey1</span><span class="p">,</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateMul</span><span class="p">(</span><span class="n">XorKey</span><span class="p">,</span> <span class="n">Idx</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">DecKey</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateXor</span><span class="p">(</span><span class="n">EncKey1</span><span class="p">,</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateMul</span><span class="p">(</span><span class="n">XorKey</span><span class="p">,</span> <span class="n">Idx</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">            <span class="n">DecKey</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateNeg</span><span class="p">(</span><span class="n">DecKey</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">          <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">XorKeys</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">//生成level 3对应的解密密钥
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="n">Value</span> <span class="o">*</span><span class="n">XorKeysGEP</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateGEP</span><span class="p">(</span><span class="n">XorKeys</span><span class="o">-&gt;</span><span class="n">getValueType</span><span class="p">(),</span> <span class="n">XorKeys</span><span class="p">,</span> <span class="p">{</span><span class="n">Zero</span><span class="p">,</span> <span class="n">Idx</span><span class="p">});</span>
+</span></span></span><span class="line"><span class="cl">          <span class="n">Value</span> <span class="o">*</span><span class="n">XorKeysGEP</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateGEP</span><span class="p">(</span><span class="n">XorKeys</span><span class="o">-&gt;</span><span class="n">getValueType</span><span class="p">(),</span> <span class="n">XorKeys</span><span class="p">,</span> <span class="p">{</span><span class="n">Zero</span><span class="p">,</span> <span class="n">Idx</span><span class="p">});</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">          <span class="n">Value</span> <span class="o">*</span><span class="n">XorKey</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateLoad</span><span class="p">(</span><span class="n">intType</span><span class="p">,</span> <span class="n">XorKeysGEP</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -1443,11 +1446,11 @@
 </span></span><span class="line"><span class="cl">        <span class="n">Value</span> <span class="o">*</span><span class="n">DestAddr</span> <span class="o">=</span> <span class="n">IRB</span><span class="p">.</span><span class="n">CreateGEP</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">          <span class="n">Type</span><span class="o">::</span><span class="n">getInt8Ty</span><span class="p">(</span><span class="n">Ctx</span><span class="p">),</span>
 </span></span><span class="line"><span class="cl">            <span class="n">EncDestAddr</span><span class="p">,</span> <span class="n">DecKey</span><span class="p">);</span>       <span class="c1">//计算目标基本块的地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">IndirectBrInst</span> <span class="o">*</span><span class="n">IBI</span> <span class="o">=</span> <span class="n">IndirectBrInst</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="n">DestAddr</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>   <span class="c1">//生成BR指令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">IBI</span><span class="o">-&gt;</span><span class="n">addDestination</span><span class="p">(</span><span class="n">BI</span><span class="o">-&gt;</span><span class="n">getSuccessor</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>    <span class="c1">//预先添加可能跳转的所有目标
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">IBI</span><span class="o">-&gt;</span><span class="n">addDestination</span><span class="p">(</span><span class="n">BI</span><span class="o">-&gt;</span><span class="n">getSuccessor</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>    <span class="c1">//这里即当前块的两个后继(因为是条件跳转)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">ReplaceInstWithInst</span><span class="p">(</span><span class="n">BI</span><span class="p">,</span> <span class="n">IBI</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">IBI</span><span class="o">-&gt;</span><span class="n">addDestination</span><span class="p">(</span><span class="n">BI</span><span class="o">-&gt;</span><span class="n">getSuccessor</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>    <span class="c1">//预先添加可能跳转的所有目标
+</span></span></span><span class="line"><span class="cl">        <span class="n">IBI</span><span class="o">-&gt;</span><span class="n">addDestination</span><span class="p">(</span><span class="n">BI</span><span class="o">-&gt;</span><span class="n">getSuccessor</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>    <span class="c1">//这里即当前块的两个后继(因为是条件跳转)
+</span></span></span><span class="line"><span class="cl">        <span class="n">ReplaceInstWithInst</span><span class="p">(</span><span class="n">BI</span><span class="p">,</span> <span class="n">IBI</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span></code></pre></td></tr></table>

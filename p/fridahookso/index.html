@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="FridaHookSo层代码的技巧总结">
 <title>FridaHookSo</title>
 
 <link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/fridahookso/'>
 
-<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.a87b4b7c2fd27d776be11d416ae1bf2f2647012ce401455cce83fd717238a7f0.css"><meta property='og:title' content="FridaHookSo">
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.0acc6c7e9480d9ed72002f573d9114bda7fa411300d9024a19cdb02009eaf961.css"><meta property='og:title' content="FridaHookSo">
 <meta property='og:description' content="FridaHookSo层代码的技巧总结">
 <meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/fridahookso/'>
 <meta property='og:site_name' content='Jeremiah'>
@@ -63,7 +63,7 @@
                     
                     
                         
-                        <img src="/Je2em1ah_blog/img/avatar_hu_cdec5454298e0430.png" width="300"
+                        <img src="/Je2em1ah_blog/img/avatar_hu_21a900cd51f94953.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -539,7 +539,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p><strong>注意</strong>：函数名以汇编中出现的为准。</p></blockquote>
+<p><strong>注意</strong>：函数名以汇编中出现的为准。</p>
+</blockquote>
 <h3 id="步骤二使用-interceptorattach-进行-hook">步骤二：使用 <code>Interceptor.attach</code> 进行 Hook
 </h3><p>获取到函数地址后，使用 <code>Interceptor.attach</code> 对函数进行 Hook。</p>
 <div class="highlight"><div class="chroma">
@@ -559,9 +560,9 @@
 <pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">Address</span><span class="p">,</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>              <span class="c1">// 打印参数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">x1</span><span class="p">);</span>      <span class="c1">// 打印寄存器内容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">toInt32</span><span class="p">());</span>    <span class="c1">// 默认显示16进制，这里转换成10进制
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">x1</span><span class="p">);</span>      <span class="c1">// 打印寄存器内容
+</span></span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">toInt32</span><span class="p">());</span>    <span class="c1">// 默认显示16进制，这里转换成10进制
+</span></span></span><span class="line"><span class="cl">    <span class="p">},</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;retval&#34;</span><span class="p">,</span> <span class="nx">retval</span><span class="p">,</span> <span class="nx">retval</span><span class="p">.</span><span class="nx">toInt32</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -624,15 +625,15 @@
 <pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">soAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">soAddr</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">funcAddr</span> <span class="o">=</span> <span class="nx">soAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x23F4</span><span class="p">);</span> <span class="c1">// ARM Thumb 模式下需加 1，ARM 不需加
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">funcAddr</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">funcAddr</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">funcAddr</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">funcAddr</span><span class="p">,</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">// 入参处理
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">},</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">},</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hexdump</span><span class="p">(</span><span class="nx">retval</span><span class="p">));</span> <span class="c1">// 输出当前地址的十六进制数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">});</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -719,7 +720,7 @@
 </span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">addAddr</span><span class="p">,</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nx">ptr</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span> <span class="c1">// 新值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">toInt32</span><span class="p">());</span>
+</span></span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">toInt32</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">        <span class="p">},</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">retval</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="mi">20000</span><span class="p">);</span>
@@ -964,10 +965,10 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 获取函数地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">funcAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x23F4</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">funcAddr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x23F4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">// 声明函数指针
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">funcAddr</span><span class="p">,</span> <span class="s2">&#34;pointer&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">funcAddr</span><span class="p">,</span> <span class="s2">&#34;pointer&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pointer&#39;</span><span class="p">,</span> <span class="s1">&#39;pointer&#39;</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">tryGetEnv</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;env: &#34;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">env</span><span class="p">));</span>
@@ -1033,7 +1034,7 @@
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">fclose</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NativeFunction</span><span class="p">(</span><span class="nx">addr_fclose</span><span class="p">,</span> <span class="s2">&#34;int&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&#34;pointer&#34;</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">filename</span> <span class="o">=</span> <span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="s2">&#34;/sdcard/xxx.txt&#34;</span><span class="p">);</span>    <span class="c1">// 注意：sdcard 权限不足可能导致写入失败
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">open_mode</span> <span class="o">=</span> <span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="s2">&#34;w&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">open_mode</span> <span class="o">=</span> <span class="nx">Memory</span><span class="p">.</span><span class="nx">allocUtf8String</span><span class="p">(</span><span class="s2">&#34;w&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">fopen</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">open_mode</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;fopen:&#34;</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -1069,7 +1070,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">artSym</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">enumerateSymbols</span><span class="p">(</span><span class="s2">&#34;libart.so&#34;</span><span class="p">);</span> <span class="c1">// 原先的 API
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">NewStringUTFAddr</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">NewStringUTFAddr</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">artSym</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">artSym</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;CheckJNI&#34;</span><span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">artSym</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;NewStringUTF&#34;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">NewStringUTFAddr</span> <span class="o">=</span> <span class="nx">artSym</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">address</span><span class="p">;</span>
@@ -1083,7 +1084,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">},</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">// 可选：在需要时添加处理逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">});</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1115,7 +1116,7 @@
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Process.arch: &#34;</span><span class="p">,</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">arch</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">envAddr</span> <span class="o">=</span> <span class="nx">ptr</span><span class="p">(</span><span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">tryGetEnv</span><span class="p">().</span><span class="nx">handle</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>  <span class="c1">// 获取 JNIEnv 的地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">newStringUtfAddr</span> <span class="o">=</span> <span class="nx">envAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x538</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">newStringUtfAddr</span> <span class="o">=</span> <span class="nx">envAddr</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x538</span><span class="p">).</span><span class="nx">readPointer</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;newStringUtfAddr&#34;</span><span class="p">,</span> <span class="nx">newStringUtfAddr</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">newStringUtfAddr</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
@@ -1125,7 +1126,7 @@
 </span></span><span class="line"><span class="cl">            <span class="p">},</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">                <span class="c1">// 可选：在需要时添加处理逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">});</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">});</span>
@@ -1160,13 +1161,13 @@
 </span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">funcAddr</span><span class="p">,</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">// 入参处理
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">},</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">},</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">vm</span><span class="p">.</span><span class="nx">tryGetEnv</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">jstr</span> <span class="o">=</span> <span class="nx">env</span><span class="p">.</span><span class="nx">newStringUtf</span><span class="p">(</span><span class="s2">&#34;bbs.125.la&#34;</span><span class="p">);</span>  <span class="c1">// 主动调用 JNI 函数：CSTR 转 JSTR
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">retval</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">jstr</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">            <span class="nx">retval</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">jstr</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">cstr</span> <span class="o">=</span> <span class="nx">env</span><span class="p">.</span><span class="nx">getStringUtfChars</span><span class="p">(</span><span class="nx">jstr</span><span class="p">);</span> <span class="c1">// 主动调用 JNI 函数：JSTR 转 CSTR
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">cstr</span><span class="p">.</span><span class="nx">readCString</span><span class="p">());</span>
+</span></span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">cstr</span><span class="p">.</span><span class="nx">readCString</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hexdump</span><span class="p">(</span><span class="nx">cstr</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">});</span>
@@ -1385,7 +1386,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">inlineHook</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 示例 1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="cm">/*
+</span></span></span><span class="line"><span class="cl">    <span class="cm">/*
 </span></span></span><span class="line"><span class="cl"><span class="cm">    var nativePointer = Module.findBaseAddress(&#34;libxxx.so&#34;);
 </span></span></span><span class="line"><span class="cl"><span class="cm">    var hookAddr = nativePointer.add(0x17BC);
 </span></span></span><span class="line"><span class="cl"><span class="cm">    Interceptor.attach(hookAddr, {
@@ -1400,7 +1401,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="cm">    */</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 示例 2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">nativePointer</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">nativePointer</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">hookAddr</span> <span class="o">=</span> <span class="nx">nativePointer</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x1B70</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">hookAddr</span><span class="p">,</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
@@ -1409,7 +1410,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">},</span> 
 </span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">retval</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">// 可选：在需要时添加处理逻辑
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">});</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1524,7 +1525,7 @@
 </span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">hook_initarray</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">call_constructorsAddr</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">linkerSymbols</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">enumerateSymbolsSync</span><span class="p">(</span><span class="s2">&#34;linker64&#34;</span><span class="p">);</span> <span class="c1">// 可能是 linker 或 linker64
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">linkerSymbols</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">linkerSymbols</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">linkerSymbols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span> <span class="o">===</span> <span class="s2">&#34;__dl__ZN6soinfo17call_constructorsEv&#34;</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">call_constructorsAddr</span> <span class="o">=</span> <span class="nx">linkerSymbols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">address</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">linkerSymbols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">,</span> <span class="nx">linkerSymbols</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">address</span><span class="p">);</span>
@@ -1740,26 +1741,26 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">set_read_write_break</span><span class="p">(){</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">Process</span><span class="p">.</span><span class="nx">setExceptionHandler</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">details</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 错误回调函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">details</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">details</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;lr:&#34;</span><span class="p">,</span> <span class="nx">DebugSymbol</span><span class="p">.</span><span class="nx">fromAddress</span><span class="p">(</span><span class="nx">details</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">lr</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;pc:&#34;</span><span class="p">,</span> <span class="nx">DebugSymbol</span><span class="p">.</span><span class="nx">fromAddress</span><span class="p">(</span><span class="nx">details</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">pc</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">// 获取完成信息之后将内存权限复原
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">Memory</span><span class="p">.</span><span class="nx">protect</span><span class="p">(</span><span class="nx">details</span><span class="p">.</span><span class="nx">memory</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">pointerSize</span><span class="p">,</span> <span class="s1">&#39;rwx&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="nx">Memory</span><span class="p">.</span><span class="nx">protect</span><span class="p">(</span><span class="nx">details</span><span class="p">.</span><span class="nx">memory</span><span class="p">.</span><span class="nx">address</span><span class="p">,</span> <span class="nx">Process</span><span class="p">.</span><span class="nx">pointerSize</span><span class="p">,</span> <span class="s1">&#39;rwx&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">// 打印调用栈
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Thread</span><span class="p">.</span><span class="nx">backtrace</span><span class="p">(</span><span class="nx">details</span><span class="p">.</span><span class="nx">context</span><span class="p">,</span> <span class="nx">Backtracer</span><span class="p">.</span><span class="nx">ACCURATE</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Thread</span><span class="p">.</span><span class="nx">backtrace</span><span class="p">(</span><span class="nx">details</span><span class="p">.</span><span class="nx">context</span><span class="p">,</span> <span class="nx">Backtracer</span><span class="p">.</span><span class="nx">ACCURATE</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">DebugSymbol</span><span class="p">.</span><span class="nx">fromAddress</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;\n&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="c1">// 继续执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">});</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">});</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 目标内存地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">addr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x3DED</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">addr</span> <span class="o">=</span> <span class="nx">Module</span><span class="p">.</span><span class="nx">findBaseAddress</span><span class="p">(</span><span class="s2">&#34;libxxx.so&#34;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mh">0x3DED</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">// 修改内存权限为不可读写，只能执行，触发异常
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Memory</span><span class="p">.</span><span class="nx">protect</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="nx">Memory</span><span class="p">.</span><span class="nx">protect</span><span class="p">(</span><span class="nx">addr</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;---&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="NewStarCTF2024的一些个人wp和其他师傅的wp汇总">
 <title>NewStarCTF2024 WriteUp</title>
 
 <link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/newstarctf2024-writeup/'>
 
-<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.a87b4b7c2fd27d776be11d416ae1bf2f2647012ce401455cce83fd717238a7f0.css"><meta property='og:title' content="NewStarCTF2024 WriteUp">
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.0acc6c7e9480d9ed72002f573d9114bda7fa411300d9024a19cdb02009eaf961.css"><meta property='og:title' content="NewStarCTF2024 WriteUp">
 <meta property='og:description' content="NewStarCTF2024的一些个人wp和其他师傅的wp汇总">
 <meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/newstarctf2024-writeup/'>
 <meta property='og:site_name' content='Jeremiah'>
@@ -63,7 +63,7 @@
                     
                     
                         
-                        <img src="/Je2em1ah_blog/img/avatar_hu_cdec5454298e0430.png" width="300"
+                        <img src="/Je2em1ah_blog/img/avatar_hu_21a900cd51f94953.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -489,7 +489,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">buffer</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">71</span><span class="p">,</span><span class="mi">149</span><span class="p">,</span><span class="mi">52</span><span class="p">,</span><span class="mi">72</span><span class="p">,</span><span class="mi">164</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">53</span><span class="p">,</span><span class="mi">136</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">136</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">106</span><span class="p">,</span><span class="mi">57</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">162</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">92</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">86</span><span class="p">,</span><span class="mi">96</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">118</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">142</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">2</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
@@ -637,7 +637,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">a1</span><span class="p">,</span><span class="kt">char</span><span class="o">*</span> <span class="n">a2</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">temp</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span><span class="n">a1</span><span class="p">;</span>
@@ -757,7 +757,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Decode</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">*</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span><span class="o">*</span> <span class="n">a2</span> <span class="p">,</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="o">*</span> <span class="n">key</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">Delta</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="o">-</span><span class="mi">32</span><span class="o">*</span><span class="n">Delta</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
@@ -851,7 +851,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">input</span><span class="p">[</span><span class="mi">32</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">204</span><span class="p">,</span><span class="mi">141</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">236</span><span class="p">,</span><span class="mi">111</span><span class="p">,</span><span class="mi">136</span><span class="p">,</span><span class="mi">237</span><span class="p">,</span><span class="mi">235</span><span class="p">,</span><span class="mi">47</span><span class="p">,</span><span class="mi">237</span><span class="p">,</span><span class="mi">174</span><span class="p">,</span><span class="mi">235</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span><span class="mi">172</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">141</span><span class="p">,</span><span class="mi">141</span><span class="p">,</span><span class="mi">47</span><span class="p">,</span><span class="mi">235</span><span class="p">,</span><span class="mi">109</span><span class="p">,</span><span class="mi">205</span><span class="p">,</span><span class="mi">237</span><span class="p">,</span><span class="mi">238</span><span class="p">,</span><span class="mi">235</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">142</span><span class="p">,</span><span class="mi">78</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">108</span><span class="p">,</span><span class="mi">172</span><span class="p">,</span><span class="mi">231</span><span class="p">,</span><span class="mi">175</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -993,7 +993,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">a2</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">temp</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span><span class="n">a1</span><span class="p">;</span>
@@ -1100,7 +1100,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">temp</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;nhvviguMI?u</span><span class="se">\&#34;</span><span class="s">,o/fWivoM;&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">temp</span><span class="p">[</span><span class="mi">22</span><span class="p">]</span> <span class="o">=</span> <span class="mi">127</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">temp1</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;Homy2.l#{&#34;</span><span class="p">;</span>
@@ -1283,7 +1283,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">encrypted</span><span class="p">[</span><span class="mi">36</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="n">encrypted</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">encrypted</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
@@ -1628,7 +1628,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">input</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">79</span><span class="p">,</span><span class="mi">84</span><span class="p">,</span><span class="mi">72</span><span class="p">,</span><span class="mi">83</span><span class="p">,</span><span class="mi">96</span><span class="p">,</span><span class="mi">69</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">65</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">59</span><span class="p">,</span><span class="mi">69</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">71</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">112</span><span class="p">,</span><span class="mi">59</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">61</span><span class="p">,</span><span class="mi">112</span><span class="p">,</span><span class="sc">&#39;\0&#39;</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">        
@@ -1712,7 +1712,7 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">input</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">178</span><span class="p">,</span><span class="mi">116</span><span class="p">,</span><span class="mi">69</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">71</span><span class="p">,</span><span class="mi">52</span><span class="p">,</span><span class="mi">149</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">244</span><span class="p">,</span><span class="mi">67</span><span class="p">,</span><span class="mi">149</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">214</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">149</span><span class="p">,</span><span class="mi">198</span><span class="p">,</span><span class="mi">214</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">167</span><span class="p">,</span><span class="mi">53</span><span class="p">,</span><span class="mi">230</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">150</span><span class="p">,</span><span class="mi">87</span><span class="p">,</span><span class="mi">67</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">150</span><span class="p">,</span><span class="mi">151</span><span class="p">,</span><span class="mi">230</span><span class="p">,</span><span class="mi">22</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="n">input</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
@@ -1872,7 +1872,7 @@
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdint&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
@@ -1893,7 +1893,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="kt">char</span> <span class="n">byte</span> <span class="o">=</span> <span class="p">(</span><span class="n">decrypted</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">8</span> <span class="o">*</span> <span class="n">j</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">;</span>  <span class="c1">// 逐字节提取
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">byte</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">byte</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
@@ -2278,14 +2278,14 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;stdio.h&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;string.h&#34;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;stdlib.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="kt">uint32_t</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="kt">uint32_t</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp">#define size 256
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">sbox</span><span class="p">[</span><span class="mi">257</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 初始化s表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">init_sbox</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">init_sbox</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span>
@@ -2308,7 +2308,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 加解密函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">rc4</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">rc4</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">tmp</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -2332,7 +2332,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp">#define DELTA 0xdeadbeef
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define MX (((z &gt;&gt; 5 ^ y &lt;&lt; 3) + (y &gt;&gt; 3 ^ z &lt;&lt; 2)) ^ ((sum ^ y) + (key[(p &amp; 3) ^ e] ^ z)))
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span> <span class="nf">btea</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="k">const</span> <span class="n">key</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">btea</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="k">const</span> <span class="n">key</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">uint32_t</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">sum</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="n">p</span><span class="p">,</span> <span class="n">rounds</span><span class="p">,</span> <span class="n">e</span><span class="p">;</span>
@@ -2409,8 +2409,8 @@
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// upx -d 解包libmeow1.so，加密只有一个xxtea，但是被魔改过，对照网上的代码修改可以解密
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 密文为64位数组，熟悉数据处理的话，直接指针传参就行了
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="kt">long</span> <span class="kt">long</span> <span class="n">secrets</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// 密文为64位数组，熟悉数据处理的话，直接指针传参就行了
+</span></span></span><span class="line"><span class="cl">   <span class="kt">long</span> <span class="kt">long</span> <span class="n">secrets</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="mi">6866935238662214623LL</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="mi">3247821795433987330LL</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="o">-</span><span class="mi">3346872833356453065LL</span><span class="p">,</span>
@@ -2419,19 +2419,19 @@
 </span></span><span class="line"><span class="cl">        <span class="mi">3322447116203995091LL</span>
 </span></span><span class="line"><span class="cl">    <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 不同编译器 long 的大小可能不同，用 long long 表示 64 位数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 为什么是 12？12 代表有 12 段 32 位数据（也就是6个long long类型数据)，负数时进行解密操作所以传 -12
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// 为什么是 12？12 代表有 12 段 32 位数据（也就是6个long long类型数据)，负数时进行解密操作所以传 -12
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="nf">btea</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">secrets</span><span class="p">,</span> <span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="s">&#34;meow~meow~tea~~~&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="o">*</span><span class="n">flag</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 解 base64
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">decodeBase64</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">secrets</span><span class="p">,</span> <span class="nf">strlen</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">secrets</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">flag</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="nf">decodeBase64</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">secrets</span><span class="p">,</span> <span class="nf">strlen</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">secrets</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">flag</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 解 rc4
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">rc4</span><span class="p">(</span><span class="s">&#34;rc4k4y&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">flag</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="nf">rc4</span><span class="p">(</span><span class="s">&#34;rc4k4y&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">flag</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 这里为了方便理解这么些，想方便可以直接 puts(flag);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">char</span> <span class="o">*</span><span class="n">tmp</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">flag</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="o">*</span><span class="n">tmp</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">flag</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">48</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">putchar</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>

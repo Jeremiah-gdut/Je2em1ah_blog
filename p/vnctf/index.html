@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="旅途的起点">
 <title>VNCTF</title>
 
 <link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/vnctf/'>
 
-<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.a87b4b7c2fd27d776be11d416ae1bf2f2647012ce401455cce83fd717238a7f0.css"><meta property='og:title' content="VNCTF">
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.0acc6c7e9480d9ed72002f573d9114bda7fa411300d9024a19cdb02009eaf961.css"><meta property='og:title' content="VNCTF">
 <meta property='og:description' content="旅途的起点">
 <meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/vnctf/'>
 <meta property='og:site_name' content='Jeremiah'>
@@ -63,7 +63,7 @@
                     
                     
                         
-                        <img src="/Je2em1ah_blog/img/avatar_hu_cdec5454298e0430.png" width="300"
+                        <img src="/Je2em1ah_blog/img/avatar_hu_21a900cd51f94953.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -567,7 +567,8 @@
 AES-GCM模式可以参考文章</p>
 <blockquote>
 <p><a class="link" href="https://blog.csdn.net/armlinuxww/article/details/115478717"  target="_blank" rel="noopener"
-    >AES-GCM模式详解</a></p></blockquote>
+    >AES-GCM模式详解</a></p>
+</blockquote>
 <p>这里我找key和aad信息直接用fridahook了，找到key:<code>atrikeyssyekirta</code> aad:<code>mysecretadd</code>
 <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202502090342281.png"
 	
@@ -614,10 +615,10 @@ AES-GCM模式可以参考文章</p>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>  
 </span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">Cipher</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;javax.crypto.Cipher&#39;</span><span class="p">);</span>  
 </span></span><span class="line"><span class="cl">    <span class="c1">// Hooking the updateAAD method  
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Cipher</span><span class="p">.</span><span class="nx">updateAAD</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;[B&#39;</span><span class="p">).</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bytes</span><span class="p">)</span> <span class="p">{</span>  
+</span></span></span><span class="line"><span class="cl">    <span class="nx">Cipher</span><span class="p">.</span><span class="nx">updateAAD</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;[B&#39;</span><span class="p">).</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">bytes</span><span class="p">)</span> <span class="p">{</span>  
 </span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;updateAAD called with: &#39;</span> <span class="o">+</span> <span class="nx">bytes</span><span class="p">);</span>  <span class="c1">// You can inspect the bytes here  
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// Optionally call the original method        return this.updateAAD(bytes);  
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">};</span>    <span class="kd">var</span> <span class="nx">ArraysKt___ArraysJvmKt</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;kotlin.collections.ArraysKt___ArraysJvmKt&#34;</span><span class="p">)</span>  
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// Optionally call the original method        return this.updateAAD(bytes);  
+</span></span></span><span class="line"><span class="cl">    <span class="p">};</span>    <span class="kd">var</span> <span class="nx">ArraysKt___ArraysJvmKt</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;kotlin.collections.ArraysKt___ArraysJvmKt&#34;</span><span class="p">)</span>  
 </span></span><span class="line"><span class="cl">    <span class="nx">ArraysKt___ArraysJvmKt</span><span class="p">.</span><span class="nx">plus</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;[B&#39;</span><span class="p">,</span> <span class="s1">&#39;[B&#39;</span><span class="p">).</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">plus</span><span class="p">,</span> <span class="nx">elements</span><span class="p">){</span>  
 </span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;plus is called&#34;</span><span class="p">);</span>  
 </span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;plus:&#34;</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">plus</span><span class="p">));</span>  
@@ -825,9 +826,9 @@ mainactivity中就能看到大部分的验证逻辑，最后的<code>check</code
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">fish</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.HashMap</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.HashMap</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">hook_fish</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">hook_fish</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">HashMap</span><span class="w"> </span><span class="n">fish_dcode</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">HashMap</span><span class="w"> </span><span class="n">fish_ecode</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">strr</span><span class="p">;</span><span class="w">
@@ -943,7 +944,7 @@ mainactivity中就能看到大部分的验证逻辑，最后的<code>check</code
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">fish_ecode</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">Character</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="sc">&#39;9&#39;</span><span class="p">),</span><span class="w"> </span><span class="s">&#34;iljji&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">fish_ecode</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">Character</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="sc">&#39;0&#39;</span><span class="p">),</span><span class="w"> </span><span class="s">&#34;jjjli&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>encode方法实际就是一个自己写的编码，照着码表就可以decode</p>
@@ -1086,7 +1087,8 @@ mainactivity主要的方法就是<code>connectAndSendLocalSocketServer</code>，
 然后会接收从线程传回来的消息，关键逻辑还是在busybox执行的文件中，有关busybox的信息可以看下面这篇文章</p>
 <blockquote>
 <p><a class="link" href="https://zh.wikipedia.org/wiki/BusyBox"  target="_blank" rel="noopener"
-    >BusyBox - 维基百科，自由的百科全书</a></p></blockquote>
+    >BusyBox - 维基百科，自由的百科全书</a></p>
+</blockquote>
 <p>在asset目录下有busybox的可执行文件和env这个压缩包，在Java中可以看到app第一次运行时会解压env并初始化环境
 <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202502090431036.png"
 	

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="根据其他大佬的Wp和指导一步步复现2021年的决赛题，记录其中遇到的一些问题">
 <title>GameSafety2021 Android Final</title>
 
 <link rel='canonical' href='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/gamesafety2021-android-final/'>
 
-<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.a87b4b7c2fd27d776be11d416ae1bf2f2647012ce401455cce83fd717238a7f0.css"><meta property='og:title' content="GameSafety2021 Android Final">
+<link rel="stylesheet" href="/Je2em1ah_blog/scss/style.min.0acc6c7e9480d9ed72002f573d9114bda7fa411300d9024a19cdb02009eaf961.css"><meta property='og:title' content="GameSafety2021 Android Final">
 <meta property='og:description' content="根据其他大佬的Wp和指导一步步复现2021年的决赛题，记录其中遇到的一些问题">
 <meta property='og:url' content='http://www.j3r3m14h.com.cn/Je2em1ah_blog/p/gamesafety2021-android-final/'>
 <meta property='og:site_name' content='Jeremiah'>
@@ -63,7 +63,7 @@
                     
                     
                         
-                        <img src="/Je2em1ah_blog/img/avatar_hu_cdec5454298e0430.png" width="300"
+                        <img src="/Je2em1ah_blog/img/avatar_hu_21a900cd51f94953.png" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -378,14 +378,16 @@
     >gslab2021 决赛 - 安卓客户端安全 | Xhy&rsquo;s Blog</a></li>
 <li><a class="link" href="https://bbs.kanxue.com/thread-282821.htm"  target="_blank" rel="noopener"
     >看雪中的一篇关于il2cpp编译方式的逆向文章，值得学习</a></li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <blockquote>
 <ul>
 <li><strong>Question1</strong>:尝试使用<code>Zygisk-il2cppdumper</code>dump，但是程序会卡死，dump不出文件</li>
 <li><strong>Question2</strong>:用<code>elf-dump-fix</code>dump下来的il2cpp.so缺少符号，未知原因，但是可以搜字符串<code>global-metadata.dat</code>定位到加载函数</li>
 <li><strong>Question3</strong>:追踪加载<code>global-metadata.dat</code>函数的调用链，发现被hook到sec2021的函数中了，追踪到最后发现是个看不懂的地方（？）</li>
 <li><strong>Question4</strong>:实现无敌之后未成功绕过app的crc校验，导致重打包的apk无法运行</li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <h2 id="问题解决情况">问题解决情况
 </h2><ul>
 <li><input disabled="" type="checkbox"> Question1</li>
@@ -532,7 +534,7 @@
 </span></span><span class="line"><span class="cl">        <span class="nx">onEnter</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>  
 </span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readCString</span><span class="p">();</span>  
 </span></span><span class="line"><span class="cl">            <span class="c1">//console.log(&#39;openlib:&#39;, name);  
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">soName</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">hook</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>  
+</span></span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">soName</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">hook</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>  
 </span></span><span class="line"><span class="cl">        <span class="p">},</span>        
 </span></span><span class="line"><span class="cl">        <span class="nx">onLeave</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">){</span>  
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hook</span><span class="p">)</span> <span class="nx">callback</span><span class="p">();</span>  
@@ -564,9 +566,9 @@
 </span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;MetadataSize = &#34;</span><span class="p">,</span> <span class="nx">metadataSize</span><span class="p">);</span>  
 </span></span><span class="line"><span class="cl">            <span class="kd">var</span> <span class="nx">file_path</span> <span class="o">=</span> <span class="s2">&#34;global-metadata.dat&#34;</span><span class="p">;</span>  
 </span></span><span class="line"><span class="cl">            <span class="c1">//console.log(&#34;[+]Metadata is dumping!!&#34;);  
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">WriteMemToFile</span><span class="p">(</span><span class="nx">retval</span><span class="p">,</span> <span class="nx">metadataSize</span><span class="p">,</span> <span class="nx">file_path</span><span class="p">);</span>  
+</span></span></span><span class="line"><span class="cl">            <span class="nx">WriteMemToFile</span><span class="p">(</span><span class="nx">retval</span><span class="p">,</span> <span class="nx">metadataSize</span><span class="p">,</span> <span class="nx">file_path</span><span class="p">);</span>  
 </span></span><span class="line"><span class="cl">            <span class="c1">//console.log(&#34;[+]Metadata dump success!!&#34;);  
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>  
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>  
 </span></span><span class="line"><span class="cl">    <span class="p">});</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>  
 </span></span><span class="line"><span class="cl"><span class="c1">//frida -H 127.0.0.1:12345 -f com.personal.flappybird -l hook.js
@@ -700,7 +702,8 @@
 ></li>
 </ul>
 <blockquote>
-<p>我目前的猜测wp中看到的是大佬编译了一份il2cpp.so然后恢复的符号，但是不确定是不是，打算自己编译一份看看的，但是不会，待办(确实是)</p></blockquote>
+<p>我目前的猜测wp中看到的是大佬编译了一份il2cpp.so然后恢复的符号，但是不确定是不是，打算自己编译一份看看的，但是不会，待办(确实是)</p>
+</blockquote>
 <h2 id="question3加载global-metadatadat函数的调用链">Question3:加载global-metadata.dat函数的调用链
 </h2><p>如图，不明白这个加载函数为什么调用到这里了
 <img src="https://jeremiah.oss-cn-shenzhen.aliyuncs.com/picture/202501091113511.png"
